@@ -5,4 +5,4 @@ Our goal is to build a small multiplatform library to demonstrate the ability to
 
 ### Big cat is watching you man
 
-![cat](/resourses/hands-on/Multiplatform Kotlin library/assets/cat.jpg)
+![cat](/resources/hands-on/Multiplatform Kotlin library/assets/cat.jpg)

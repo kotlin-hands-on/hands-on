@@ -2,7 +2,7 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 
-## Hands-On Labs
+## Kotlin Hands-On Labs
 
 Hands-On labs are interactive tutorials to learn Kotlin. They are published at [TODO]. The labs are all provided under Apache 2 and are open to contributions. 
 

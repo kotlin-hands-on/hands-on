@@ -25,6 +25,9 @@ Text and assets for all labs are located under this repository under the `lab-na
 Each lab consists of a series of steps. Each step is represented as an individual markdown file with the naming convention `NN_{step-title}` where
 `NN` is the step number and `step-title` is the step title. 
 
+Each hands-on lab should start with an `01_Introduction` file that clearly highlights what the hands-on lab is going to cover. Ideally it should also show
+a screenshot of the end result (if this is for instance an application). 
+
 #### Assets
 
 All assets, excluding code, should be placed in a subfolder named `assets` under each lab folder and the asset should be referenced relative to this. 
@@ -32,6 +35,12 @@ All assets, excluding code, should be placed in a subfolder named `assets` under
 #### Code
 
 The code for the lab is located in its own repository using the naming convention `kotlin-hands-on-{lab-name}`
+
+##### Coding conventions
+
+* Coding conventions should adapt to the [Kotlin Code Style](https://kotlinlang.org/docs/reference/coding-conventions.html). 
+* Packages should be named `com.jetbrains.handson.{lab-name}`
+
 
 #### Referencing Code in steps
  

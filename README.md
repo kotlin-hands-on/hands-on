@@ -42,6 +42,28 @@ All assets, excluding code, should be placed in a subfolder named `assets` under
 
 The code for the lab is located in its own repository using the naming convention `kotlin-hands-on-{lab-name}`
 
+The description for the repository should be `{lab-name} Hands-On Lab`. Please make sure you use the appropriate .gitignore file:
+
+```
+.gradle/
+build/
+*.iml
+out/
+.DS_Store
+.idea/
+gradle/
+```
+
+It should contain a README.md with the following contents:
+
+* License (by default this would be Apache 2.0 License)
+* [JetBrains GitHub Label](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+* Title which would be `{lab-name} Hands-On Lab`
+* The following text:
+
+This repository is the code corresponding to the hands-on lab `{link to hands-on lab}`. 
+
+
 ##### Coding conventions
 
 * Coding conventions should adapt to the [Kotlin Code Style](https://kotlinlang.org/docs/reference/coding-conventions.html). 

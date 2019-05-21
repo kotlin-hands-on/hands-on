@@ -4,10 +4,10 @@
 
 ## Kotlin Hands-On Labs
 
-Hands-On labs are interactive tutorials to learn Kotlin. They are published at [TODO]. The labs are all provided under Apache 2 and are open to contributions. 
+[Hands-On labs](https://play.kotlinlang.org/hands-on) are interactive tutorials to learn Kotlin. The labs are all provided under Apache 2 and are open to contributions. 
 
-This readme provides more information on how labs are organised and is targeted at contributors. If you'd like to complete a lab, please use the
-[TODO WEBSITE]
+This readme provides more information on how labs are organised and is targeted at contributors. If you'd like to complete a lab, please use the [website](https://play.kotlinlang.org/hands-on)
+
 
 ### Structure
 
@@ -49,7 +49,7 @@ The code for the lab is located in its own repository using the naming conventio
 ### Contributing
 
 In order to contribute, please send a pull request with the new tutorial folder structure. Once it has been approved, a new repository will be 
-created for you where you can reference the code. [TODO - Confirm process]
+created for you where you can reference the code. 
 
 
 

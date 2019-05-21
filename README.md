@@ -28,6 +28,11 @@ Each lab consists of a series of steps. Each step is represented as an individua
 Each hands-on lab should start with an `01_Introduction` file that clearly highlights what the hands-on lab is going to cover. Ideally it should also show
 a screenshot of the end result (if this is for instance an application). 
 
+##### Style and Formatting
+
+* Use *you* pronoun when referring to the user following the tutorial, i.e. "You first need to click on..." 
+* Use bold to highlight menu entries. Use | as separators for menu entries, i.e. **File|New|Project...**
+
 #### Assets
 
 All assets, excluding code, should be placed in a subfolder named `assets` under each lab folder and the asset should be referenced relative to this. 

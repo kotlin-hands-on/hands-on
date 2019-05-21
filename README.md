@@ -31,7 +31,8 @@ a screenshot of the end result (if this is for instance an application).
 ##### Style and Formatting
 
 * Use *you* pronoun when referring to the user following the tutorial, i.e. "You first need to click on..." 
-* Use bold to highlight menu entries. Use | as separators for menu entries, i.e. **File|New|Project...**
+* Use bold to highlight UI elements and menu entries. Use | as separators for menu entries, i.e. **File|New|Project...**
+* Use `name` notation to refer to folders and files
 
 #### Assets
 

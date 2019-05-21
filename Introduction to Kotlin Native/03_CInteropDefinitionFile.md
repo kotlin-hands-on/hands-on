@@ -18,7 +18,7 @@ to make some HTTP calls.
  
 Create a file named `libcurl.def` with the following contents
 
-<div class="sample" markdown="1" mode="c" theme="idea" data-highlight-only="1" auto-indent="false">
+<div class="highlight-snippet" mode="c" theme="idea">
 
 ```c
 headers = curl/curl.h
@@ -28,6 +28,7 @@ compilerOpts.linux = -I/usr/include -I/usr/include/x86_64-linux-gnu
 linkerOpts.osx = -L/opt/local/lib -L/usr/local/opt/curl/lib -lcurl
 linkerOpts.linux = -L/usr/lib/x86_64-linux-gnu -lcurl
 ```
+
 </div>
 
 and place it under your project directory in a new subfolder under `src` called **nativeInterop/cinterop**. Note that this is the default convention for header file locations, albeit it can be overriden 

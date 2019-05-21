@@ -7,7 +7,7 @@ Create a new file called `Main.kt` under the corresponding `src/platform` folder
 
 Write the following as part of the `main` function
 
-<div class="sample" markdown="1" theme="idea" data-highlight-only>
+<div class="highlight-snippet" theme="idea" data-highlight-only>
 
 ```kotlin
 import libcurl.*
@@ -30,6 +30,5 @@ fun main(args: Array<String>) {
     }
 }
 ```
+
 </div>
-
-

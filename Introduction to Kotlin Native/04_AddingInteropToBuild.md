@@ -27,12 +27,12 @@ can be overriden with additional parameters
 <div class="highlight-snippet" mode="groovy" theme="idea">
 
 ```groovy
-    libcurl 
-        defFile project.file("libcurl.def")
-        packageName 'com.jetbrains.handson.http'
-        compilerOpts '-I/path'
-        includeDirs.allHeaders("path")
-    }
+libcurl {
+    defFile project.file("libcurl.def")
+    packageName 'com.jetbrains.handson.http'
+    compilerOpts '-I/path'
+    includeDirs.allHeaders("path")
+}
 ```
 
 </div>

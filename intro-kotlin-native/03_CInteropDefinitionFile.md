@@ -51,7 +51,6 @@ the options available to `cinterop`, see [the Interop documentation](/docs/refer
 Once we have the definition file ready, we can 
 create project files and open the project in an IDE.
 
-[[include pages-includes/docs/tutorials/native/mapping-primitive-data-types-gradle.md]]
 
 **Important**
 ```text
@@ -59,38 +58,3 @@ You need to have the `curl` library binaries on your system. On macOS and Linux,
 you can build it from [sources](https://curl.haxx.se/download.html). Alternatively, you may also want to consider a [MinGW/MSYS2](https://www.msys2.org/) `curl` binary.
 ```
 
-## Updating the Gradle File
-
-In order to use header files, we need to make sure they are generated as part of the build process. For this, add the following entry to the `build.gradle` file
-
-```groovy
-macosX64("macos") {
-        compilations.main { // NL
-            cinterops {     // NL
-                libcurl     // NL
-            }               // NL
-        }                   // NL
-        binaries {
-            executable {
-                // ...
-            }
-        }
-    }
-```
-
-The new lines added are marked with `// NL`. The format is adding `cinterops` and then an entry for each `def` file. By default, if the name of the file is used but all this 
-can be overriden with additional parameters
-
-
-```groovy
-    libcurl 
-        defFile project.file("libcurl.def")
-        packageName 'com.jetbrains.handson.http'
-        compilerOpts '-I/path'
-        includeDirs.allHeaders("path")
-    }
-```
-
-For full details on the options available, see the [documentation](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#cinterop-support).
-
-Once done, you can now build the project and access the headers from Kotlin as we'll see in the next step. 

@@ -1,4 +1,4 @@
-## Adding interop to build process
+# Adding interop to build process
 
 In order to use header files, we need to make sure they are generated as part of the build process. For this, add the following entry to the `build.gradle` file
 

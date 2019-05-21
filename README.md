@@ -28,6 +28,11 @@ Each lab consists of a series of steps. Each step is represented as an individua
 Each hands-on lab should start with an `01_Introduction` file that clearly highlights what the hands-on lab is going to cover. Ideally it should also show
 a screenshot of the end result (if this is for instance an application). 
 
+The introduction should reference the source code with a last line:
+
+`You can find the code for the hands-on lab on [GitHub](https://github.com/Kotlin/kotlin-hands-{lab-name})`
+
+
 ##### Style and Formatting
 
 * Use *you* pronoun when referring to the user following the tutorial, i.e. "You first need to click on..." 

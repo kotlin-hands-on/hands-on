@@ -54,7 +54,8 @@ create project files and open the project in an IDE.
 
 
 **Important**
-```text
+
+```
 You need to have the `curl` library binaries on your system. On macOS and Linux, it is usually included. On Windows
 you can build it from [sources](https://curl.haxx.se/download.html). Alternatively, you may also want to consider a [MinGW/MSYS2](https://www.msys2.org/) `curl` binary.
 ```

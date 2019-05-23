@@ -7,8 +7,6 @@ Create a new file called `Main.kt` under the corresponding `src/platform` folder
 
 Write the following as part of the `main` function
 
-<div class="highlight-snippet" theme="idea" data-highlight-only>
-
 ```kotlin
 import libcurl.*
 import kotlinx.cinterop.*
@@ -30,5 +28,3 @@ fun main(args: Array<String>) {
     }
 }
 ```
-
-</div>

@@ -2,8 +2,6 @@
 
 In order to use header files, we need to make sure they are generated as part of the build process. For this, add the following entry to the `build.gradle` file
 
-<div class="highlight-snippet" mode="groovy" theme="idea">
-
 ```groovy
 macosX64("macos") {
         compilations.main { // NL
@@ -19,12 +17,8 @@ macosX64("macos") {
     }
 ```
 
-</div>
-
 The new lines added are marked with `// NL`. The format is adding `cinterops` and then an entry for each `def` file. By default, if the name of the file is used but all this 
 can be overriden with additional parameters
-
-<div class="highlight-snippet" mode="groovy" theme="idea">
 
 ```groovy
 libcurl {
@@ -34,8 +28,6 @@ libcurl {
     includeDirs.allHeaders("path")
 }
 ```
-
-</div>
 
 For full details on the options available, see the [documentation](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#cinterop-support).
 

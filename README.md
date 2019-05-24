@@ -20,7 +20,7 @@ Each labs consists of:
 Text and assets for all labs are located under this repository under the `lab-name`. The code for each lab has its own repository following the naming convention `kotlin-hands-on-{lab name}`
 
 
-#### Text Structure
+### Text Structure
 
 Each lab consists of a series of steps. Each step is represented as an individual markdown file with the naming convention `NN_{step-title}` where
 `NN` is the step number and `step-title` is the step title. 
@@ -33,17 +33,54 @@ The introduction should reference the source code with a last line:
 `You can find the code for the hands-on lab on [GitHub](https://github.com/Kotlin/kotlin-hands-{lab-name})`
 
 
-##### Style and Formatting
+### Style and Formatting
 
 * Use *you* pronoun when referring to the user following the tutorial, i.e. "You first need to click on..." 
 * Use bold to highlight UI elements and menu entries. Use | as separators for menu entries, i.e. **File|New|Project...**
 * Use `name` notation to refer to folders and files
 
-#### Assets
+#### Code styles
 
-All assets, excluding code, should be placed in a subfolder named `assets` under each lab folder and the asset should be referenced relative to this. 
+Support modes: `kotlin` | `js` | `java` | `groovy` | `xml` | `c` | `shell` | `swift` | `obj-c`
 
-#### Code
+```java
+`​`​`java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World");
+    }
+}
+`​`​`
+```
+
+Runnable modes: `run-kotlin` | `run-kotlin-js`
+
+```kotlin
+`​`​`run-kotlin
+fun main() {
+    println("Hello world")
+}
+`​`​`
+```
+
+
+#### Promt styles
+
+Support 3 promt modes: `note`, `warning`, `tip`, `todo`.
+
+```
+`​`​`note
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+when an unknown printer took a galley of type and scrambled it to make.
+`​`​`
+```
+
+### Assets
+
+All assets, excluding code, should be placed in a subfolder named `assets` under each lab folder and the asset should be referenced relative to this.
+
+### Code
 
 The code for the lab is located in its own repository using the naming convention `kotlin-hands-on-{lab-name}`
 
@@ -69,13 +106,13 @@ It should contain a README.md with the following contents:
 This repository is the code corresponding to the hands-on lab `{link to hands-on lab}`. 
 
 
-##### Coding conventions
+### Coding conventions
 
 * Coding conventions should adapt to the [Kotlin Code Style](https://kotlinlang.org/docs/reference/coding-conventions.html). 
 * Packages should be named `com.jetbrains.handson.{lab-name}`
 
 
-#### Referencing Code in steps
+### Referencing Code in steps
  
 [TODO] - Instructions on how to validate code so that we make sure it always compiles 
 
@@ -83,7 +120,4 @@ This repository is the code corresponding to the hands-on lab `{link to hands-on
 
 In order to contribute, please send a pull request with the new tutorial folder structure. Once it has been approved, a new repository will be 
 created for you where you can reference the code. 
-
-
-
 

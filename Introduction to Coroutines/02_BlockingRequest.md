@@ -1,11 +1,11 @@
 # Blocking request
 
-We use developer github API, which performs the requests under your account (uses your password and authentication token
-you've provided).
+We use developer GitHub API, which performs the requests under your account
+and uses your password and authentication token you've provided.
 
 We use [Retrofit](https://square.github.io/retrofit/) to perform HTTP requests to Github.
 It allows us to request the list of repositories under the given organization,
-and request the list of contributors for each repository:
+and the list of contributors for each repository:
 
 ```kotlin
 interface GitHubService {
@@ -55,11 +55,11 @@ We invoke `Call.execute` to perform the request (`#2`).
 `execute` is a synchronous call which blocks the underlying thread.
 
 When we get the response, we log the result by calling the specific `logRepos()` and `logUsers()` functions (`#3`).
-If HTTP response contains an error, this error will be logged here.
+If the HTTP response contains an error, this error will be logged here.
 
-At last, we need to get the body of the response which contains the desired data.
-For simplicity of this tutorial, we'll only log the error if one appeared and use an empty list as a result in the case
-of error (`#4`).
+At last, we need to get the body of the response, which contains the desired data.
+For simplicity of this tutorial, we'll use an empty list as a result in the case
+of error and log the corresponding error (`#4`).
 To avoid repeating `.body() ?: listOf()` many times, 
 we declare an extension function `bodyList`:
 
@@ -79,8 +79,8 @@ While running the code, look at the system output, you should see something like
 ...
 ```
 
-At first goes the number of milliseconds passed from the program start, then the thread name in square brackets.
-You can see from which thread the loading request was called on.
+At first, goes the amount of milliseconds passed from the program start, then the thread name in square brackets.
+You can see from which thread the loading request is called on.
 At last, stays the actual message: how many repositories or contributors were loaded.
 
 This log demonstrates that all the results were logged from the main thread.
@@ -104,14 +104,15 @@ updateResults(users, startTime)
 You can find this code in `src/contributors/Contributors.kt`;
 the function `loadContributors` is responsible for choosing which way
 the contributors should be loaded.
-`updateResults` is the function that updates the UI, thus it must be always called from the UI thread.
+`updateResults` is a function that updates the UI.
+Thus it must always be called from the UI thread.
 
 To get familiar with the task domain (the knowledge we'll base upon later), please do the following simple task.
 At the moment, if you run the code, you'll see that each contributor name is repeated several times, once for every
 project they take part in. Your task is to implement the `aggregate` function combining the users so that each 
 contributor was present only once. The `User.contributions` property should contain the total number of contributions
 of the given user to *all* of the projects.
-The resulting list should be sorted in a descending order by the number of contributions.
+The resulting list should be sorted in descending order by the number of contributions.
 
 #### Task
 
@@ -128,7 +129,7 @@ Note how the users are sorted by the total number of their contributions.
 
 #### Solution
 
-One of the possible solutions is the following:
+A possible solution:
 
 ```kotlin
 fun List<User>.aggregate(): List<User> =
@@ -138,9 +139,9 @@ fun List<User>.aggregate(): List<User> =
 ```
 
 First, we group users by their login.
-`groupBy` returns a map from login to all occurrences of user with this login in different repositories.
-Then for each map entry we count the total number of contributions for each user and 
-create a new instance of `User` class by given name and sum of contributions.
+`groupBy` returns a map from login to all occurrences of the user with this login in different repositories.
+Then for each map entry, we count the total number of contributions for each user and 
+create a new instance of `User` class by the given name and sum of contributions.
 At last, we sort the resulting list in a descending order.
 
-The alternative is to use the function `groupingBy` instead of `groupBy`.
+An alternative is to use the function `groupingBy` instead of `groupBy`.

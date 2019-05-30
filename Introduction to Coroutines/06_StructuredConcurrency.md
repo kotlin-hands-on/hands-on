@@ -1,6 +1,6 @@
 # Structured concurrency
  
-_Coroutine scope_ is responsible for structure and parent-child relation between different coroutines.
+_Coroutine scope_ is responsible for the structure and parent-child relation between different coroutines.
 You always start new coroutines inside a scope.
 _Coroutine context_ stores additional technical information used to run a given coroutine,
 like the dispatcher specifying the thread or threads the coroutine should be scheduled on.
@@ -17,7 +17,7 @@ New coroutines can only be started inside a scope.
 `launch` and `async` are declared as extensions to `CoroutineScope`, so an implicit or explicit receiver must always
 be passed when you call them.
 The coroutine started by `runBlocking` is the only exception: `runBlocking` is defined as a top-level function.
-But because it blocks the current thread, it is intended primarily to be used in `main` functions and in tests as
+But because it blocks the current thread, it is intended primarily to be used in `main` functions and tests as
 a bridge function.
 
 When you start a new coroutine inside `runBlocking`, `launch` or `async`, you automatically start it inside the scope: 
@@ -50,18 +50,20 @@ is called from.
 That's also possible to start a new coroutine from the global scope by saying `GlobalScope.async` or `GlobalScope.launch`.
 That will create a top-level "independent" coroutine.
 
-The mechanism providing structure of coroutines is called "structured concurrency".
-What benefits does the structured concurrency bring in comparison with global scopes?
-The scope is generally responsible for children coroutines, and their lifetime is attached to the lifetime of the scope. 
-The scope can automatically cancel children coroutines if something goes wrong or,
+The mechanism providing the structure of coroutines is called "structured concurrency".
+Let's see what benefits does the structured concurrency bring in comparison with global scopes:
+
+* The scope is generally responsible for children coroutines,
+and their lifetime is attached to the lifetime of the scope. 
+* The scope can automatically cancel children coroutines if something goes wrong or
 if the user simply changes her mind and decides to revoke the operation.
-The scope automatically waits for completion of all the children coroutines.
+* The scope automatically waits for completion of all the children coroutines.
 Therefore, if the scope corresponds to a coroutine, then the parent coroutine does not complete until all the coroutines
 launched in its scope complete.
 
 When using `GlobalScope.async` we don't have the structure that binds several coroutines to a smaller scope.
-The coroutines started from global scope are all independent; 
-their lifetime is only limited by the lifetime of the whole application.
+The coroutines started from the global scope are all independent; 
+their lifetime is limited only by the lifetime of the whole application.
 You can store the reference to the coroutine started from the global scope and wait for its completion or cancel it
 explicitly, but it won't happen automatically as with the structured ones.
 
@@ -72,7 +74,7 @@ the one using `coroutineScope` to start all the children coroutines and the one 
 We'll compare how both versions behave when you try to cancel the parent coroutine.
 
 Add 3 seconds delay to all coroutines sending the requests, so that you had enough time to cancel loading after
-the moment the coroutines were started but before the moment the requests were sent:  
+the moment the coroutines were started, but before the moment the requests were sent:  
 
 ```kotlin
 suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutineScope {
@@ -108,14 +110,14 @@ The function now returns the result directly, not as the last expression inside 
 and all the "contributors" coroutines are started inside `GlobalScope`, not as children of coroutine scope (line `#2`).  
 
 Run the program, choose to load the contributors via `CONCURRENT` version, wait until all the "contributors" coroutines
-are started and then click on "cancel". Looking at the log, you'll find out that all the requests were indeed cancelled
+are started and then click on "cancel". Looking at the log, you'll find out that all the requests were indeed canceled
 because no results were logged:
 
 ```
-2896 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin: loaded 30 repos
+2896 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin: loaded 40 repos
 2901 [DefaultDispatcher-worker-2 @coroutine#4] INFO  Contributors - starting loading for kotlin-koans
 ...
-2909 [DefaultDispatcher-worker-5 @coroutine#21] INFO  Contributors - starting loading for kotlinx.coroutines
+2909 [DefaultDispatcher-worker-5 @coroutine#36] INFO  Contributors - starting loading for mpp-example
 /* click on 'cancel' */
 /* no requests are sent */
 ```
@@ -126,18 +128,18 @@ Now repeat the same procedure but choose the `NOT_CANCELLABLE` option:
 2570 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin: loaded 30 repos
 2579 [DefaultDispatcher-worker-1 @coroutine#4] INFO  Contributors - starting loading for kotlin-koans
 ...
-2586 [DefaultDispatcher-worker-6 @coroutine#21] INFO  Contributors - starting loading for kotlinx.coroutines
+2586 [DefaultDispatcher-worker-6 @coroutine#36] INFO  Contributors - starting loading for mpp-example
 /* click on 'cancel' */
 /* but all the requests are still sent: */
-6402 [DefaultDispatcher-worker-6 @coroutine#4] INFO  Contributors - kotlin-koans: loaded 45 contributors
+6402 [DefaultDispatcher-worker-5 @coroutine#4] INFO  Contributors - kotlin-koans: loaded 45 contributors
 ...
-7428 [DefaultDispatcher-worker-8 @coroutine#21] INFO  Contributors - kotlinx.coroutines: loaded 100 contributors
+9555 [DefaultDispatcher-worker-8 @coroutine#36] INFO  Contributors - mpp-example: loaded 8 contributors
 ```
 
-Nothing happens! No coroutines are cancelled, all the requests are still sent.
+Nothing happens! No coroutines are canceled, all the requests are still sent.
 
 Let's see how the cancellation is implemented in our "contributors" program.
-When the `cancel` button is clicked you need to explicitly cancel the main "loading" coroutine.
+When the `cancel` button is clicked, you need to cancel explicitly the main "loading" coroutine.
 Then it automatically cancels all the children coroutines.
 
 That's how we cancel the "loading" coroutine on the button click: 
@@ -173,7 +175,7 @@ interface Contributors {
 ```
 
 The `launch` function returns us an instance of `Job`.
-It's the reference to the "loading coroutine" which loads all the data and updates the results.
+`Job` stores a reference to the "loading coroutine", which loads all the data and updates the results.
 We call `setUpCancellation()` extension function on it (line `#1`), passing an instance of `Job` as a receiver.
 Another way to express that would be to write explicitly:
 
@@ -184,9 +186,9 @@ job.setUpCancellation()
 
 For readability, inside the `setUpCancellation` function we refer to its receiver via the new `loadingJob` variable (line `#2`).
 Then we add the listener to the `cancel` button,
-so that when it's clicked, the `loadingJob` is cancelled (line `#3`).
+so that when it's clicked, the `loadingJob` is canceled (line `#3`).
 
-With structured concurrency you only need to cancel the parent coroutine,
+With structured concurrency, you only need to cancel the parent coroutine,
 and then it automatically propagates cancellation to all the children coroutines.
 
 ### Using the outer scope's context
@@ -195,7 +197,7 @@ When you start new coroutines inside the given scope, it's much easier to ensure
 with the same context.
 And it's much easier to replace the context if needed.
 
-Let's now explicitly return to the question at the end of the previous section:
+Let's now return to the question at the end of the previous section:
 how exactly works "using the dispatcher from the outer scope"
 (or, more correct, "using the dispatcher from the outer scope's context")?
 
@@ -224,9 +226,9 @@ suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutine
 }
 ```
 
-Structured concurrency allows to specify major context elements (like dispatcher) once when you create a top-level coroutine.
+Structured concurrency allows specifying major context elements (like dispatcher) once when you create a top-level coroutine.
 All the nested coroutines then inherit the context and modify it only if needed. 
 
-Note that when you write the code with coroutiens for UI applications, e.g. for Android, the common practice is to use
+Note that when you write the code with coroutines for UI applications, e.g., for Android, the common practice is to use
 `CoroutineDispatchers.Main` by default for the top coroutine, and to explicitly put a different dispatcher when it's
 needed to run the code on a different thread.

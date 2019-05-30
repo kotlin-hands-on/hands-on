@@ -5,7 +5,7 @@ the user sees the resulting list only after all the data is loaded.
 Until then, the loader icon is running showing the progress, but there's no information what's the current state,
 and what contributors are already loaded.  
 However, we could show the intermediate results earlier and display all the contributors after loading the data
-for each of the repository:
+for each of the repositories:
 
 ![](./assets/7-progress/Loading.gif)
 
@@ -35,7 +35,7 @@ launch(Dispatchers.Default) {
 ```
 
 Note that `updateResults` parameter is declared as `suspend` in `loadContributorsProgress`.
-You need that in order to call the `suspend` function `withContext` inside the corresponding lambda argument.
+You need that to call `withContext`, which is a `suspend` function, inside the corresponding lambda argument.
 
 Note also that `updateResults` callback now takes an additional `Boolean` parameter as an argument saying whether 
 all the loading completed and our results are final.
@@ -53,7 +53,7 @@ The total numbers of contributions for each user should be increased when the da
 #### Solution
 
 You need to store the intermediate list of loaded contributors in an "aggregated" state.
-You can define `allUsers` variable which stores the list of users and is updated
+You can define `allUsers` variable which stores the list of users and update it
 after contributors for each new repository are loaded: 
 
 ```kotlin
@@ -84,6 +84,11 @@ suspend fun loadContributorsProgress(
 ![](./assets/7-progress/Progress.png)
 
 We don't use any concurrency so far. This code is sequential, so we don't need synchronization.
+
+However, we'd like to send requests concurrently and update the intermediate results after getting the response
+for each repository:
+
+![](./assets/7-progress/ProgressAndConcurrency.png) 
 
 How to add concurrency to this solution?
 Channels solve that.

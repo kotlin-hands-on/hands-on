@@ -1,29 +1,29 @@
 # Channels
 
-Writing the code with shared mutable state is known to be non-trivial and error-prone
+Writing the code with the shared mutable state is known to be non-trivial and error-prone
 (even in this tutorial we had a chance to encounter that while implementing the solution using callbacks).
 Sharing information by communication instead of sharing information using the common mutable state tries to simplify that.
 Coroutines can communicate with each other via _channels_.
 
-Channels are communication primitives that allow to pass data between different coroutines.
+Channels are communication primitives that allow passing data between different coroutines.
 One coroutine can _send_ some information to a channel, while the other one can _receive_ this information from it:
 
 ![](./assets/8-channels/UsingChannel.png)
 
 We often call a coroutine that sends (produces) information a producer, and a coroutine that receives (consumes)
-information a consumer. 
+information – a consumer. 
 When needed, many coroutines can send information to the same channel, and many can receive information from it:
 
 ![](./assets/8-channels/UsingChannelManyCoroutines.png)
 
 Note that when many coroutines receive information from the same channel, each element is handled only once by one
-of the consumers; and handling means removing this element from the channel.
+of the consumers; and handling automatically means removing this element from the channel.
 
 You can think of an analogy between a channel and a collection of elements 
-(the direct analogue would be a queue: elements are added to the one end and received from the another).
+(the direct analog would be a queue: elements are added to the one end and received from the another).
 However, there's an important difference:
-unlike collections, even their synchronized versions, channel can _suspend_ `send` and `receive` operations.
-That happens when the channel is empty or full (the channel's size might be constrained and then it can get full).
+unlike collections, even their synchronized versions, a channel can _suspend_ `send` and `receive` operations.
+That happens when the channel is empty or full (the channel's size might be constrained, and then it can get full).
 
 `Channel` is represented via three different interfaces: `SendChannel`, `ReceiveChannel`,
 and `Channel` which extends the first two.
@@ -46,8 +46,8 @@ interface Channel<E> : SendChannel<E>, ReceiveChannel<E>
 
 The producer can close a channel to indicate that no more elements are coming.
 
-There're several types of channels.
-They are different in how many elements can be internally stored, and whether the `send` call can suspend or not.
+Several types of channels are defined in the library.
+They differ in how many elements can be internally stored, and whether the `send` call can suspend or not.
 For all channel types, the `receive` call behaves in the same manner: it
 receives an element if the channel is not empty, and suspends otherwise.
 
@@ -55,7 +55,7 @@ receives an element if the channel is not empty, and suspends otherwise.
 
 ![](./assets/8-channels/UnlimitedChannel.png)
 
-Unlimited channel is the most closest analogue to queue: producers can send elements to this channel,
+Unlimited channel is the most closest analog to queue: producers can send elements to this channel,
 and it will grow infinitely.
 The `send` call will never be suspended.
 If there's no more memory, you'll get `OutOfMemoryException`. 
@@ -103,7 +103,7 @@ val unlimitedChannel = Channel<String>(UNLIMITED)
 
 By default, a "Rendezvous" channel is created.
 
-In the following example, we create a “Rendezvous” channel, two producer coroutines and one consumer coroutine:  
+In the following example, we create a “Rendezvous” channel, two producer coroutines, and one consumer coroutine:  
 
 ```kotlin
 import kotlinx.coroutines.channels.Channel
@@ -133,20 +133,20 @@ fun log(message: Any?) {
 }
 ```
 
-If you want to better understand what's going on in this example, watch the following video:
+If you want to understand better what's going on in this example, watch the following video:
 
 [Video explaining the channels sample](https://youtu.be/IHF7wFvwtvE)
 
 #### Task
 
 Implement the function `loadContributorsChannels` that requests all the GitHub contributors concurrently,
-but shows an intermediate progress at the same time.
+but shows intermediate progress at the same time.
 Use two previous functions:
 `loadContributorsConcurrent` from `Request5Concurrent.kt` and `loadContributorsProgress` from `Request6Progress.kt`.
 
 #### Tip
 
-Different coroutines that concurrently receive contributors lists for different repositories can send all the received
+Different coroutines that concurrently receive contributor lists for different repositories can send all the received
 results to the same channel:
 
 ```kotlin
@@ -169,14 +169,14 @@ repeat(repos.size) {
 }
 ```
 
-Since we call the `receive` calls consequently, no additional synchrnonization is needed.
+Since we call the `receive` calls consequently, no additional synchronization is needed.
 
 #### Solution
 
 As in the `loadContributorsProgress` function, you create the `allUsers` variable to store
 the intermediate states of "all contributors" list.
 When you receive each new list from the channel,
-you add it to the list of all users and aggregate the result and update the state using "updateState" `callback`:
+you add it to the list of all users, aggregate the result and update the state using the `updateState` callback:
 
 ```kotlin
 suspend fun loadContributorsChannels(
@@ -209,13 +209,13 @@ suspend fun loadContributorsChannels(
 ```
 
 Note that the results for different repositories are added to the channel as soon as they are ready.
-At first, when all the requests are sent and no data is received, the `receive` call suspends.
-In this case, the whole "load contributors" coroutines suspends.
+At first, when all the requests are sent, and no data is received, the `receive` call suspends.
+In this case, the whole "load contributors" coroutine suspends.
 Then, when the list of users is sent to the channel, the "load contributors" coroutine resumes,
-the `receive` call returns this list and then the results are immediately updated. 
+the `receive` call returns this list, and the results are immediately updated. 
  
 This task completes our tutorial.
-You've learned how to use suspend functions, start coroutines to achieve concurrent execution and share 
+You've learned how to use suspend functions, execute coroutines concurrently and share 
 information between coroutines using channels.
 
 Note that neither coroutines nor channels will completely eradicate the complexity that comes from concurrency,

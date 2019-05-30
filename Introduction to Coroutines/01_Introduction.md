@@ -2,7 +2,7 @@
 
 In this hands-on tutorial, you'll get familiar with the concept of coroutines.
 Coroutines help you to gain all the benefits of asynchronous
-and non-blocking behaviour without lack of readability. 
+and non-blocking behavior without lack of readability. 
 You'll see how to use coroutines to perform network requests
 without blocking the underlying thread and without using callbacks.
 
@@ -33,7 +33,8 @@ To update the Kotlin plugin, use `Tools | Kotlin | Configure  Kotlin Plugin Up
 
 ### Downloading project
 
-Clone the repository from IntelliJ IDEA by choosing `VSC | Checkout from Version Control | Git` and specifying the project path:
+Clone the repository from IntelliJ IDEA by choosing `VSC | Checkout from Version Control | Git`
+and specifying the project path:
 [http://github.com/kotlin-hands-on/coroutines](http://github.com/kotlin-hands-on/coroutines). 
 
 ...or clone it from the command line:
@@ -55,14 +56,14 @@ We'll be using GitHub API.
 For that, you'll need to specify your Github account name and either a password or a token.
 If you have two-factor authentication enabled at GitHub, then only a token will work. 
 
-Generate new GitHub token to use GitHub API from your account here:
+You can generate a new GitHub token to use GitHub API from your account here:
 [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new).
-Specify the name of your token, e.g. `coroutines-hands-on`:
+Specify the name of your token, for example, `coroutines-hands-on`:
 
 ![](./assets/1-intro/GeneratingToken.png)
 
 You don't need to select any scopes, click on "Generated token" below the screen.
-Copy the generated token somewhere, we'll use it soon.
+Copy the generated token somewhere; we'll use it soon.
 
 ### Running the code
 
@@ -73,12 +74,14 @@ If the fonts are too small, you can adjust them by specifying a different defaul
 ![](./assets/1-intro/InitialWindow.png)
 
 Our program loads the contributors for all the repositories under the given organization.
-By default, the oganization is "kotlin", but you can choose another one. 
+By default, the organization is "kotlin" but you can choose another one. 
 Later we'll add the logic sorting users by the number of their contributions.
 
 Now put in your login and token (or password) to the corresponding fields.
 Make sure that the 'BLOCKING' option is chosen in the dropdown menu, then click on "Load contributors".
 The UI should freeze for some time and then show the list of the contributors.
+You can open the program output to make sure the data is loaded:
+the information is logged after each successful request.
 Make sure you see the loaded data in order to continue.
  
 We're going to compare different ways of implementing this logic, and see how coroutines change the picture.

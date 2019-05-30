@@ -88,10 +88,10 @@ Use the previous `loadContributorsSuspend` function.
 Base it on the following scheme:
 
 ```kotlin
-val deferreds: List<Deferred<List<User>>> = repos.map { repo -> 
-    async { 
+val deferreds: List<Deferred<List<User>>> = repos.map { repo ->
+    async {
         // load contributors for each repo
-    } 
+    }
 }
 deferreds.awaitAll() // List<List<User>> 
 ```

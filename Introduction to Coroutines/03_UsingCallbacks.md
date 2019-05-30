@@ -109,7 +109,8 @@ fun loadContributorsCallbacks(req: RequestData, updateResults: (List<User>) -> U
 We extract the logic handling the responses into callbacks: the corresponding lambdas start at lines `#1` and `#2`. 
 
 However, the provided solution doesn't work.
-If you run the program and load contributors choosing `CALLBACKS` option, you'll see that nothing is shown. Why?
+If you run the program and load contributors choosing `CALLBACKS` option, you'll see that nothing is shown.
+The tests that immediately return the result, however, pass. Why?
 
 Spend some time thinking of why the given code doesn't work as expected, and after that continue reading.
 

@@ -116,7 +116,8 @@ The resulting list should be sorted in a descending order by the number of contr
 #### Task
 
 Open `src/tasks/Aggregation.kt` and implement `List<User>.aggreate()` function.
-The `main` function in the same file shows an example of the expected output.
+[The corresponding test file](https://www.jetbrains.com/help/idea/navigating-between-test-and-test-subject.html)
+shows an example of the expected result.
 
 After implementing this task, the resulting list for `Kotlin` organization should be similar to the following:
 

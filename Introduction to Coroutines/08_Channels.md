@@ -105,7 +105,7 @@ By default, a "Rendezvous" channel is created.
 
 In the following example, we create a “Rendezvous” channel, two producer coroutines, and one consumer coroutine:  
 
-```kotlin
+```run-kotlin
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.*
 

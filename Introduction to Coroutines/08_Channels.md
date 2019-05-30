@@ -150,8 +150,8 @@ Different coroutines that concurrently receive contributors lists for different 
 results to the same channel:
 
 ```kotlin
-val channel = Channel<List<User>>() 
-for (repo in repos) { 
+val channel = Channel<List<User>>()
+for (repo in repos) {
     launch {
         val users = ...
         // ...
@@ -163,10 +163,10 @@ for (repo in repos) { 
 Then the elements from this channel can be received one by one and processed:
 
 ```kotlin
-repeat(repos.size) { 
-    val users = channel.receive() 
+repeat(repos.size) {
+    val users = channel.receive()
     ...
- }
+}
 ```
 
 Since we call the `receive` calls consequently, no additional synchrnonization is needed.

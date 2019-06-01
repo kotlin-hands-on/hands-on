@@ -30,7 +30,7 @@ a screenshot of the end result (if this is for instance an application).
 
 The introduction should reference the source code with a last line:
 
-`You can find the code for the hands-on lab on [GitHub](https://github.com/Kotlin/kotlin-hands-{lab-name})`
+`You can find the code for the hands-on lab on [GitHub](https://github.com/kotlin-hands-on/{lab-name})`
 
 
 ### Style and Formatting
@@ -82,7 +82,7 @@ All assets, excluding code, should be placed in a subfolder named `assets` under
 
 ### Code
 
-The code for the lab is located in its own repository using the naming convention `kotlin-hands-on-{lab-name}`
+The code for the lab is located in its own repository using the naming convention `{lab-name}`
 
 The description for the repository should be `{lab-name} Hands-On Lab`. Please make sure you use the appropriate .gitignore file:
 

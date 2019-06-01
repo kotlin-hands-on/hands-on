@@ -35,18 +35,18 @@ To update the Kotlin plugin, use `Tools | Kotlin | Configure  Kotlin Plugin Up
 
 Clone the repository from IntelliJ IDEA by choosing `VSC | Checkout from Version Control | Git`
 and specifying the project path:
-[http://github.com/kotlin-hands-on/coroutines](http://github.com/kotlin-hands-on/coroutines). 
+[http://github.com/kotlin-hands-on/intro-coroutines](http://github.com/kotlin-hands-on/intro-coroutines). 
 
 ...or clone it from the command line:
 
 ```
-$ git clone http://github.com/kotlin-hands-on/coroutines
+$ git clone http://github.com/kotlin-hands-on/intro-coroutines
 ```
  
 Note that for your convenience, the project contains the `solutions` branch, so you can use `Compare with branch...`
 action to compare your solution with the proposed one.
 
-Alternatively, you can [download the project](http://github.com/kotlin-hands-on/coroutines/archive/master.zip) directly
+Alternatively, you can [download the project](http://github.com/kotlin-hands-on/intro-coroutines/archive/master.zip) directly
 (but only the `main` branch).
 
 

@@ -133,6 +133,10 @@ fun log(message: Any?) {
 }
 ```
 
+If you want to understand better what's going on in this example, watch the following video:
+
+[Video explaining the channels sample](https://youtu.be/HpWQUoVURWQ)
+
 #### Task
 
 Implement the function `loadContributorsChannels` that requests all the GitHub contributors concurrently,

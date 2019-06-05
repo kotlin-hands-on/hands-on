@@ -46,6 +46,10 @@ suspend fun loadData(): Int {
 It works as an adaptor starting the top-level main coroutine and is intended primarily to be used in `main` functions
 and in tests.
 
+If you want to understand better what's going on in this example, watch the following video:
+
+[Video explaining the coroutines sample](https://youtu.be/zEZc5AmHQhk) 
+
 If you have a list of deferred objects, you can call `awaitAll` to await the results of all of them:
 
 ```kotlin

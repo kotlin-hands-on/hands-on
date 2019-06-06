@@ -214,9 +214,10 @@ In this case, the whole "load contributors" coroutine suspends.
 Then, when the list of users is sent to the channel, the "load contributors" coroutine resumes,
 the `receive` call returns this list, and the results are immediately updated. 
  
-This task completes our tutorial.
 You've learned how to use suspend functions, execute coroutines concurrently and share 
 information between coroutines using channels.
 
 Note that neither coroutines nor channels will completely eradicate the complexity that comes from concurrency,
 but they will definitely make your life easier when you need to reason about it and understand what's going on.
+
+Next, we'll discuss how to test the code that uses coroutines.

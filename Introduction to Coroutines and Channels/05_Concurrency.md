@@ -1,27 +1,27 @@
 # Concurrency
 
-Kotlin coroutines are extremely cheap in comparison with threads.
+Kotlin coroutines are extremely efficient in comparison to threads.
 Each time when you want to start a new computation asynchronously, you can create a new coroutine.
 
-To start a new coroutine you use one of the main "coroutine builders": `launch`, `async`, or `runBlocking`.
+To start a new coroutine just use one of the main "coroutine builders": `launch`, `async`, or `runBlocking`.
 Different libraries can define additional coroutine builders.
 
 `async` starts a new coroutine and returns a `Deferred` object.
-`Deferred` represents a concept known by other names as `Future` or `Promise`:
-it stores a computation, but it *defers* the moment when you get the final result; 
+`Deferred` represents a concept known by other names such as `Future` or `Promise`:
+it stores a computation, but it *defers* it the moment you get the final result; 
 it *promises* the result sometime in the *future*.
 
 The main difference between `async` and `launch` is that `launch` is used for starting
 a computation that isn't expected to return a specific result.
 `launch` returns `Job`, which represents the coroutine.
-You can wait until it completes by calling `Job.join()`. 
+It is possible to have it wait until it completes by calling `Job.join()`. 
 
 `Deferred` is a generic type which extends `Job`.
-Your `async` call can return `Deferred<Int>` or `Deferred<CustomType>`
+Your `async` call can return a `Deferred<Int>` or `Deferred<CustomType>`
 depending on what the lambda returns (the last expression inside the lambda is the result).
 
-To get the result of a coroutine, you call `await()` on the `Deferred` instance.
-While waiting for the result, the coroutine you call this `await` from, suspends:
+To get the result of a coroutine, call `await()` on the `Deferred` instance.
+While waiting for the result, the coroutine that this `await` is called from, suspends:
 
 ```run-kotlin
 import kotlinx.coroutines.*
@@ -43,14 +43,14 @@ suspend fun loadData(): Int {
 ```
 
 `runBlocking` is used as a bridge between regular and `suspend` functions, between blocking and non-blocking worlds.
-It works as an adaptor starting the top-level main coroutine and is intended primarily to be used in `main` functions
+It works as an adaptor for starting the top-level main coroutine and is intended primarily to be used in `main` functions
 and in tests.
 
-If you want to understand better what's going on in this example, watch the following video:
+To get a better understanding of what's going on in this example, watch the following video:
 
 [Video explaining the coroutines sample](https://youtu.be/zEZc5AmHQhk) 
 
-If you have a list of deferred objects, you can call `awaitAll` to await the results of all of them:
+If there is a list of deferred objects, it is possible to call `awaitAll` to await the results of all of them:
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -68,26 +68,26 @@ fun main() = runBlocking {
 }
 ```
 
-When you start each "contributors" request in a new coroutine,
+When starting each "contributors" request in a new coroutine,
 all the requests are started asynchronously.
-A new request can be sent before the result for the previous one received:  
+A new request can be sent before the result for the previous one is received:  
 
 ![](./assets/5-concurrency/Concurrency.png)
 
-That brings us approximately the same total loading time as `CALLBACKS` version before.
-But you don't need any callbacks.
+That brings us approximately the same total loading time as the `CALLBACKS` version before.
+But without needing any callbacks.
 What's more, `async` explicitly emphasizes in the code which parts run concurrently.  
 
 #### Task
 
-Implement `loadContributorsConcurrent` function in the `Request5Concurrent.kt` file.
+Implement a `loadContributorsConcurrent` function in the `Request5Concurrent.kt` file.
 Use the previous `loadContributorsSuspend` function.
  
 #### Tip
 
-As we'll discuss below, you can only start a new coroutine inside a coroutine scope.
-Thus, copy the content of `loadContributorsSuspend` inside `coroutineScope` call,
-so that you could call `async` functions there:
+As we'll discuss below, a new coroutine can only start inside a coroutine scope.
+So, copy the content from `loadContributorsSuspend` to the `coroutineScope` call,
+so that we can call `async` functions there:
 
 ```kotlin
 suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutineScope {
@@ -108,14 +108,14 @@ deferreds.awaitAll() // List<List<User>>
 
 #### Solution
 
-You wrap each "contributors" request in `async`.
-That creates as many coroutines as the number of repositories we have.
-But since it's cheap to create a new coroutine, that's no issue in it.
-You can create as many as you need.
+We wrap each "contributors" request with `async`.
+That will create as many coroutines as number of repositories we have.
+But since it's cheap to create a new coroutine, it's not an issue.
+We can create as many as we need.
  
 `async` returns `Deferred<List<User>>`. 
-You no longer can use `flatMap`: the `map` result is a list of `Deferred` objects now, not a list of lists.
-`awaitAll()` returns `List<List<User>>`, so you simply need to call `flatten().aggregate()` to get the result: 
+We can no longer use `flatMap`: the `map` result is a list of `Deferred` objects now, not a list of lists.
+`awaitAll()` returns `List<List<User>>`, so we simply need to call `flatten().aggregate()` to get the result: 
 
 ```kotlin
 suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutineScope {
@@ -136,25 +136,25 @@ suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutine
 }
 ```
 
-Run the code and check the log; you should see that all the coroutines still run on the main UI thread.
+Run the code and check the log; we can see that all the coroutines still run on the main UI thread.
 We haven't yet employed multithreading in any way,
-but already got all the benefits of running coroutines concurrently!
+but already we have the benefits of running coroutines concurrently!
 
 It's very easy to change this code to run "contributors" coroutines on different threads from the common thread pool.
-Specify `Dispatchers.Default` as the context argument for `async` function:
+Specify `Dispatchers.Default` as the context argument for the `async` function:
 
 ```kotlin
 async(Dispacthers.Default) { ... }
 ``` 
 
 `CoroutineDispatcher` determines what thread or threads the corresponding coroutine should be run on.
-If you don't specify one as an argument, then `async` will use the dispatcher from the outer scope.
+If we don't specify one as an argument, then `async` will use the dispatcher from the outer scope.
 
 `Dispatchers.Default` represents a shared pool of threads on JVM.
 This pool provides a means for parallel execution. 
-It consists of as many threads as CPU cores available but still has two threads if there's only one core. 
+It consists of as many threads as there are CPU cores available, but still it has two threads if there's only one core. 
 
-Modify now the code of the `loadContributorsConcurrent` function so that new coroutines were started on different
+Modify the code in the `loadContributorsConcurrent` function so that new coroutines are started on different
 threads from the common thread pool.
 Also, add additional logging before sending the request:
 
@@ -167,7 +167,7 @@ async(Dispatchers.Default) {
 }
 ```
 
-After introducing this change, you can observe in the log that each coroutine can be started on one thread
+After introducing this change, we can observe in the log that each coroutine can be started on one thread
 from the thread pool and resumed on another:
 
 ```
@@ -182,7 +182,7 @@ from the thread pool and resumed on another:
 
 For instance, in this log excerpt, `coroutine#4` is started on the thread `worker-2` and continued on the thread `worker-1`.
 
-To run the coroutine only on the main UI thread, you specify `Dispatchers.Main` as an argument:  
+To run the coroutine only on the main UI thread, we should specify `Dispatchers.Main` as an argument:  
 
 ```kotlin
 launch(Dispatchers.Main) {
@@ -190,19 +190,19 @@ launch(Dispatchers.Main) {
 }
 ```
 
-If the main thread is busy when you start a new coroutine on it,
+If the main thread is busy when we start a new coroutine on it,
 the coroutine becomes suspended and scheduled for execution on this thread.
-The coroutine resumes only when the thread gets free.
+The coroutine will only resume when the thread becomes free.
 
-Note that it's considered a good practice to use the dispatcher from the outer scope rather than to explicitly specify it
+Note that it's considered good practice to use the dispatcher from the outer scope rather than to explicitly specify it
 on each end-point.
-In our case, when you define `loadContributorsConcurrent` without passing `Dispatchers.Default` as an argument,
-you can then call this function in any way: in the context with `Default` dispatcher,
-in the context with main UI thread, or in the context with your custom dispatcher.
-As we'll see later, when calling `loadContributorsConcurrent` from tests, you can call it in the context with 
+In our case, when we define `loadContributorsConcurrent` without passing `Dispatchers.Default` as an argument,
+we can then call this function in any way: in the context with a `Default` dispatcher,
+in the context with the main UI thread, or in the context with a custom dispatcher.
+As we'll see later, when calling `loadContributorsConcurrent` from tests, we can call it in the context with 
 `TestCoroutineDispatcher` which simplifies testing. Thus this solution is much more flexible. 
 
-Here's how you specify the dispatcher on the caller-side:
+Here's how we specify the dispatcher on the caller-side:
 
 ```kotlin
 launch(Dispatchers.Default) {
@@ -213,18 +213,18 @@ launch(Dispatchers.Default) {
 }
 ```
 
-Apply this change to your project, while letting `loadContributorsConcurrent` start coroutines in the inherited context.
-Run the code and make sure that coroutines are executed on the threads from the thread pool. 
+Apply this change to our project, while letting `loadContributorsConcurrent` start coroutines in the inherited context.
+Run the code and make sure that the coroutines are executed on the threads from the thread pool. 
 
 `updateResults` should be called on the main UI thread, so we call it with the context of `Dispatchers.Main`.
-`withContext` calls the given code with the specified coroutine context, suspends until it completes,
+`withContext` calls the given code with the specified coroutine context, suspends it until it completes,
 and returns the result.
-An alternative but more verbose way to express that would be to start a new coroutine and explicitly wait (by
+An alternative but more verbose way to express this would be to start a new coroutine and explicitly wait (by
 suspending) until it completes: `launch(context) { ... }.join()`. 
 
-How exactly works "using the dispatcher from the outer scope"?
-The more correct way to say that would be "using the dispatcher from the outer scope's context".
-What is a coroutine scope and how it's different from a coroutine context?
+How exactly does it work "using the dispatcher from the outer scope"?
+A more correct way to say this would be "using the dispatcher from the outer scope's context".
+What is a coroutine scope and how is it different from a coroutine context?
 (These two might be confused).
-Why did you need to start new `async` "contributors" coroutines inside `coroutineScope` call?
-Let's discuss that next.  
+Why did we need to start new `async` "contributors" coroutines inside `coroutineScope` call?
+Let's discuss this next.  

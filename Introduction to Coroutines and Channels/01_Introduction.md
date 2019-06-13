@@ -28,7 +28,7 @@ by Roman Elizarov at KotlinConf.
 We'll need one of the latest versions of IntelliJ IDEA, so any version from 2018.1 onwards.
 You can download the latest free community version [here](https://www.jetbrains.com/idea/download/).
 
-Make sure version 1.3 of the Kotlin plugin is installed
+Make sure version 1.3 of the Kotlin plugin is installed.
 To update the Kotlin plugin, use `Tools | Kotlin | Configure  Kotlin Plugin Updates`.
 
 ### Downloading project
@@ -46,14 +46,14 @@ $ git clone http://github.com/kotlin-hands-on/intro-coroutines
 Note that the project includes the `solutions` branch, so it is possible to use the `Compare with branch...`
 action to compare your solution with the proposed one.
 
-Alternatively, [download the project](http://github.com/kotlin-hands-on/intro-coroutines/archive/master.zip) directly
+Alternatively, you can [download the project](http://github.com/kotlin-hands-on/intro-coroutines/archive/master.zip) directly
 (but only the `main` branch).
 
 
 ### Generating GitHub developer token
 
 We'll be using GitHub API.
-For that, we need to specify our Github account name and either a password or a token.
+For that, you need to specify your Github account name and either a password or a token.
 If you have two-factor authentication enabled on GitHub, then only a token will work. 
 
 You can generate a new GitHub token to use the GitHub API from your account here:

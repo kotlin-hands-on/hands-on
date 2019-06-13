@@ -59,7 +59,7 @@ We'll also see by how you can call a `suspend` function from a non-suspending on
 
 Copy the implementation of `loadContributorsBlocking` (defined in `src/tasks/Request1Blocking.kt`)
 into `loadContributorsSuspend` (defined in `src/tasks/Request4Suspend.kt`).
-Then modify it in a way so that the new suspend functions are used instead of ones returning calls.
+Then modify it in a way so that the new suspend functions are used instead of ones returning `Call`s.
 Run the program choosing the `SUSPEND` option and make sure that the UI is still responsive while the GitHub requests are performed. 
 
 #### Solution

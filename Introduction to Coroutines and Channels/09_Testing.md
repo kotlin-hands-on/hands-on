@@ -1,8 +1,8 @@
 # Testing coroutines
 
 Let's discuss how to test the code that uses coroutines.
-It'd be nice to test our solutions and make sure that the solution with the concurrent coroutines is faster than the solution
-with the `suspend` functions, and check that the solution with channels is faster than the simple "progress" one.
+It'd be nice to test our solutions and make sure that the solution with concurrent coroutines is faster than the solution
+with `suspend` functions, and check that the solution with channels is faster than the simple "progress" one.
 Let's have a look at how to compare the total running time of these solutions.
 
 Let's mock a GitHub service and make this service return results after the given timeouts: 
@@ -34,7 +34,7 @@ and the files `Request4SuspendKtTest`, ... `Request7ChannelsKtTest` contain the 
 However, we have two problems here:
 
 * These tests run too long.
-Each test takes around 4 or so seconds, so we need to wait for the results each time.
+Each test takes around 4 or 2 seconds accordingly, so we need to wait for the results each time.
 Such an approach is not very efficient.
    
 * We can't rely on the exact time the solution runs, because it still takes additional time to warm up, run the surrounding code etc.
@@ -50,7 +50,7 @@ one faster than the other.
 We're not yet interested in the real-life performance tests.
 
 To fix the mentioned problems, you can use *virtual* time.
-For that, you need to use a special test dispatcher that runs everything in reality,
+For that, you need to use a special test dispatcher that runs everything immediately in reality,
 but at the same time changes the virtual time passed from the start.
 When you run coroutines on this dispatcher, the `delay` will return immediately and advance the virtual time.
 
@@ -123,9 +123,9 @@ which is more flexible and easier to test.
 Note that the testing API that supports virtual time is experimental and may change in the future.
 By default, you'll see compiler warnings if you use it. 
 To suppress these warnings, you need to annotate the test function or the whole class containing the tests.
-You can emphasize that you understand that the API can change and is ready
+You can add `@UseExperimental(ExperimentalCoroutinesApi::class)` to your test class or function.
+By adding such annotation, you emphasize that you understand that the API can change and is ready
 to update your usages if needed (most probably, automatically).
-You just need to add `@UseExperimental(ExperimentalCoroutinesApi::class)` to your test class or function.
  
 You also need to add the compiler argument saying that you're using the experimental API:
 

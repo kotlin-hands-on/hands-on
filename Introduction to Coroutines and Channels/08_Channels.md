@@ -11,7 +11,7 @@ One coroutine can _send_ some information to a channel, while the other one can 
 ![](./assets/8-channels/UsingChannel.png)
 
 A coroutine that sends (produces) information is often called a producer, and a coroutine that receives (consumes)
-information is a consumer. 
+information is called a consumer. 
 When needed, many coroutines can send information to the same channel, and many coroutines can receive information from it:
 
 ![](./assets/8-channels/UsingChannelManyCoroutines.png)
@@ -19,7 +19,8 @@ When needed, many coroutines can send information to the same channel, and many 
 Note that when many coroutines receive information from the same channel, each element is handled only once by one
 of the consumers; and handling it automatically means removing this element from the channel.
 
-You can think of it as an analog between a channel and a collection of elements (the direct analog would be a queue: elements are added to the one end and received from the another).
+You can think of a similarity between a channel and a collection of elements
+(the direct analog would be a queue: elements are added to the one end and received from the another).
 However, there's an important difference:
 unlike collections, even their synchronized versions, a channel can _suspend_ `send` and `receive` operations.
 This happens when the channel is empty or full (the channel's size might be constrained, and then it can be full).
@@ -75,7 +76,7 @@ When the channel is full, the next `send` call on it suspends until more free sp
 ![](./assets/8-channels/RendezvousChannel.png)
 
 The “Rendezvous” channel is a channel without a buffer; it's the same as a creating a buffered channel with zero size.
-One of the functions (`send` or `receive`) are always suspended until the other is called.
+One of the functions (`send` or `receive`) gets always suspended until the other is called.
 If the `send` function is called and there's no suspended `receive` call ready to process the element,
 then `send` suspends.
 Similarly, if the `receive` function is called and the channel is empty, in other words,

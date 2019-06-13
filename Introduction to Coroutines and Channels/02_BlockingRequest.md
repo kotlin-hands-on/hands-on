@@ -84,7 +84,7 @@ We can see from which thread the loading request is called on.
 The final item on each line is the actual message: how many repositories or contributors were loaded.
 
 This log demonstrates that all the results were logged from the main thread.
-When you run the code under a `BLOCKING` request, we will find that the window will freeze and won't react to input
+When we run the code under a `BLOCKING` request, we will find that the window will freeze and won't react to input
 until the loading is finished.
 All the requests are executed from the same thread as we've called `loadContributorsBlocking` from,
 which is the main UI thread (in Swing it's an AWT event dispatching thread).
@@ -108,7 +108,7 @@ the contributors are loaded.
 As a result, it must always be called from the UI thread.
 
 To familiarize yourself with the task domain (we'll need this later), please go through the following simple task.
-Currently, if you run the code, we can see that each contributor name is repeated several times, once for every
+Currently, if we run the code, we can see that each contributor name is repeated several times, once for every
 project they have taken part in. This task is to implement the `aggregate` function combining the users so that each 
 contributor is added only once. The `User.contributions` property should contain the total number of contributions
 of the given user to *all* of the projects.

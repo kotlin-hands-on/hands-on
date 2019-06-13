@@ -1,6 +1,6 @@
 # Concurrency
 
-Kotlin coroutines are extremely efficient in comparison to threads.
+Kotlin coroutines are extremely cheap in comparison to threads.
 Each time when you want to start a new computation asynchronously, you can create a new coroutine.
 
 To start a new coroutine just use one of the main "coroutine builders": `launch`, `async`, or `runBlocking`.
@@ -8,13 +8,13 @@ Different libraries can define additional coroutine builders.
 
 `async` starts a new coroutine and returns a `Deferred` object.
 `Deferred` represents a concept known by other names such as `Future` or `Promise`:
-it stores a computation, but it *defers* it the moment you get the final result; 
+it stores a computation, but it *defers* the moment you get the final result; 
 it *promises* the result sometime in the *future*.
 
 The main difference between `async` and `launch` is that `launch` is used for starting
 a computation that isn't expected to return a specific result.
 `launch` returns `Job`, which represents the coroutine.
-It is possible to have it wait until it completes by calling `Job.join()`. 
+It is possible to wait until it completes by calling `Job.join()`. 
 
 `Deferred` is a generic type which extends `Job`.
 Your `async` call can return a `Deferred<Int>` or `Deferred<CustomType>`
@@ -85,7 +85,7 @@ Use the previous `loadContributorsSuspend` function.
  
 #### Tip
 
-As we'll discuss below, a new coroutine can only start inside a coroutine scope.
+As we'll discuss below, we can only start a new coroutine inside a coroutine scope.
 So, copy the content from `loadContributorsSuspend` to the `coroutineScope` call,
 so that we can call `async` functions there:
 
@@ -217,7 +217,7 @@ Apply this change to our project, while letting `loadContributorsConcurrent` sta
 Run the code and make sure that the coroutines are executed on the threads from the thread pool. 
 
 `updateResults` should be called on the main UI thread, so we call it with the context of `Dispatchers.Main`.
-`withContext` calls the given code with the specified coroutine context, suspends it until it completes,
+`withContext` calls the given code with the specified coroutine context, suspends until it completes,
 and returns the result.
 An alternative but more verbose way to express this would be to start a new coroutine and explicitly wait (by
 suspending) until it completes: `launch(context) { ... }.join()`. 

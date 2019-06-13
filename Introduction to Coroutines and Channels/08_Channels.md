@@ -1,33 +1,32 @@
 # Channels
 
-Writing the code with the shared mutable state is known to be non-trivial and error-prone
-(even in this tutorial we had a chance to encounter that while implementing the solution using callbacks).
-Sharing information by communication instead of sharing information using the common mutable state tries to simplify that.
+Writing code with a shared mutable state is known to be quite difficult and error-prone
+(even in this tutorial we had a chance encounter while implementing the solution using callbacks).
+Sharing information by communication instead of sharing information using the common mutable state tries to simplify this.
 Coroutines can communicate with each other via _channels_.
 
-Channels are communication primitives that allow passing data between different coroutines.
+Channels are communication primitives that allow you to pass data between different coroutines.
 One coroutine can _send_ some information to a channel, while the other one can _receive_ this information from it:
 
 ![](./assets/8-channels/UsingChannel.png)
 
-We often call a coroutine that sends (produces) information a producer, and a coroutine that receives (consumes)
-information – a consumer. 
-When needed, many coroutines can send information to the same channel, and many can receive information from it:
+A coroutine that sends (produces) information is often called a producer, and a coroutine that receives (consumes)
+information is a consumer. 
+When needed, many coroutines can send information to the same channel, and many coroutines can receive information from it:
 
 ![](./assets/8-channels/UsingChannelManyCoroutines.png)
 
 Note that when many coroutines receive information from the same channel, each element is handled only once by one
-of the consumers; and handling automatically means removing this element from the channel.
+of the consumers; and handling it automatically means removing this element from the channel.
 
-You can think of an analogy between a channel and a collection of elements 
-(the direct analog would be a queue: elements are added to the one end and received from the another).
+You can think of it as an analog between a channel and a collection of elements (the direct analog would be a queue: elements are added to the one end and received from the another).
 However, there's an important difference:
 unlike collections, even their synchronized versions, a channel can _suspend_ `send` and `receive` operations.
-That happens when the channel is empty or full (the channel's size might be constrained, and then it can get full).
+This happens when the channel is empty or full (the channel's size might be constrained, and then it can be full).
 
 `Channel` is represented via three different interfaces: `SendChannel`, `ReceiveChannel`,
 and `Channel` which extends the first two.
-You usually create a channel and give it to producers as `SendChannel` instance, so that they could only send to it,
+You usually create a channel and give it to producers as a `SendChannel` instance, so that they can only send to it,
 and to consumers as `ReceiveChannel` instance, so that they could only receive from it.
 Note that both `send` and `receive` methods are declared as `suspend`:
 
@@ -47,18 +46,18 @@ interface Channel<E> : SendChannel<E>, ReceiveChannel<E>
 The producer can close a channel to indicate that no more elements are coming.
 
 Several types of channels are defined in the library.
-They differ in how many elements can be internally stored, and whether the `send` call can suspend or not.
+They differ in how many elements they can internally store, and whether the `send` call can suspend or not.
 For all channel types, the `receive` call behaves in the same manner: it
-receives an element if the channel is not empty, and suspends otherwise.
+receives an element if the channel is not empty, and otherwise suspends.
 
 - *Unlimited channel*
 
 ![](./assets/8-channels/UnlimitedChannel.png)
 
-Unlimited channel is the most closest analog to queue: producers can send elements to this channel,
+An unlimited channel is the closest analog to queue: producers can send elements to this channel,
 and it will grow infinitely.
 The `send` call will never be suspended.
-If there's no more memory, you'll get `OutOfMemoryException`. 
+If there's no more memory, you'll get an `OutOfMemoryException`. 
 The difference with queue appears when a producer tries to receive from an empty channel
 and gets suspended until some new elements are sent to this channel.
 
@@ -66,17 +65,17 @@ and gets suspended until some new elements are sent to this channel.
 
 ![](./assets/8-channels/BufferedChannel.png)
 
-Buffered channel's size is constrained by the specified number.
+A buffered channel's size is constrained by the specified number.
 Producers can send elements to this channel until the size limit is reached.
 All the elements are internally stored.
-When the channel is full, the next `send` call on it suspends until the free space appears.
+When the channel is full, the next `send` call on it suspends until more free space appears.
 
 - *“Rendezvous” channel*
 
 ![](./assets/8-channels/RendezvousChannel.png)
 
-“Rendezvous” channel is a channel without a buffer; it's the same as a creating a buffered channel with zero size.
-One of the function (`send` or `receive`) always gets suspended until the other one is called.
+The “Rendezvous” channel is a channel without a buffer; it's the same as a creating a buffered channel with zero size.
+One of the functions (`send` or `receive`) are always suspended until the other is called.
 If the `send` function is called and there's no suspended `receive` call ready to process the element,
 then `send` suspends.
 Similarly, if the `receive` function is called and the channel is empty, in other words,
@@ -84,7 +83,7 @@ there's no suspended `send` call ready to send the element, the `receive` call s
 The "rendezvous" name ("a meeting at an agreed time and place") refers to the fact that `send` and `receive`
 should "meet in time".
 
-- Conflated channel 
+- *Conflated channel* 
 
 ![](./assets/8-channels/ConflatedChannel.gif)
 
@@ -103,7 +102,7 @@ val unlimitedChannel = Channel<String>(UNLIMITED)
 
 By default, a "Rendezvous" channel is created.
 
-In the following example, we create a “Rendezvous” channel, two producer coroutines, and one consumer coroutine:  
+In the following example, we will create a “Rendezvous” channel, two producer coroutines, and one consumer coroutine:  
 
 ```run-kotlin
 import kotlinx.coroutines.channels.Channel
@@ -133,7 +132,7 @@ fun log(message: Any?) {
 }
 ```
 
-If you want to understand better what's going on in this example, watch the following video:
+If you want to better understand what's going on in this example, watch the following video:
 
 [Video explaining the channels sample](https://youtu.be/HpWQUoVURWQ)
 
@@ -141,7 +140,7 @@ If you want to understand better what's going on in this example, watch the foll
 
 Implement the function `loadContributorsChannels` that requests all the GitHub contributors concurrently,
 but shows intermediate progress at the same time.
-Use two previous functions:
+Use these two previous functions:
 `loadContributorsConcurrent` from `Request5Concurrent.kt` and `loadContributorsProgress` from `Request6Progress.kt`.
 
 #### Tip
@@ -173,8 +172,8 @@ Since we call the `receive` calls consequently, no additional synchronization is
 
 #### Solution
 
-As in the `loadContributorsProgress` function, you create the `allUsers` variable to store
-the intermediate states of "all contributors" list.
+As with the `loadContributorsProgress` function, you can create an `allUsers` variable to store
+the intermediate states of the "all contributors" list.
 When you receive each new list from the channel,
 you add it to the list of all users, aggregate the result and update the state using the `updateState` callback:
 

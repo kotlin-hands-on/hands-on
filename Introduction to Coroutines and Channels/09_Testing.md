@@ -50,9 +50,9 @@ one faster than the other.
 We're not yet interested in the real-life performance tests.
 
 To fix the mentioned problems, you can use *virtual* time.
-For that, you need to use a special test dispatcher that runs everything immediately in reality,
-but at the same time changes the virtual time passed from the start.
-When you run coroutines on this dispatcher, the `delay` will return immediately and advance the virtual time.
+For that, you need to use a special test dispatcher.
+It keeps track of the virtual time passed from the start, and runs everything immediately in real time.
+When you run coroutines on this dispatcher, the `delay` will return straight away and advance the virtual time.
 
 The tests using this mechanism run fast, but you can still check what happens at different moments in virtual time.
 The total running time dramatically decreases:

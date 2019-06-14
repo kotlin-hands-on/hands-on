@@ -1,12 +1,12 @@
 # Structured concurrency
  
 _Coroutine scope_ is responsible for the structure and parent-child relationships between different coroutines.
-New coroutines always start inside a scope.
+We always start new coroutines inside a scope.
 _Coroutine context_ stores additional technical information used to run a given coroutine,
 like the dispatcher specifying the thread or threads the coroutine should be scheduled on.
 
 When `launch`, `async`, or `runBlocking` are used to start a new coroutine, they automatically create the corresponding scope.
-All these functions take a lambda with the receiver as an argument, and the implicit reciever type is the `CoroutineScope`:
+All these functions take a lambda with receiver as an argument, and the implicit reciever type is the `CoroutineScope`:
 
 ```kotlin
 launch { /* this: CoroutineScope */
@@ -32,19 +32,19 @@ fun main() = runBlocking { /* this: CoroutineScope */
 }
 ```
 
-If we were to call `launch` inside `runBlocking`, we would call it as an extension to the implicit receiver
+When we call `launch` inside `runBlocking`, we call it as an extension to the implicit receiver
 of the `CoroutineScope` type.
 Alternatively, we could explicitly write `this.launch`.
 
-We could say that the nested coroutine (started by `launch` in this example) is a child of the outer coroutine
+We can say that the nested coroutine (started by `launch` in this example) is a child of the outer coroutine
 (started by `runBlocking`). This "parent-child" relationship works through scopes: the child coroutine is started from
 the scope corresponding to the parent coroutine.
 
 It is possible to create a new scope without starting a new coroutine.
 The `coroutineScope` function does this. 
-If we ever needed to start new coroutines in a structured way inside a `suspend` function without access to the outer scope,
+When we need to start new coroutines in a structured way inside a `suspend` function without access to the outer scope,
 for example inside `loadContributorsConcurrent`,
-we could create a new coroutine scope which automatically becomes a child of the outer scope that this `suspend` function
+we can create a new coroutine scope which automatically becomes a child of the outer scope that this `suspend` function
 is called from.
 
 It's also possible to start a new coroutine from the global scope using `GlobalScope.async` or `GlobalScope.launch`.
@@ -62,7 +62,7 @@ Therefore, if the scope corresponds to a coroutine, then the parent coroutine do
 launched in its scope are complete.
 
 When using `GlobalScope.async` there is no structure that binds several coroutines to a smaller scope.
-The coroutines started from a global scope are all independent; 
+The coroutines started from the global scope are all independent; 
 their lifetime is limited only by the lifetime of the whole application.
 It is possible to store a reference to the coroutine started from the global scope and wait for its completion or cancel it
 explicitly, but it won't happen automatically as it would with a structured one.

@@ -15,7 +15,7 @@ interface GitHubService {
 The main idea behind it is that when you use a `suspend` function to perform a request, the underlying thread isn't blocked.
 We'll discuss how exactly it works a bit later. 
 
-To make use of this functionality, we need the latest version of the Retrofit library (`2.5.1-SNAPSHOT` at the moment).
+To make use of this functionality, we need the latest version of the Retrofit library.
 For this tutorial, nothing needs to be changed; the right version is already specified in the project dependencies. 
 
 Note that now `getOrgRepos` returns the result directly instead of returning a `Call`.

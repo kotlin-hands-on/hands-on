@@ -144,7 +144,7 @@ It's very easy to change this code to run "contributors" coroutines on different
 Specify `Dispatchers.Default` as the context argument for the `async` function:
 
 ```kotlin
-async(Dispacthers.Default) { ... }
+async(Dispatchers.Default) { ... }
 ``` 
 
 `CoroutineDispatcher` determines what thread or threads the corresponding coroutine should be run on.

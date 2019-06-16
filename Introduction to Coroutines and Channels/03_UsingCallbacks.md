@@ -73,7 +73,7 @@ so that the whole result is received earlier!
 Handling the data for each repository should be then divided into two parts:
 first the loading, then processing the resulting response.
 The second "processing" part should be extracted into a callback.
-The loading for the second repository can then be started before the result for the first repository
+The loading for each repository can then be started before the result for the previous repository
 is received (and the corresponding callback is called): 
 
 ![](./assets/3-callbacks/Callbacks.png)

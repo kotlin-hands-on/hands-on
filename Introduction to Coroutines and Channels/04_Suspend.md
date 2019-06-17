@@ -1,7 +1,7 @@
 # Using suspend functions
 
 Retrofit recently added native support for coroutines, and we're going to use it.
-Instead of returning `Call<List<Repo>>`, you now define your API call as a `suspend` function:
+Instead of returning `Call<List<Repo>>`, we now define our API call as a `suspend` function:
 
 ```kotlin
 interface GitHubService {
@@ -12,11 +12,11 @@ interface GitHubService {
 }
 ```
 
-The main idea behind it is that when you use a `suspend` function to perform a request, the underlying thread isn't blocked.
+The main idea behind it is that when we use a `suspend` function to perform a request, the underlying thread isn't blocked.
 We'll discuss how exactly it works a bit later. 
 
 To make use of this functionality, we need the latest version of the Retrofit library.
-For this tutorial, nothing needs to be changed; the right version is already specified in the project dependencies. 
+For this tutorial, we don't need to change anything; the right version is already specified in the project dependencies. 
 
 Note that now `getOrgRepos` returns the result directly instead of returning a `Call`.
 If the result is unsuccessful, an exception is thrown.
@@ -47,13 +47,13 @@ interface GitHubService {
 The task is to change the code of the function loading contributors to make use of these new `suspend` functions.
  
 However, a `suspend` function can't be called everywhere,
-if it is called from `loadContributorsBlocking`, there will be an error
+if it is called from `loadContributorsBlocking`, there will be an error:
 "Suspend function 'getOrgRepos' should only be called from a coroutine or another suspend function".
 So, we need to mark our new version of the `loadContributors` function as `suspend` in order to use this new API.
 
 Please now do the following task, and right after that we'll discuss how `suspend` functions actually work and how
 they are different from regular ones.
-We'll also see by how you can call a `suspend` function from a non-suspending one.
+We'll also see how to call a `suspend` function from a non-suspending one.
 
 #### Task
 
@@ -67,7 +67,7 @@ Run the program choosing the `SUSPEND` option and make sure that the UI is still
 Modifying the code is straightforward.
 Just replace `.getOrgReposCall(req.org).execute()` with `.getOrgRepos(req.org)`
 and repeat the same replacement for the second "contributors" request.
-That's it.
+That's it!
 Everything else stays the same: 
 
 ```kotlin
@@ -93,8 +93,8 @@ directly.
 But that's an implementation detail specific to the Retrofit library.
 With other libraries, the API will be different, but the concept is the same:
 
-_Your code with `suspend` functions looks surprisingly similar to the "blocking" version.
-It's readable and expresses exactly what you're trying to achieve._
+_Our code with `suspend` functions looks surprisingly similar to the "blocking" version.
+It's readable and expresses exactly what we're trying to achieve._
 
 The major difference with a blocking version is that instead of blocking the thread, we suspend the coroutine:
 
@@ -136,7 +136,7 @@ Meanwhile, the thread is free to be occupied with other activities:
 
 ![](./assets/4-suspend/SuspensionProcess.gif)
 
-When the computation is ready to be continued, it's gets returned to a thread (but not necessarily to the same one). 
+When the computation is ready to be continued, it gets returned to a thread (but not necessarily to the same one). 
 
 Let's return to our `loadContributorsSuspend` example.
 Each "contributors" request now waits for the result via the suspension mechanism.
@@ -147,7 +147,7 @@ The coroutine resumes only after the corresponding response is received:
 
 ![](./assets/4-suspend/SuspendRequests.png)
 
-While the response is wait to be received, the thread is free to be occupied with other tasks.
+While the response is waiting to be received, the thread is free to be occupied with other tasks.
 That's why when users are loaded via the `COROUTINE` option, the UI stays responsive, despite all the requests
 taking place on the main UI thread.
 The log confirms that all the requests are sent on the main UI thread:
@@ -166,12 +166,12 @@ To enable it, open `Run | Edit configurations...` and add the `-Dkotlinx.corouti
 ![](./assets/4-suspend/RunConfiguration.png)
 
 Then while running `main` with this option, the coroutine name will be attached to the thread name.
-You can also modify the template for running all the Kotlin files and enable this option by default.
+We can also modify the template for running all the Kotlin files and enable this option by default.
 
 In our case, all the code runs on one coroutine,
 the mentioned above "load contributors" coroutine, denoted as `@coroutine#1`.
 
 However, in this version, while waiting for the result, we don't reuse the thread for sending other requests,
 because we have written our code in a sequential way. The new request is sent only when the previous result is received.
-`suspend` functions treat the thread fairly and don't block it for pure "waiting",
+`suspend` functions treat the thread fairly and don't block it for "waiting",
 but it doesn't yet bring any concurrency to the picture. Let's see how this can be improved.

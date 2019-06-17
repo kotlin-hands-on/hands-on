@@ -15,9 +15,9 @@ launch { /* this: CoroutineScope */
 
 New coroutines can only be started inside a scope.
 `launch` and `async` are declared as extensions to `CoroutineScope`, so an implicit or explicit receiver must always
-be passed when you call them.
+be passed when we call them.
 The coroutine started by `runBlocking` is the only exception: `runBlocking` is defined as a top-level function.
-But because it blocks the current thread, it is intended primarily to be used in `main` functions and tests, as
+But because it blocks the current thread, it is intended primarily to be used in `main` functions and tests as
 a bridge function.
 
 When starting a new coroutine inside `runBlocking`, `launch`, or `async` it is started automatically inside the scope: 
@@ -71,9 +71,9 @@ explicitly, but it won't happen automatically as it would with a structured one.
 
 Let's compare two versions of the `loadConstributorsConcurrent` function:
 one using `coroutineScope` to start all the child coroutines and the other using `GlobalScope`.
-We'll compare how both versions behave when you try to cancel the parent coroutine.
+We'll compare how both versions behave when we try to cancel the parent coroutine.
 
-Add a 3-second delay to all the coroutines sending requests, so that you have enough time to cancel the loading after
+We can add a 3-second delay to all the coroutines sending requests, so that we have enough time to cancel the loading after
 the coroutines are started, but before the requests are sent:  
 
 ```kotlin
@@ -134,7 +134,7 @@ Now let's repeat the same procedure but this time choose the `NOT_CANCELLABLE` o
 9555 [DefaultDispatcher-worker-8 @coroutine#36] INFO  Contributors - mpp-example: loaded 8 contributors
 ```
 
-Nothing happens! No coroutines are canceled, all the requests are still sent.
+Nothing happens! No coroutines are canceled, and all the requests are still sent.
 
 Let's look at how the cancellation is implemented in our "contributors" program.
 When the `cancel` button is clicked, we need to explicitly cancel the main "loading" coroutine.

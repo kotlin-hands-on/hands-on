@@ -1,9 +1,9 @@
 # Concurrency
 
-Kotlin coroutines are extremely cheap in comparison to threads.
-Each time when you want to start a new computation asynchronously, you can create a new coroutine.
+Kotlin coroutines are extremely inexpensive in comparison to threads.
+Each time when we want to start a new computation asynchronously, we can create a new coroutine.
 
-To start a new coroutine just use one of the main "coroutine builders": `launch`, `async`, or `runBlocking`.
+To start a new coroutine we can just use one of the main "coroutine builders": `launch`, `async`, or `runBlocking`.
 Different libraries can define additional coroutine builders.
 
 `async` starts a new coroutine and returns a `Deferred` object.
@@ -17,10 +17,10 @@ a computation that isn't expected to return a specific result.
 It is possible to wait until it completes by calling `Job.join()`. 
 
 `Deferred` is a generic type which extends `Job`.
-Your `async` call can return a `Deferred<Int>` or `Deferred<CustomType>`
+An `async` call can return a `Deferred<Int>` or `Deferred<CustomType>`
 depending on what the lambda returns (the last expression inside the lambda is the result).
 
-To get the result of a coroutine, call `await()` on the `Deferred` instance.
+To get the result of a coroutine, we call `await()` on the `Deferred` instance.
 While waiting for the result, the coroutine that this `await` is called from, suspends:
 
 ```run-kotlin
@@ -110,7 +110,7 @@ deferreds.awaitAll() // List<List<User>>
 
 We wrap each "contributors" request with `async`.
 That will create as many coroutines as number of repositories we have.
-But since it's cheap to create a new coroutine, it's not an issue.
+But since it's really inexpensive to create a new coroutine, it's not an issue.
 We can create as many as we need.
  
 `async` returns `Deferred<List<User>>`. 
@@ -140,7 +140,7 @@ Run the code and check the log; we can see that all the coroutines still run on 
 We haven't yet employed multithreading in any way,
 but already we have the benefits of running coroutines concurrently!
 
-It's very easy to change this code to run "contributors" coroutines on different threads from the common thread pool.
+It's very easy for us to change this code to run "contributors" coroutines on different threads from the common thread pool.
 Specify `Dispatchers.Default` as the context argument for the `async` function:
 
 ```kotlin
@@ -222,7 +222,7 @@ and returns the result.
 An alternative but more verbose way to express this would be to start a new coroutine and explicitly wait (by
 suspending) until it completes: `launch(context) { ... }.join()`. 
 
-How exactly does it work "using the dispatcher from the outer scope"?
+How exactly does "using the dispatcher from the outer scope" work?
 A more correct way to say this would be "using the dispatcher from the outer scope's context".
 What is a coroutine scope and how is it different from a coroutine context?
 (These two might be confused).

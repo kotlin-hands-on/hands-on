@@ -5,7 +5,7 @@ Writing code with a shared mutable state is known to be quite difficult and erro
 Sharing information by communication instead of sharing information using the common mutable state tries to simplify this.
 Coroutines can communicate with each other via _channels_.
 
-Channels are communication primitives that allow you to pass data between different coroutines.
+Channels are communication primitives that allow us to pass data between different coroutines.
 One coroutine can _send_ some information to a channel, while the other one can _receive_ this information from it:
 
 ![](./assets/8-channels/UsingChannel.png)
@@ -17,18 +17,18 @@ When needed, many coroutines can send information to the same channel, and many 
 ![](./assets/8-channels/UsingChannelManyCoroutines.png)
 
 Note that when many coroutines receive information from the same channel, each element is handled only once by one
-of the consumers; and handling it automatically means removing this element from the channel.
+of the consumers; handling it automatically means removing this element from the channel.
 
-You can think of a similarity between a channel and a collection of elements
+We can think of a channel as similar to a collection of elements
 (the direct analog would be a queue: elements are added to the one end and received from the another).
 However, there's an important difference:
-unlike collections, even their synchronized versions, a channel can _suspend_ `send` and `receive` operations.
+unlike collections, even in their synchronized versions a channel can _suspend_ `send` and `receive` operations.
 This happens when the channel is empty or full (the channel's size might be constrained, and then it can be full).
 
 `Channel` is represented via three different interfaces: `SendChannel`, `ReceiveChannel`,
 and `Channel` which extends the first two.
-You usually create a channel and give it to producers as a `SendChannel` instance, so that they can only send to it,
-and to consumers as `ReceiveChannel` instance, so that they could only receive from it.
+You usually create a channel and give it to producers as a `SendChannel` instance, so that only they can send to it,
+and to consumers as `ReceiveChannel` instance, so that only they can receive from it.
 Note that both `send` and `receive` methods are declared as `suspend`:
 
 ```kotlin
@@ -59,7 +59,7 @@ An unlimited channel is the closest analog to queue: producers can send elements
 and it will grow infinitely.
 The `send` call will never be suspended.
 If there's no more memory, you'll get an `OutOfMemoryException`. 
-The difference with queue appears when a consumer tries to receive from an empty channel
+The difference with a queue appears when a consumer tries to receive from an empty channel
 and gets suspended until some new elements are sent to this channel.
 
 - *Buffered channel*
@@ -76,13 +76,13 @@ When the channel is full, the next `send` call on it suspends until more free sp
 ![](./assets/8-channels/RendezvousChannel.png)
 
 The “Rendezvous” channel is a channel without a buffer; it's the same as a creating a buffered channel with zero size.
-One of the functions (`send` or `receive`) gets always suspended until the other is called.
+One of the functions (`send` or `receive`) always gets suspended until the other is called.
 If the `send` function is called and there's no suspended `receive` call ready to process the element,
 then `send` suspends.
 Similarly, if the `receive` function is called and the channel is empty, in other words,
 there's no suspended `send` call ready to send the element, the `receive` call suspends.
 The "rendezvous" name ("a meeting at an agreed time and place") refers to the fact that `send` and `receive`
-should "meet in time".
+should "meet on time".
 
 - *Conflated channel* 
 
@@ -92,7 +92,7 @@ A new element sent to the conflated channel will overwrite the previously sent e
 get only the latest element.
 The `send` call will never suspend.
 
-When you create a channel, you specify its type or the buffer size if you need a buffered one:
+When you create a channel, you specify its type or the buffer size (if you need a buffered one):
 
 ```kotlin
 val rendezvousChannel = Channel<String>()
@@ -103,7 +103,7 @@ val unlimitedChannel = Channel<String>(UNLIMITED)
 
 By default, a "Rendezvous" channel is created.
 
-In the following example, we will create a “Rendezvous” channel, two producer coroutines, and one consumer coroutine:  
+In the following example, we will create a “Rendezvous” channel, two producer coroutines, and a consumer coroutine:  
 
 ```run-kotlin
 import kotlinx.coroutines.channels.Channel
@@ -169,14 +169,14 @@ repeat(repos.size) {
 }
 ```
 
-Since we call the `receive` calls consequently, no additional synchronization is needed.
+Since we call the `receive` calls sequentially, no additional synchronization is needed.
 
 #### Solution
 
-As with the `loadContributorsProgress` function, you can create an `allUsers` variable to store
+As with the `loadContributorsProgress` function, we can create an `allUsers` variable to store
 the intermediate states of the "all contributors" list.
-When you receive each new list from the channel,
-you add it to the list of all users, aggregate the result and update the state using the `updateState` callback:
+When we receive each new list from the channel,
+we can add it to the list of all users, aggregate the result, and update the state using the `updateState` callback:
 
 ```kotlin
 suspend fun loadContributorsChannels(
@@ -209,15 +209,15 @@ suspend fun loadContributorsChannels(
 ```
 
 Note that the results for different repositories are added to the channel as soon as they are ready.
-At first, when all the requests are sent, and no data is received, the `receive` call suspends.
+At first, when all the requests are sent and no data is received, the `receive` call suspends.
 In this case, the whole "load contributors" coroutine suspends.
 Then, when the list of users is sent to the channel, the "load contributors" coroutine resumes,
 the `receive` call returns this list, and the results are immediately updated. 
  
-You've learned how to use suspend functions, execute coroutines concurrently and share 
+We've learned how to use suspend functions, execute coroutines concurrently, and share 
 information between coroutines using channels.
 
 Note that neither coroutines nor channels will completely eradicate the complexity that comes from concurrency,
-but they will definitely make your life easier when you need to reason about it and understand what's going on.
+but they will definitely make your life easier when we need to reason it and understand what's going on.
 
 Next, we'll discuss how to test the code that uses coroutines.

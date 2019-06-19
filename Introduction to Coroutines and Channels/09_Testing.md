@@ -33,11 +33,11 @@ and the files `Request4SuspendKtTest`, ... `Request7ChannelsKtTest` contain the 
 
 However, we have two problems here:
 
-* These tests run too long.
-Each test takes around 4 or 2 seconds accordingly, so we need to wait for the results each time.
+* These tests take too long to run.
+Each test takes around 2 to 4 seconds, so we need to wait for the results each time.
 Such an approach is not very efficient.
    
-* We can't rely on the exact time the solution runs, because it still takes additional time to warm up, run the surrounding code etc.
+* We can't rely on the exact time the solution runs, because it still takes additional time to warm up and run the code etc.
 We could add an additional constant, but then it will differ from a machine to a machine.
 Note that the mock service delays should be higher than this constant so that we can see a difference.
 If the constant is 0.5 sec, making the delays 0.1 sec won't be enough. 
@@ -45,14 +45,14 @@ If the constant is 0.5 sec, making the delays 0.1 sec won't be enough.
 A better way would be to use special frameworks to test the timing while running the same code several times
 (which increases the total time even more), but it's complicated to learn and set up.  
 
-In this case, however, we want to test a very simple thing: that our solutions with provided test delays behave as we expect,
+In this case, however, we want to test a very simple thing: that our solutions with provided test delays behave as we expect;
 one faster than the other.
 We're not yet interested in the real-life performance tests.
 
-To fix the mentioned problems, you can use *virtual* time.
-For that, you need to use a special test dispatcher.
+To fix these problems, we can use *virtual* time.
+For this, we need to use a special test dispatcher.
 It keeps track of the virtual time passed from the start, and runs everything immediately in real time.
-When you run coroutines on this dispatcher, the `delay` will return straight away and advance the virtual time.
+When we run coroutines on this dispatcher the `delay` will return straight away and advance the virtual time.
 
 The tests using this mechanism run fast, but you can still check what happens at different moments in virtual time.
 The total running time dramatically decreases:
@@ -83,14 +83,14 @@ suspend fun foo() {
 }
 ```
 
-You can check the current virtual time using the `currentTime` property of `TestCoroutineScope`.
+We can check the current virtual time using the `currentTime` property of `TestCoroutineScope`.
 Note that the actual running time in this example is several milliseconds,
 while virtual time equals the delay argument exactly, which is 1000 milliseconds.
 
-To enjoy the effect of "virtual" `delay` in child coroutines,
-you should start all the child coroutines with `TestCoroutineDispatcher`. 
+To enjoy the full effect of "virtual" `delay` in child coroutines,
+we should start all the child coroutines with `TestCoroutineDispatcher`. 
 Otherwise, it won't work.
-This dispatcher is automatically inherited from the other `TestCoroutineScope`, unless you provide the same dispatchers:
+This dispatcher is automatically inherited from the other `TestCoroutineScope`, unless we provide the same dispatchers:
 
 ```kotlin
 @Test
@@ -112,22 +112,22 @@ suspend fun bar() = coroutineScope {
 }
 ```
 
-Try calling `launch` with the context of `Dispatchers.Default` in the example above
-and make sure the test fails: you will get an exception saying that the job has not completed yet.
+We can try calling `launch` with the context of `Dispatchers.Default` in the example above
+and make sure the test fails: we will get an exception saying that the job has not completed yet.
 
-You can test the `loadContributorsConcurrent` function in this way only if it starts the child coroutines 
+We can test the `loadContributorsConcurrent` function in this way only if it starts the child coroutines 
 with the inherited context, without modifying it using the `Dispatchers.Default` dispatcher.
-You can specify the context elements like the dispatcher when you *call* a function rather than when you *define* it:
+We can specify the context elements like the dispatcher when we *call* a function rather than when we *define* it:
 which is more flexible and easier to test.
 
 Note that the testing API that supports virtual time is experimental and may change in the future.
-By default, you'll see compiler warnings if you use it. 
-To suppress these warnings, you need to annotate the test function or the whole class containing the tests.
-You can add `@UseExperimental(ExperimentalCoroutinesApi::class)` to your test class or function.
-By adding such annotation, you emphasize that you understand that the API can change and is ready
-to update your usages if needed (most probably, automatically).
+By default, we'll see compiler warnings if we use it. 
+To suppress these warnings, we need to annotate the test function or the whole class containing the tests.
+We can add `@UseExperimental(ExperimentalCoroutinesApi::class)` to our test class or function.
+By adding such annotation, we emphasize that we understand that the API can change and is ready
+to update our usages if needed (most probably, automatically).
  
-You also need to add the compiler argument saying that you're using the experimental API:
+We also need to add the compiler argument telling it that we're using the experimental API:
 
 ```kotlin
 compileTestKotlin {
@@ -168,7 +168,7 @@ fun test() = runBlockingTest {
 ```
 
 Uncomment the commented assertions checking the exact virtual time.
-And don't forget to add `@UseExperimental(ExperimentalCoroutinesApi::class)`.
+And let's not forget to add `@UseExperimental(ExperimentalCoroutinesApi::class)`.
 
 #### Solution
 
@@ -189,8 +189,8 @@ fun testConcurrent() = runBlockingTest {
 }
 ```
 
-When you check the progress, you check first that the results are available exactly at the expected virtual time,
-and then after that check the results: 
+When we check the progress, we first check that the results are available exactly at the expected virtual time,
+and then after that we check the results: 
 
 ```kotlin
 fun testChannels() = runBlockingTest {
@@ -208,11 +208,11 @@ fun testChannels() = runBlockingTest {
 ```
 
 The first intermediate result for the last version with 'channels' is available sooner in comparison to the 'progress' version,
-and you can observe that difference in tests using virtual time.
+and we can see that difference in tests using virtual time.
 
 The tests for the remaining "suspend" and "progress" tasks are very similar;
-you can find them in the project 'solutions' branch.
+we can find them in the project 'solutions' branch.
 
 You can find more information about using virtual time and
 experimental testing package [here](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/).
-Share your feedback of how well it works for you!
+Share your feedback with us of how well it works for you!

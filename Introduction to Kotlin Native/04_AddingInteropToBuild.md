@@ -1,14 +1,16 @@
 # Adding interop to build process
 
-In order to use header files, we need to make sure they are generated as part of the build process. For this, add the following entry to the `build.gradle` file
+In order to use header files, we need to make sure they are generated as part of the build process. For this, add the `compilations` entry to the `build.gradle` file
 
 ```groovy
 macosX64("macos") {
-        compilations.main { // NL
-            cinterops {     // NL
-                libcurl     // NL
-            }               // NL
-        }                   // NL
+        // C Interop support
+        compilations.main {
+            cinterops {    
+                libcurl    
+            }              
+        }                  
+
         binaries {
             executable {
                 // ...
@@ -17,7 +19,7 @@ macosX64("macos") {
     }
 ```
 
-The new lines added are marked with `// NL`. The format is adding `cinterops` and then an entry for each `def` file. By default, if the name of the file is used but all this 
+The format is adding `cinterops` and then an entry for each `def` file. By default, if the name of the file is used but all this 
 can be overriden with additional parameters
 
 ```groovy

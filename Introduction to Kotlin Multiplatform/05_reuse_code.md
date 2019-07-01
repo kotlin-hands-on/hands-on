@@ -42,6 +42,26 @@ It allows one to easily share code between platforms.
 Now we may update the code in both `jsMain` and `jvmMain` source
 sets to use the newly added `jvmHost` and `jvmPort` constants.
 
+## Using Common Code
+
+Let's use the new constants in the JS code from the `src/jsMain/kotlin/main.kt`
+
+```kotlin
+const val jvmBackend = "http://$jvmHost:$jvmPort"
+```
+
+In the `src/jvmMain/kotlin/main.kt` we should have
+
+```kotlin
+fun main() {
+  val host = jvmHost
+  val port = jvmPort
+
+  val server = embeddedServer(Netty, host = host, port = port) //...
+```
+
+One may inline the `host` and `port` variables to simplify the program.
+
 ## Running the App
 
 Now it is time to start both the server-side JVM process,

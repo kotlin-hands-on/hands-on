@@ -33,7 +33,7 @@ fun loadContributorsBlocking(req: RequestData) : List<User> {
         .getOrgReposCall(req.org)          // #1
         .execute()                         // #2
         .also { logRepos(req, it) }        // #3
-        .body() ?: listOf()                // #4
+        .body() ?: emptyList()             // #4
 
     return repos.flatMap { repo ->
         service
@@ -60,12 +60,12 @@ If the HTTP response contains an error, this error will be logged here.
 Lastly, we need to get the body of the response, which contains the desired data.
 For simplicity in this tutorial, we'll use an empty list as a result in case
 there is an error, and log the corresponding error (`#4`).
-To avoid repeating `.body() ?: listOf()` over and over, 
+To avoid repeating `.body() ?: emptyList()` over and over, 
 we declare an extension function `bodyList`:
 
 ```kotlin
 fun <T> Response<List<T>>.bodyList(): List<T> {
-    return body() ?: listOf()
+    return body() ?: emptyList()
 }
 ```   
 

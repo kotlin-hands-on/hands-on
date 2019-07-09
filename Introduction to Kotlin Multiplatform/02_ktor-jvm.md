@@ -3,9 +3,9 @@
 
 Let's switch closer to the code. We will open a [Ktor](https://ktor.io)
 web server application written in Kotlin/JVM and port it to the Multiplatform
-project. 
+project or MPP project. 
 
-It is time to clone the
+It is the time to clone the
 [github.com/kotlin-hands-on/intro-mpp](https://github.com/kotlin-hands-on/intro-mpp)
 repository and open `step-001` branch. We may also just download the
 [archive](https://github.com/kotlin-hands-on/intro-mpp/archive/step-001.zip)
@@ -24,7 +24,9 @@ for the best JRE, OpenJDK, or JDK distribution.
 Before we move on into the conversion to the Multiplatform project,
 let's run the application. The easiest way to perform is to start the
 `run` task of the Gradle project. One may do that via either the _Gradle_
-tool window or console.
+tool window or console. Please note, the task will start the web server for
+us, it will be running endlessly. We may stop it manually when the
+server is no longer needed.
 
 We should be able to see the process output like that
 
@@ -40,8 +42,7 @@ For a zoomed image try
 
 ```
 
-We may open several URLs from the output to see different Mandelbrot set
-images. Try changing the parameter values for having few more curios
-images in addition to the pre-defined parameters. 
-
+Let's open several URLs from the output to see different Mandelbrot set
+images. We may try changing coordinates back and forth to see more images.
+It is clear -- we do need a better UI for the renderer. Let's implement it now! 
  

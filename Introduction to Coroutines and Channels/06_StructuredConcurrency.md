@@ -6,7 +6,7 @@ _Coroutine context_ stores additional technical information used to run a given 
 like the dispatcher specifying the thread or threads the coroutine should be scheduled on.
 
 When `launch`, `async`, or `runBlocking` are used to start a new coroutine, they automatically create the corresponding scope.
-All these functions take a lambda with receiver as an argument, and the implicit reciever type is the `CoroutineScope`:
+All these functions take a lambda with receiver as an argument, and the implicit receiver type is the `CoroutineScope`:
 
 ```kotlin
 launch { /* this: CoroutineScope */

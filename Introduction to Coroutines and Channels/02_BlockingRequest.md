@@ -116,7 +116,7 @@ The resulting list should be sorted in descending order according to the number 
 
 #### Task
 
-Open `src/tasks/Aggregation.kt` and implement `List<User>.aggreate()` function.
+Open `src/tasks/Aggregation.kt` and implement `List<User>.aggregate()` function.
 [The corresponding test file](https://www.jetbrains.com/help/idea/navigating-between-test-and-test-subject.html)
 shows an example of the expected result.
 

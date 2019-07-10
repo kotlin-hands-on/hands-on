@@ -1,6 +1,7 @@
-# HTML Canvas for Rendering
+# Common Rendering and JS
 
-Now we are ready to update the JS code to implement the `expect`-ed declarations. 
+Now we are ready to update our Kotlin/JS code to provide 
+`actual` declarations for all the `expect` declarations from the `commonMain`. 
 We will be using the [HTML Canvas](https://www.w3schools.com/html/html5_canvas.asp)
 on the client-side to render the images.
 
@@ -8,6 +9,7 @@ on the client-side to render the images.
 
 The actual `Color` class for the client-side can be implemented from scratch.
 Let's create the `colour-actual.kt` file in the `src/jsMain/kotlin` folder
+with the following contents
 
 ```kotlin
 actual class Color(
@@ -19,7 +21,9 @@ actual fun Colors.newColor(r: Int, g: Int, b: Int) = Color(r, g, b)
 actual val Colors.BLACK: Color get() = Color(0, 0, 0)
 ```
 
-That should be enough to fix compilation of the `jsMain` source set. Now it is
+We've also added the `actual` declarations for the `Colors.BLACK` property
+and for the `Colors.newColor` function.
+That should be enough to fix the compilation of the `jsMain` source set. Now it is
 time to support rendering to HTML Canvas
 
 ## Adding Canvas Support
@@ -58,9 +62,10 @@ fun renderToCanvas(canvas : HTMLCanvasElement, action: (FractalImage) -> Unit) {
 ## Using the Canvas
 
 The very last step is to call the rendering code from the `main.kt` file. 
-We add several more lines to the `src/jsMain/kotlin/main.kt` file so that 
-the `main()` function will add canvas after `img()` function call:
+Let's add several more lines to the `src/jsMain/kotlin/main.kt` file so that 
+the `main()` function would add a canvas element after the `img()` function call:
 ```kotlin
+img//(...)
 canvas {
   id = "canvas"
   width = "600"
@@ -80,8 +85,8 @@ renderToCanvas(document.getElementById("canvas") as HTMLCanvasElement) { image -
 
 It is now time to run the Gradle `run` task to start the server-side Kotlin/JVM project, and the
 `jsRun` task to start the client-side Kotlin/JS application. We should be
-able to see two images - the one rendered with Kotlin/JVM on the server-side and the other
-one rendered in the browser:
+able to see two images - the one rendered with the Kotlin/JVM server-side, and the second
+one is rendered directly a browser with Kotlin/JS:
 
 ![](./assets/site-full.png)
 

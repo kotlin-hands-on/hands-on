@@ -52,7 +52,7 @@ To get a better understanding of what's going on in this example, watch the foll
 
 If there is a list of deferred objects, it is possible to call `awaitAll` to await the results of all of them:
 
-```kotlin
+```run-kotlin
 import kotlinx.coroutines.*
 
 fun main() = runBlocking {

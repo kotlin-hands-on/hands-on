@@ -1,6 +1,6 @@
 # Writing the Application Code
 
-Now that we have our library and the correspoing Kotlin stubs, we can consume them from our application. 
+Now that we have our library and the corresponding Kotlin stubs, we can consume them from our application. 
 
 
 Create a new file called `Main.kt` under the corresponding `src/platform` folder. In our case on macOS it would be `src/macosMain/kotlin/Main.kt` 

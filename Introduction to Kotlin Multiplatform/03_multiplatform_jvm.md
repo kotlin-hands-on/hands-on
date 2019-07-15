@@ -1,10 +1,10 @@
 # Turning Multiplatform
 
-The first step of the transition to the Multiplatform project
-is switching the Gradle plugins. We need to migrate to the
+The first step for transitioning to the Multiplatform project
+is to switch from the Gradle plugins to the
 [kotlin-multiplatform](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html) plugin.
 
-we will do the following changes to the project:
+We will make the following changes to the project:
 
 * change the Gradle plugin to `kotlin("multiplatform")`
 * fix the `run` task 
@@ -38,15 +38,15 @@ kotlin {
 
 Now we use the [kotlin-multiplatform](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html)
 Gradle plugin.
-We should click to the _Apply Dependencies_ action on the yellow stripe in
-the `build.gradle.kts` file to let the IDE apply our changes to the project.
+We need to click the  _Apply Dependencies_ action on the yellow stripe in
+the `build.gradle.kts` file to get the IDE to apply our changes to the project.
 
 The `kotlin { jvm() }` block instructs the Kotlin Multiplatform Gradle
 plugin that we would like to have a Kotlin/JVM target
 
 ## Fixing the Dependencies Block 
 Now it is time to fix the `dependencies{}` block. The easiest way to do that
-it to add the following prefix to it in the `build.gradle.kts` file:
+is to add the following prefix to it in the `build.gradle.kts` file:
 
 ```kotlin
 kotlin.sourceSets["jvmMain"].dependencies { /* ... */ }
@@ -56,7 +56,7 @@ A Multiplatform Kotlin project has many source sets that are compiled
 to different targets, including, for example JVM, JavaScript, iOS. 
 By the `kotlin.sourceSets["jvmMain"]` expression we specify the
 dependencies of the `jvm` source set's `main` target. For example, 
-saying `kotlin.sourceSets["jvmTest"]` would configure `test` source
+saying `kotlin.sourceSets["jvmTest"]` would configure the `test` source
 set of the same target. Refer to the
 [kotlin-multiplatform](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html) plugin
 documentation for more details

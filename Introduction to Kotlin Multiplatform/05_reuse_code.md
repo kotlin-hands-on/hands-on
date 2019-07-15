@@ -21,7 +21,7 @@ fun main() {
 ## Using Kotlin/Common
 
 The [kotlin-multiplatform](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html) plugin
-supports the Kotlin/Common code as the way to share code
+supports the Kotlin/Common code and is a way to share code
 between different targets. Let's use it now to avoid duplication
 of the JVM server address. 
 
@@ -33,14 +33,14 @@ const val jvmHost = "127.0.0.1"
 const val jvmPort = 8888
 ``` 
 
-The declarations from the Kotlin files under the
+The declarations from the Kotlin files under
 `src/commonMain/kotlin` are visible to all targets. We can only
 use the platform-independent subset of the Kotlin standard library
-from Kotlin/Common source files. Kotlin Multiplatform libraries are allowed too.
-It allows one to easily share code between platforms.
+from the Kotlin/Common source files. The Kotlin Multiplatform libraries are allowed too.
+It allows us to easily share code between platforms.
 
-Let's now update the code in both `jsMain` and `jvmMain` source
-sets to use the newly added `jvmHost` and `jvmPort` constants
+Let's now update the code in both the `jsMain` and `jvmMain` source
+sets to use the newly added `jvmHost` and `jvmPort` constants.
 
 ## Using Common Code
 
@@ -60,7 +60,7 @@ fun main() {
   val server = embeddedServer(Netty, host = host, port = port) //...
 ```
 
-One may inline the `host` and `port` variables to simplify the code above.
+We can inline the `host` and `port` variables to simplify the code above.
 
 ## Running the App
 

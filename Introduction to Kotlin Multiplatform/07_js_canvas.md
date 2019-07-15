@@ -8,8 +8,8 @@ on the client-side to render the images.
 ## Adding Colors
 
 The actual `Color` class for the client-side can be implemented from scratch.
-Let's create the `colour-actual.kt` file in the `src/jsMain/kotlin` folder
-with the following contents
+Let's create a `colour-actual.kt` file in the `src/jsMain/kotlin` folder
+with the following contents:
 
 ```kotlin
 actual class Color(
@@ -62,8 +62,8 @@ fun renderToCanvas(canvas : HTMLCanvasElement, action: (FractalImage) -> Unit) {
 ## Using the Canvas
 
 The very last step is to call the rendering code from the `main.kt` file. 
-Let's add several more lines to the `src/jsMain/kotlin/main.kt` file so that 
-the `main()` function would add a canvas element after the `img()` function call:
+Let's add a few more lines to the `src/jsMain/kotlin/main.kt` file so that 
+the `main()` function adds a canvas element after the `img()` function call:
 ```kotlin
 img//(...)
 canvas {
@@ -85,8 +85,8 @@ renderToCanvas(document.getElementById("canvas") as HTMLCanvasElement) { image -
 
 It is now time to run the Gradle `run` task to start the server-side Kotlin/JVM project, and the
 `jsRun` task to start the client-side Kotlin/JS application. We should be
-able to see two images - the one rendered with the Kotlin/JVM server-side, and the second
-one is rendered directly a browser with Kotlin/JS:
+able to see two images – the one that is rendered server-side with the Kotlin/JVM, and a second
+that is rendered directly in the browser with Kotlin/JS:
 
 ![](./assets/site-full.png)
 

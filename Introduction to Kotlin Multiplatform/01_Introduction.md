@@ -17,7 +17,7 @@ JVM and JavaScript platforms.
 ## Basics
 
 Fractals and the [Mandelbrot Set](https://en.wikipedia.org/wiki/Mandelbrot_set)
-are good assignments at a computer science classes. All we need to know right now
+are good assignments at computer science classes. All we need to know right now
 is that every pixel of an image is mapped to 2D coordinates
 (e.g. `0.03, 0.045`). We run slow computations for every pixel to figure out
 the color of it. The best picture
@@ -28,7 +28,7 @@ is visible at the area of `[-2.0 .. 2.0] x [-2.0 .. 2.0]`
 The Mandelbrot set is a fractal or a self repeating structure. If we zoom it,
 we'll likely to see something similar to what we've seen before. It
 opens up the use-case for any fractal rendering tools -- it should
-support zoom feature 
+support a zoom feature to ease the investigation of fractals. 
 
 ![](./assets/mandelbrot-zoom1.png)
 

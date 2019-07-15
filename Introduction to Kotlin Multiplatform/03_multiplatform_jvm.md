@@ -88,7 +88,7 @@ val run by tasks.creating(JavaExec::class) {
 
 We may need to refresh the Gradle project model now to make sure
 the IDE sees all our project model changes. Let's click on the _refresh_
-icon in the Gradle tab to implement it
+icon in the Gradle tab to accomplish this.
 
 ## Fixing the Sources Location
 
@@ -112,7 +112,7 @@ same Gradle `run` task as we did in the previous part of the Hands-On.
 We should be still able to see the process output like that
 
 ```
-The Manderbrot renderer is started at http://127.0.0.1:8888
+The Mandelbrot renderer is started at http://127.0.0.1:8888
 
 Open the following in a browser
   http://127.0.0.1:8888/mandelbrot

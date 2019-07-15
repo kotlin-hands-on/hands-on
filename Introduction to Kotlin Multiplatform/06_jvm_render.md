@@ -128,7 +128,7 @@ it by running the Gradle `run` task. We should see similar output
 in the console:
 
 ```
-The Manderbrot renderer is started at http://127.0.0.1:8888
+The Mandelbrot renderer is started at http://127.0.0.1:8888
 
 Open the following in a browser
   http://127.0.0.1:8888/mandelbrot

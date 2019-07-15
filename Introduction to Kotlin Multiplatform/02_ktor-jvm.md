@@ -31,7 +31,7 @@ server is no longer needed.
 We should be able to see the process output like that
 
 ```
-The Manderbrot renderer is started at http://127.0.0.1:8888
+The Mandelbrot renderer is started at http://127.0.0.1:8888
 
 Open the following in a browser
   http://127.0.0.1:8888/mandelbrot

@@ -1,34 +1,34 @@
 
 # The JVM Application
 
-Let's switch closer to the code. We will open a [Ktor](https://ktor.io)
-web server application written in Kotlin/JVM and port it to the Multiplatform
-project or MPP project. 
+Let's switch to the code. We will open the [Ktor](https://ktor.io)
+web server written in Kotlin/JVM, and port it to the Multiplatform
+project. 
 
-It is the time to clone the
+It is time to clone the
 [github.com/kotlin-hands-on/intro-mpp](https://github.com/kotlin-hands-on/intro-mpp)
-repository and open `step-001` branch. We may also just download the
+repository and open the `step-001` branch. We could also just download the
 [archive](https://github.com/kotlin-hands-on/intro-mpp/archive/step-001.zip)
 from GitHub directly. 
 
-Let's open the project in IntelliJ IDEA by pointing it to the `build.gradle.kts`
-project file. It is a Gradle project. Throughout the tutorial we will be
-using Gradle build system with Kotlin Gradle DSL. We should note that,
-Kotlin compiler itself and the Gradle build system require a Java 1.8 or 11
-runtime on our computes. Check out the 
+Let's open the `build.gradle.kts` project file in IntelliJ IDEA. It is a Gradle project. 
+Throughout this tutorial, we will be
+using the Gradle build system with Kotlin Gradle DSL. We should note that
+the Kotlin compiler itself and the Gradle build system requires a Java 1.8 or 11
+runtime. Check out the 
 [https://jdk.java.net/11](https://jdk.java.net/11/) or another resource 
-for the best JRE, OpenJDK, or JDK distribution.
+for the JRE, OpenJDK, or JDK distribution.
 
 ## Running the Application
 
 Before we move on into the conversion to the Multiplatform project,
-let's run the application. The easiest way to perform is to start the
-`run` task of the Gradle project. One may do that via either the _Gradle_
-tool window or console. Please note, the task will start the web server for
-us, it will be running endlessly. We may stop it manually when the
+let's run the application. The easiest way to do this is to start the
+`run` task of the Gradle project. We can do this either via the _Gradle_
+tool window or the console. Please note, the task will start the web server for
+us, which will run endlessly. We can stop it manually when the
 server is no longer needed.
 
-We should be able to see the process output like that
+We will be able to see a process output like this:
 
 ```
 The Mandelbrot renderer is started at http://127.0.0.1:8888
@@ -42,7 +42,7 @@ For a zoomed image try
 
 ```
 
-Let's open several URLs from the output to see different Mandelbrot set
-images. We may try changing coordinates back and forth to see more images.
-It is clear -- we do need a better UI for the renderer. Let's implement it now! 
+Let's open several URLs from the output to see the different Mandelbrot set
+images. We can try changing the coordinates back and forth to see more images.
+It's clear we need a better UI for the renderer. Let's implement that now! 
  

@@ -89,7 +89,7 @@ suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutine
 }
 ```
 
-Copy the implementation of `loadContributorsConcurrent` to `loadContributorsNotCancellable` (in `Request6NotCancellable.kt`)
+Copy the implementation of `loadContributorsConcurrent` to `loadContributorsNotCancellable` (in `Request5NotCancellable.kt`)
 and remove the creation of a new `coroutineScope`.
 Our `async` calls now fail to resolve, so we need to start them via `GlobalScope.async`:
 

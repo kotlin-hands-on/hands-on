@@ -9,7 +9,7 @@ rendering is now available for both client-side and server-side.
 
 ## Next Steps
 
-We may take a look to the [Multiplatform Projects](https://kotlinlang.org/docs/reference/multiplatform.html)
+Want to learn more Kotlin? Take a look at the [Multiplatform Projects](https://kotlinlang.org/docs/reference/multiplatform.html)
 documentation page or check out the Kotlin Multiplatform:
 [iOS and Android](https://kotlinlang.org/docs/tutorials/native/mpp-ios-android.html)
 tutorial.

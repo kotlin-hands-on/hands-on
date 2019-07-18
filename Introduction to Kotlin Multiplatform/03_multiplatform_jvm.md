@@ -146,8 +146,8 @@ images.
 ## Completed Code
 
 We can use the `step-002` branch of the
-[github.com/kotlin-hands-on/intro-mpp](https://github.com/kotlin-hands-on/intro-mpp)
+[github.com/kotlin-hands-on/intro-kotlin-mutliplatform](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/tree/step-002)
 repository for the solution to the tasks we've done above. 
 Alternatively, we can use the
-[archive](https://github.com/kotlin-hands-on/intro-mpp/archive/step-002.zip)
+[archive](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/archive/step-002.zip)
 from GitHub directly

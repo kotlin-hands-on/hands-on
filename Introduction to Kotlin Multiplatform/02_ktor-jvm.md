@@ -6,9 +6,9 @@ web server written in Kotlin/JVM, and port it to the Multiplatform
 project. 
 
 It is time to clone the
-[github.com/kotlin-hands-on/intro-mpp](https://github.com/kotlin-hands-on/intro-mpp)
+[github.com/kotlin-hands-on/intro-kotlin-mutliplatform](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/tree/step-001)
 repository and open the `step-001` branch. We could also just download the
-[archive](https://github.com/kotlin-hands-on/intro-mpp/archive/step-001.zip)
+[archive](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/archive/step-001.zip)
 from GitHub directly. 
 
 Let's open the `build.gradle.kts` project file in IntelliJ IDEA. It is a Gradle project. 

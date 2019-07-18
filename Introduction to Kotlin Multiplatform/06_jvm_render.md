@@ -147,9 +147,9 @@ For a zoomed image try
 ## Completed Code
 
 We can use the `step-005` branch of the
-[github.com/kotlin-hands-on/intro-mpp](https://github.com/kotlin-hands-on/intro-mpp)
+[github.com/kotlin-hands-on/intro-kotlin-mutliplatform](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/tree/step-005)
 repository as the solution for the tasks that we have done above. 
 We can also download the
-[archive](https://github.com/kotlin-hands-on/intro-mpp/archive/step-005.zip)
+[archive](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/archive/step-005.zip)
 from GitHub directly.
   

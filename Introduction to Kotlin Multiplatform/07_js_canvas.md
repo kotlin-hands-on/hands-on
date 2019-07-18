@@ -104,9 +104,9 @@ that is rendered directly in the browser with Kotlin/JS:
 ## Completed Code
 
 We may use the `step-006` branch of the
-[github.com/kotlin-hands-on/intro-mpp](https://github.com/kotlin-hands-on/intro-mpp)
+[github.com/kotlin-hands-on/intro-kotlin-mutliplatform](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/tree/step-006)
 repository as the solution of the tasks that we done above. 
 We may also just download the
-[archive](https://github.com/kotlin-hands-on/intro-mpp/archive/step-006.zip)
+[archive](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform/archive/step-006.zip)
 from GitHub directly.
    

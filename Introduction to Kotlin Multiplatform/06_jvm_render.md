@@ -69,9 +69,9 @@ the following files from the `src/jvmMain/kotlin` into `src/commonMain/kotlin`:
 * `geometry.kt`
 * `render.kt`
 
-We do not need to move the 'main.kt' and `graphics.kt` files because these files are
+We do not need to move the `main.kt` and `graphics.kt` files because these files are
 platform specific. The first one starts the HTTP server, which we do not need
-on the client-side. The graphics.kt` file uses AWT to render the image.
+on the client-side. The `graphics.kt` file uses AWT to render the image.
      
 There will be several errors in the `colour.kt` file. We are missing the
 `java.awt.Color` class definition. Let's fix it by adding the `expect`

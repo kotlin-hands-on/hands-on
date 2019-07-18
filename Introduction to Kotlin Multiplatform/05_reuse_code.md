@@ -1,6 +1,6 @@
 # Avoiding Code Duplication
 
-Right now we have a code duplication in out project. We've just hard-coded
+Right now we have a code duplication in our project. We've just hard-coded
 the URL of the JVM backend in the JS frontend. In the `src/jsMain/kotlin/main.kt`
 we have the following lines
 

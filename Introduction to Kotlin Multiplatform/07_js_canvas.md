@@ -30,6 +30,7 @@ time to support rendering to HTML Canvas
 
 Let's add the implementation code to render images into the HTML Canvas. We'll need
 to create the `src/jsMain/kotlin/canvas.kt` file with the following contents
+
 ```kotlin
 fun renderToCanvas(canvas : HTMLCanvasElement, action: (FractalImage) -> Unit) {
   val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
@@ -64,6 +65,7 @@ fun renderToCanvas(canvas : HTMLCanvasElement, action: (FractalImage) -> Unit) {
 The very last step is to call the rendering code from the `main.kt` file. 
 Let's add a few more lines to the `src/jsMain/kotlin/main.kt` file so that 
 the `main()` function adds a canvas element after the `img()` function call:
+
 ```kotlin
 img//(...)
 canvas {

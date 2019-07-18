@@ -72,7 +72,7 @@ task is to replace it with the following code:
 ```kotlin
 val run by tasks.creating(JavaExec::class) {
   group = "application"
-  main = "org.jonnyzzz.kotlin.fractals2.MainKt"
+  main = "com.jetbrains.handson.introMpp.MainKt"
   kotlin {
     val main = targets["jvm"].compilations["main"]
     dependsOn(main.compileAllTaskName)

@@ -1,14 +1,15 @@
 # Avoiding Code Duplication
 
 Right now we have a code duplication in our project. We've just hard-coded
-the URL of the JVM backend in the JS frontend. In the `src/jsMain/kotlin/main.kt`
+the URL of the JVM backend in the JS frontend. In the 
+`src/jsMain/kotlin/com/jetbrains/handson/introMpp/main.kt`
 we have the following lines
 
 ```kotlin
 const val jvmBackend = "http://127.0.0.1:8888"
 ```
 
-In the `src/jvmMain/kotlin/main.kt` we have:
+In the `src/jvmMain/kotlin/com/jetbrains/handson/introMpp/main.kt` we have:
 
 ```kotlin
 fun main() {
@@ -26,7 +27,7 @@ between different targets. Let's use it now to avoid duplication
 of the JVM server address. 
 
 Now we need to create the common file for the project by the
-`src/commonMain/kotlin/common.kt` path with the following contents
+`src/commonMain/kotlin/com/jetbrains/handson/introMpp/common.kt` path with the following contents
 
 ```kotlin
 const val jvmHost = "127.0.0.1"
@@ -44,13 +45,14 @@ sets to use the newly added `jvmHost` and `jvmPort` constants.
 
 ## Using Common Code
 
-Let's use the new constants in the JS code from the `src/jsMain/kotlin/main.kt`
+Let's use the new constants in the JS code from the 
+`src/jsMain/kotlin/com/jetbrains/handson/introMpp/main.kt`
 
 ```kotlin
 const val jvmBackend = "http://$jvmHost:$jvmPort"
 ```
 
-In the `src/jvmMain/kotlin/main.kt` we should have
+In the `src/jvmMain/kotlin/com/jetbrains/handson/introMpp/main.kt` we should have
 
 ```kotlin
 fun main() {

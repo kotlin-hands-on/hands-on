@@ -62,9 +62,10 @@ Sharing code can be done with the following algorithm
 * add the `actual` keyword for the `expect` declarations for all platforms
 
 Now it is time to run the algorithm on our project. We move
-the following files from the `src/jvmMain/kotlin` into `src/commonMain/kotlin`:
+the following files from the `src/jvmMain/kotlin` into `src/commonMain/kotlin`
+preserving the package folders `com/jetbrains/handson/introMpp`:
 
-* `colour.kt`
+* `color.kt`
 * `complex.kt`
 * `geometry.kt`
 * `render.kt`
@@ -73,9 +74,9 @@ We do not need to move the `main.kt` and `graphics.kt` files because these files
 platform specific. The first one starts the HTTP server, which we do not need
 on the client-side. The `graphics.kt` file uses AWT to render the image.
      
-There will be several errors in the `colour.kt` file. We are missing the
+There will be several errors in the `color.kt` file. We are missing the
 `java.awt.Color` class definition. Let's fix it by adding the `expect`
-declarations for colors in `src/commonMain/kotlin/common.kt`:
+declarations for colors in `src/commonMain/kotlin/com/jetbrains/handson/introMpp/common.kt`:
 
 ```kotlin
 object Colors
@@ -93,9 +94,9 @@ code, but we are not able to provide implementations. Implementations are provid
 also be [used](https://kotlinlang.org/docs/tutorials/native/mpp-ios-android.html)
 to target iOS and other platforms).
 
-Now that we've fixed the code in the `colour.kt` file to use our expected `Color` class
+Now that we've fixed the code in the `color.kt` file to use our expected `Color` class
 and the `Colors` object to deal with colors (instead of using the `java.awt.Color` class).
-We need to remove the import in the `colour.kt` and use the `Colors.newColor`
+We need to remove the import in the `color.kt` and use the `Colors.newColor`
 instead of the `Color` constructor call.
 
 The last fix has to be performed in the `render.kt` file. We need to remove the
@@ -109,7 +110,8 @@ It means that every target (e.g. JVM or JS) has to provide the `actual` declarat
 for every `expect` declarations in the `commonMain`. Let's fix the `jvmMain`
 source set first.
 
-We will need to re-create the `colour-actual.kt` file under the `src/jvmMain/kotlin` folder
+We will need to re-create the `color-actual.kt` file under the
+`src/jvmMain/kotlin/com/jetbrains/handson/introMpp` folder
 with the following `actual` declarations:
 
 ```kotlin

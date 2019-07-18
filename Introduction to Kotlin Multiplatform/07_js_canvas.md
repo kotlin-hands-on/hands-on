@@ -8,7 +8,7 @@ on the client-side to render the images.
 ## Adding Colors
 
 The actual `Color` class for the client-side can be implemented from scratch.
-Let's create a `colour-actual.kt` file in the `src/jsMain/kotlin` folder
+Let's create a `color-actual.kt` file in the `src/jsMain/kotlin/com/jetbrains/handson/introMpp` folder
 with the following contents:
 
 ```kotlin
@@ -29,7 +29,7 @@ time to support rendering to HTML Canvas
 ## Adding Canvas Support
 
 Let's add the implementation code to render images into the HTML Canvas. We'll need
-to create the `src/jsMain/kotlin/canvas.kt` file with the following contents
+to create the `src/jsMain/kotlin/com/jetbrains/handson/introMpp/canvas.kt` file with the following contents
 
 ```kotlin
 fun renderToCanvas(canvas : HTMLCanvasElement, action: (FractalImage) -> Unit) {
@@ -63,7 +63,7 @@ fun renderToCanvas(canvas : HTMLCanvasElement, action: (FractalImage) -> Unit) {
 ## Using the Canvas
 
 The very last step is to call the rendering code from the `main.kt` file. 
-Let's add a few more lines to the `src/jsMain/kotlin/main.kt` file so that 
+Let's add a few more lines to the `src/jsMain/kotlin/com/jetbrains/handson/introMpp/main.kt` file so that 
 the `main()` function adds a canvas element after the `img()` function call:
 
 ```kotlin

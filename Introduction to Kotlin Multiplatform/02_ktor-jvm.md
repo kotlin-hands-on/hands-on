@@ -23,7 +23,11 @@ for the JRE, OpenJDK, or JDK distribution.
 
 Before we move on into the conversion to the Multiplatform project,
 let's run the application. The easiest way to do this is to start the
-`run` task of the Gradle project. We can do this either via the _Gradle_
+`run` task of the Gradle project by running the console command
+`./gradlew run` on macOS and Linux or `gradlew.bat run` on Windows.
+Alternatively, we may start these tasks directly
+[from an IDE](https://www.jetbrains.com/help/idea/work-with-gradle-tasks.html).
+We can do this either via the _Gradle_
 tool window or the console. Please note, the task will start the web server for
 us, which will run endlessly. We can stop it manually when the
 server is no longer needed.
@@ -42,7 +46,12 @@ For a zoomed image try
 
 ```
 
+The `top`, `left`, `bottom` and `right` parameters define a rectangular area
+of the 2D space where the [Mandelbrot Set](https://en.wikipedia.org/wiki/Mandelbrot_set)
+is rendered. The parameters define the area as follows `[left .. right ] x [top .. bottom]`.
+
 Let's open several URLs from the output to see the different Mandelbrot set
 images. We can try changing the coordinates back and forth to see more images.
-It's clear we need a better UI for the renderer. Let's implement that now! 
- 
+
+Let's implement an HTML page and a client-side application now to better present
+the rendered fractal images now!

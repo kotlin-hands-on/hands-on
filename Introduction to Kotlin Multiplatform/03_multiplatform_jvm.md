@@ -86,6 +86,18 @@ val run by tasks.creating(JavaExec::class) {
 }
 ```
 
+That Gradle Kotlin DSL code snippet may look quite unexpected. 
+However, it is just a port of the original `run` task that we had in
+initial Kotlin/JVM project. The task starts the JVM with our
+application for us. The code above adds the
+[JavaExec](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html)
+Gradle task named `run` to the project.
+We specify the `main` class name and the classpath
+of the command in the `classpath {..}` block. In addition to that, we make our `run` task
+depend on the compilation task of the Kotlin/JVM classes of our application. 
+The `systemProperty()` call tells JVM that our application will not show any graphical
+user interface. That property makes JVM avoid showing an extra window on Windows or macOS.  
+
 We may need to refresh the Gradle project model now to make sure
 the IDE sees all our project model changes. Let's click on the _refresh_
 icon in the Gradle tab to accomplish this.
@@ -107,7 +119,11 @@ folder.
 At this moment, we should have a JVM only Kotlin Multiplatform project. 
 Before we proceed with Kotlin/JS and Kotlin/Common, let's take a little break
 and make sure our application works. For this, we can call the
-same Gradle `run` task as we did in the previous section of the Hands-On.
+same Gradle `run` task by running the console command
+`./gradlew run` on macOS and Linux or `gradlew.bat run` on Windows.
+Alternatively, we may start these tasks directly
+[from an IDE](https://www.jetbrains.com/help/idea/work-with-gradle-tasks.html)
+as we did in the previous section of the Hands-On.
 
 We should be still able to see a process output like this:
 

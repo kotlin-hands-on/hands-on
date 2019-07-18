@@ -69,6 +69,13 @@ by running the `run` task in Gradle, and the client-side
 part by running the `jsRun` task (please note, it may
 now work on Windows due to a known bug).
 
+We may run two processes in the console:
+
+* `./gradlew run` and `./gradlew jsRun` for macOS and Linux
+*  `gradlew.bat run` and `./gradlew.bat jsRun` for Windows
+
+or execute these tasks [from an IDE](https://www.jetbrains.com/help/idea/work-with-gradle-tasks.html). 
+
 ## Completed Code
 
 We may use the `step-004` branch of the

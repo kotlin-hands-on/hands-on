@@ -124,8 +124,11 @@ should be `java.awt.Color` class from the JVM. We also provide implementations f
 two more required functions.
 
 We should be able to start the JVM application now. Let's check
-it by running the Gradle `run` task. We should see similar output
-in the console:
+it by running the Gradle `run` task by running the console command
+`./gradlew run` on macOS and Linux or `gradlew.bat run` on Windows.
+Alternatively, we may start these tasks directly
+[from an IDE](https://www.jetbrains.com/help/idea/work-with-gradle-tasks.html).
+We should see similar output in the console:
 
 ```
 The Mandelbrot renderer is started at http://127.0.0.1:8888

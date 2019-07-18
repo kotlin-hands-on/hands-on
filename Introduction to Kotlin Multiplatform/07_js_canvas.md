@@ -86,7 +86,15 @@ renderToCanvas(document.getElementById("canvas") as HTMLCanvasElement) { image -
 ## Running the client-side App
 
 It is now time to run the Gradle `run` task to start the server-side Kotlin/JVM project, and the
-`jsRun` task to start the client-side Kotlin/JS application. We should be
+`jsRun` task to start the client-side Kotlin/JS application.
+We may run two processes in the console:
+
+* `./gradlew run` and `./gradlew jsRun` for macOS and Linux
+*  `gradlew.bat run` and `./gradlew.bat jsRun` for Windows
+
+or execute these tasks [from an IDE](https://www.jetbrains.com/help/idea/work-with-gradle-tasks.html). 
+ 
+We should be
 able to see two images – the one that is rendered server-side with the Kotlin/JVM, and a second
 that is rendered directly in the browser with Kotlin/JS:
 

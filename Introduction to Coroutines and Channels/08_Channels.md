@@ -75,12 +75,12 @@ When the channel is full, the next `send` call on it suspends until more free sp
 
 ![](./assets/8-channels/RendezvousChannel.png)
 
-The “Rendezvous” channel is a channel without a buffer; it's the same as a creating a buffered channel with zero size.
+The “Rendezvous” channel is a channel without a buffer; it's the same as creating a buffered channel with zero size.
 One of the functions (`send` or `receive`) always gets suspended until the other is called.
 If the `send` function is called and there's no suspended `receive` call ready to process the element,
 then `send` suspends.
-Similarly, if the `receive` function is called and the channel is empty, in other words,
-there's no suspended `send` call ready to send the element, the `receive` call suspends.
+Similarly, if the `receive` function is called and the channel is empty - or in other words,
+there's no suspended `send` call ready to send the element - the `receive` call suspends.
 The "rendezvous" name ("a meeting at an agreed time and place") refers to the fact that `send` and `receive`
 should "meet on time".
 

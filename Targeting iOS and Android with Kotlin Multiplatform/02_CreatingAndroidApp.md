@@ -19,3 +19,5 @@ The `step-002` branch of the
 repository contains a possible solution for the tasks that we have done above. We can also download the
 [archive](https://github.com/kotlin-hands-on/mpp-ios-android/archive/step-002.zip) from GitHub directly or
 check out the repository and select the branch.
+
+![Emulator with App](./assets/android-emulator-hello-app.png)

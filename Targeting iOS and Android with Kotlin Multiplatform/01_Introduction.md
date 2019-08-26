@@ -21,7 +21,7 @@ this provides. While we'll be demonstrating this with a simple application, what
 The common code is `"Kotlin Rocks on ${platformName()}"`, where `platformName()` is 
 a function that is declared using the `expect` keyword. The `actual` implementation will be specific to the platform.
 
-![Emulator App](./assets/iPhone-emulator-kotlin-rocks.png) ![Emulator App](./assets/android-emulator-kotlin-rocks-android.png)
+![Emulator and Simulator](./assets/androd-and-ios.png)
 
 
 # Setting Up the Local Environment

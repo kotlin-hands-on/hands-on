@@ -1,7 +1,7 @@
 # Structured concurrency
  
 _Coroutine scope_ is responsible for the structure and parent-child relationships between different coroutines.
-We always start new coroutines inside a scope.
+Coroutine builders, like `launch` and `async`, need to be started in some scope. 
 _Coroutine context_ stores additional technical information used to run a given coroutine,
 like the dispatcher specifying the thread or threads the coroutine should be scheduled on.
 

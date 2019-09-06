@@ -48,7 +48,7 @@ and in tests.
 
 To get a better understanding of what's going on in this example, watch the following video:
 
-[Video explaining the coroutines sample](https://youtu.be/zEZc5AmHQhk) 
+![Video explaining the coroutines sample](https://youtu.be/zEZc5AmHQhk) 
 
 If there is a list of deferred objects, it is possible to call `awaitAll` to await the results of all of them:
 

@@ -135,7 +135,7 @@ fun log(message: Any?) {
 
 If you want to better understand what's going on in this example, watch the following video:
 
-[Video explaining the channels sample](https://youtu.be/HpWQUoVURWQ)
+![Video explaining the channels sample](https://youtu.be/HpWQUoVURWQ)
 
 #### Task
 

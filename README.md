@@ -80,6 +80,12 @@ when an unknown printer took a galley of type and scrambled it to make.
 
 All assets, excluding code, should be placed in a subfolder named `assets` under each lab folder and the asset should be referenced relative to this.
 
+### Videos
+
+The following syntax allows inlining videos in the text:
+
+![Video description](video link) 
+
 ### Code
 
 The code for the lab is located in its own repository using the naming convention `{lab-name}`

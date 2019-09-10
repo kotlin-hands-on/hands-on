@@ -27,7 +27,7 @@ Coroutines and structured concurrency are a huge topic in Kotlin. If you want to
 
 Like the other dependencies we've gotten to know over the course of this hands-on, we can also install coroutines via `yarn`:
 
-```bash
+```shell
 yarn add kotlinx-coroutines-core
 ```
 

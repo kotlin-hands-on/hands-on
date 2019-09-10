@@ -10,7 +10,7 @@ We need to replace our placeholder video component with one that can actually sh
 
 We install the component by running the following command in the root of our project:
 
-```bash
+```shell
 yarn add react-player
 ```
 

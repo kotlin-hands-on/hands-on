@@ -39,7 +39,7 @@ Simply put, you can think of the `+` as "append my string inside this element."
 
 Since we already have a pretty good idea of what our website will look like, we can simply translate our (mental) draft into a Kotlin representation for HTML. If you're comfortable writing simple HTML, you should have no problem getting started with the typesafe variant in Kotlin. We want to build a layout that looks something like this in raw HTML:
 
-```html
+```xml
 <h1>KotlinConf Explorer</h1>
 <div>
     <h3>Videos to watch</h3>
@@ -143,7 +143,7 @@ We have now built our first "feature," but our application, unfortunately, still
 To use kotlin-styled, we first need to add a dependency to it by following its [installation instructions](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-styled#installation). For us, this boils down to executing the following command in the root of our project.
 
 
-```bash
+```shell
 yarn add @jetbrains/kotlin-css @jetbrains/kotlin-css-js @jetbrains/kotlin-styled inline-style-prefixer styled-components@4
 ```
 

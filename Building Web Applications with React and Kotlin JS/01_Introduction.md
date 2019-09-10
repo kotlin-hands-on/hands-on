@@ -16,5 +16,7 @@ The annual [*KotlinConf*](https://kotlinconf.com/) is the event to visit if you 
 
 ![image-20190729201914738](/assets/image-20190729201914738.png)
 
+You can find the source code of the final application as well as the intermediate steps on the corresponding [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js) repository. Each step is available from its own branch, and is linked at the bottom of each corresponding section.
+
 Let's start by setting up our development environment and installing the tools we’ll need to get us up and running.
 

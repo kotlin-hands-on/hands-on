@@ -126,7 +126,7 @@ fun RBuilder.videoList(handler: VideoListProps.() -> Unit): ReactElement {
 }
 ```
 
-While it's not necessary to understand what's going on in the snippet above, it might still be interesting to know about: it defines a function called `videoPlayer` as an [extension function](https://kotlinlang.org/docs/reference/extensions.html) on `RBuilder`. It takes one parameter, `handler`, which is an extension function on `VideoListProps` returning `Unit`. This function wraps the call to `child` (as we have done before), and passes the `handler` in order to instantiate the `attrs`.
+While it's not necessary to understand what's going on in the snippet above, it might still be interesting to know about: it defines a function called `videoList` as an [extension function](https://kotlinlang.org/docs/reference/extensions.html) on `RBuilder`. It takes one parameter, `handler`, which is an extension function on `VideoListProps` returning `Unit`. This function wraps the call to `child` (as we have done before), and passes the `handler` in order to instantiate the `attrs`.
 
 The main point is that it simplifies the usage site a lot more, allowing us to simply write:
 

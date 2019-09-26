@@ -115,6 +115,7 @@ to provide the platform-specific name from the `expect fun platformName(): Strin
 the `createApplicationScreenMessage` from both Android and iOS applications.
 
 Now we need to create the implementation file (and missing directories) for Android in the `SharedCode/src/androidMain/kotlin/actual.kt`:
+
 ```kotlin
 package com.jetbrains.handson.mpp.mobile
 

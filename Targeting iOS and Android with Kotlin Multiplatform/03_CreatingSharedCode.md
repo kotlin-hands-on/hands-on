@@ -126,6 +126,7 @@ actual fun platformName(): String {
 ```
 
 We create a similar implementation file (and missing directories) for the iOS target in the `SharedCode/src/iosMain/kotlin/actual.kt`:
+
 ```kotlin
 package com.jetbrains.handson.mpp.mobile
 

@@ -1,1 +1,1 @@
-# Introduction to Kotlin Native
+# Introduction to Kotlin/Native

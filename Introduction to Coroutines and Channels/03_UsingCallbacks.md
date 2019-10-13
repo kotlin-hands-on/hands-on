@@ -15,7 +15,7 @@ We use the `thread` function to start a new thread:
 
 ```kotlin
 thread {
-    loadContributorsBlocking(req)
+    loadContributorsBlocking(service, req)
 }
 ```
 
@@ -56,7 +56,7 @@ To fix this, we need to call the `updateResults` on the resulting list of users:
 
 ```kotlin
 thread {
-    updateResults(loadContributorsBlocking(req))
+    updateResults(loadContributorsBlocking(service, req))
 }
 ```
 

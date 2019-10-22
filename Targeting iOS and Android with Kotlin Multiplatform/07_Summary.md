@@ -18,11 +18,11 @@ with Kotlin, Kotlin/Native, and Kotlin multiplatform projects is only the beginn
 The same approach can work for real applications, independent of their size or complexity.
 
 The Kotlin/Native interop with Swift and Objective-C is covered in the
-[documentation](/docs/reference/native/objc_interop.html).
-This topic is also covered in the [Kotlin/Native as an Apple Framework](apple-framework.html)
+[documentation](https://kotlinlang.org/docs/reference/native/objc_interop.html).
+This topic is also covered in the [Kotlin/Native as an Apple Framework](https://kotlinlang.org/docs/tutorials/native/apple-framework.html)
 tutorial.
 
-Multiplatform projects and multiplatform libraries are discussed in the [documentation](/docs/reference/multiplatform.html) too.
+Multiplatform projects and multiplatform libraries are discussed in the [documentation](https://kotlinlang.org/docs/reference/multiplatform.html) too.
 
 Sharing code between platforms is a powerful technique, but it may be hard to
 accomplish without the rich APIs that we have in Android, JVM, and iOS platforms.
@@ -35,4 +35,4 @@ directly in the common Kotlin code. There are several examples of such libraries
 - [ktor](https://ktor.io/)
 - [ktor-http-client](https://ktor.io/clients/http-client.html)
 
-Are you looking for more APIs? It is easy to create a [multiplatform library](/docs/tutorials/multiplatform-library.html) and share it!
+Are you looking for more APIs? It is easy to create a [multiplatform library](https://kotlinlang.org/docs/tutorials/mpp/multiplatform-library.html) and share it!

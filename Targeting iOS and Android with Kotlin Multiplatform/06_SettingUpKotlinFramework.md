@@ -31,6 +31,7 @@ To do this we can double-click on the `KotlinIOS` node (or root node) of the *pr
 to open the *target* settings.
 Next we then click on the `+` in the *Embedded Binaries* section, click *Add Other...* button in the dialog
 to choose the framework from the disk. We can then point to the following folder: 
+
 ```
 SharedCode/build/xcode-frameworks/SharedCode.framework
 ```

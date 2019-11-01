@@ -51,7 +51,10 @@ We can open the *Build Phases* tab and click `+` to add the *New Run Script Phas
 first position, and add the following code to the shell script text:
 
 ```bash
-cd "$SRCROOT/../../SharedCode/build/xcode-frameworks"
+cd "$SRCROOT/../../SharedCode/build/xcode-frameworks" && test -x ./gradlew || {
+  echo "Initial build of SharedCode:packForXcode must be done from Android Studio in order to record JAVA_HOME." >&2
+  exit 1
+}
 ./gradlew :SharedCode:packForXcode
 ```
 

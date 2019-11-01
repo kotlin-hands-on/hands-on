@@ -52,7 +52,7 @@ first position, and add the following code to the shell script text:
 
 ```bash
 cd "$SRCROOT/../../SharedCode/build/xcode-frameworks"
-./gradlew :SharedCode:packForXcode -PXCODE_CONFIGURATION=${CONFIGURATION}
+./gradlew :SharedCode:packForXcode
 ```
 
 Note, here we use the `$SRCROOT/../..` as the path to the root of our Gradle project.

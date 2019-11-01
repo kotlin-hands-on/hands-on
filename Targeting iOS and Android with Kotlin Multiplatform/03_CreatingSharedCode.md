@@ -38,6 +38,7 @@ kotlin {
         else
             ::iosX64
 
+    // Build SharedCode.framework
     iOSTarget("ios") {
         binaries {
             framework {
@@ -46,34 +47,41 @@ kotlin {
         }
     }
 
+    // Build android.jar
     jvm("android")
 
+    // Use the Kotlin/Native stdlib
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
     }
 
+    // Use the Kotlin/JVM stdlib
     sourceSets["androidMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
     }
 }
 
+// Replace the destination directory with the source files.
+// (It's Sync-like-rsync, not Sync-like-atomic.)
 val packForXcode by tasks.creating(Sync::class) {
-    val targetDir = File(buildDir, "xcode-frameworks")
-
-    /// selecting the right configuration for the iOS 
-    /// framework depending on the environment
-    /// variables set by Xcode build
+    // Let xcodebuild CONFIGURATION pick the kind of framework
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets
-                          .getByName<KotlinNativeTarget>("ios")
-                          .binaries.getFramework(mode)
+    // Tell Gradle "mode" factors into what we're building.
+    // This way, changing CONFIGURATION will cause a rebuild.
     inputs.property("mode", mode)
+    // Tell Gradle to link the framework for that configuration before running packForXcode.
+    val framework =
+        kotlin.targets
+            .getByName<KotlinNativeTarget>("ios")
+            .binaries.getFramework(mode)
     dependsOn(framework.linkTask)
 
+    // Configure the paths to keep in sync
     from({ framework.outputDirectory })
+    val targetDir = File(buildDir, "xcode-frameworks")
     into(targetDir)
 
-    /// generate a helpful ./gradlew wrapper with embedded Java path
+    // After syncing, add a script to ensure xcodebuild uses the correct Java when calling gradlew.
     doLast {
         val gradleWrapper = File(targetDir, "gradlew")
         gradleWrapper.writeText(

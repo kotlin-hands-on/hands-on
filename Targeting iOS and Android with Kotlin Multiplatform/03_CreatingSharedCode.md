@@ -75,12 +75,17 @@ val packForXcode by tasks.creating(Sync::class) {
 
     /// generate a helpful ./gradlew wrapper with embedded Java path
     doLast {
-        val gradlew = File(targetDir, "gradlew")
-        gradlew.writeText("#!/bin/bash\n" 
-            + "export 'JAVA_HOME=${System.getProperty("java.home")}'\n" 
-            + "cd '${rootProject.rootDir}' || exit 1\n"
-            + "./gradlew "$@"\n")
-        gradlew.setExecutable(true)
+        val gradleWrapper = File(targetDir, "gradlew")
+        gradleWrapper.writeText(
+            """
+            #!/bin/bash
+            export 'JAVA_HOME=${System.getProperty("java.home")}'
+            cd '${rootProject.rootDir}' || exit 1
+            ./gradlew "$@"
+
+        """.trimIndent()
+        )
+        gradleWrapper.setExecutable(true)
     }
 }
 

@@ -78,7 +78,7 @@ val packForXcode by tasks.creating(Sync::class) {
         val gradlew = File(targetDir, "gradlew")
         gradlew.writeText("#!/bin/bash\n" 
             + "export 'JAVA_HOME=${System.getProperty("java.home")}'\n" 
-            + "cd '${rootProject.rootDir}'\n" 
+            + "cd '${rootProject.rootDir}' || exit 1\n"
             + "./gradlew "$@"\n")
         gradlew.setExecutable(true)
     }

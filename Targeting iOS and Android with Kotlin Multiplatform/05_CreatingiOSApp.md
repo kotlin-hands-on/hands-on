@@ -15,7 +15,7 @@ it may require an Apple developer account and a developer certificate. Xcode doe
 best to get us through the process. 
 
 Let's make sure we can run the application on the iPhone simulator or device by clicking the play button
-from the XCode window title bar. 
+from the Xcode window title bar. 
 
 The `step-006` branch of the 
 [github.com/kotlin-hands-on/mpp-ios-android](https://github.com/kotlin-hands-on/mpp-ios-android/tree/step-006)

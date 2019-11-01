@@ -117,10 +117,8 @@ package com.jetbrains.handson.mpp.mobile
 
 expect fun platformName(): String
 
-fun createApplicationScreenMessage() : String {
-  return "Kotlin Rocks on ${platformName()}"
-}
-
+fun createApplicationScreenMessage() =
+    "Kotlin Rocks on ${platformName()}"
 ```
 
 That is the common part. The code to generate the final message. It `expect`s the platform part
@@ -132,10 +130,7 @@ Now we need to create the implementation file (and missing directories) for Andr
 ```kotlin
 package com.jetbrains.handson.mpp.mobile
 
-actual fun platformName(): String {
-  return "Android"
-}
-
+actual fun platformName() = "Android"
 ```
 
 We create a similar implementation file (and missing directories) for the iOS target in the `SharedCode/src/iosMain/kotlin/actual.kt`:
@@ -145,11 +140,10 @@ package com.jetbrains.handson.mpp.mobile
 
 import platform.UIKit.UIDevice
 
-actual fun platformName(): String {
-  return UIDevice.currentDevice.systemName() +
-         " " +
-         UIDevice.currentDevice.systemVersion
-}
+actual fun platformName() =
+    UIDevice.currentDevice.run {
+      "$systemName $systemVersion"
+    }
 ```
 
 Here we can use the [UIDevice](https://developer.apple.com/documentation/uikit/uidevice?language=objc)

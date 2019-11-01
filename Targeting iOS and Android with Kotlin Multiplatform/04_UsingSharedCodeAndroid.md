@@ -20,7 +20,8 @@ Let's patch the
 (the name may be different if we changed it in the new project wizard). 
 Select the _Text_ tab at the bottom of the preview to switch it to XML
 and add several more attributes to the `<TextView>` element: 
-```
+
+```xml
         android:id="@+id/main_text"
         android:textSize="42sp"
         android:layout_margin="5sp"
@@ -30,7 +31,7 @@ and add several more attributes to the `<TextView>` element:
 Next, let's add the following line of code to the end of the `onCreate` method from the `MainActivity` class
 in the `/app/src/main/java/com/jetbrains/handson/mpp/mobile/MainActivity.kt` file, :
 
-```
+```kotlin
 findViewById<TextView>(R.id.main_text).text = createApplicationScreenMessage()
 ```
 
@@ -38,6 +39,7 @@ You will need to add the import for the `android.widget.TextView` class. Android
 will automatically suggest adding the import. Depending on the Android application package,
 we may also need to add the import for the `createApplicationScreenMessage()` function too.
 We should see these two lines at the beginning of the `MainActivity.kt` file:
+
 ```kotlin
 import com.jetbrains.handson.mpp.mobile.createApplicationScreenMessage
 import android.widget.TextView

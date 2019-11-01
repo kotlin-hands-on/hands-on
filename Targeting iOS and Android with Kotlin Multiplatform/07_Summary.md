@@ -1,14 +1,15 @@
 # Summary
 
 In the tutorial we:
+
  - Created an Android application in Android Studio
  - Created an iOS application in Xcode
- - Added Kotlin multiplatform sub-project  
+ - Added Kotlin multiplatform sub-project
    - with shared Kotlin code
    - compiled it to Android Jar
    - compiled it to iOS Framework
  - Put it all together and re-used Kotlin code
- 
+
 We can find all the sources from that tutorial at [GitHub](https://github.com/JetBrains/kotlin-examples/tree/master/tutorials/mpp-iOS-Android).
 
 # Next Steps

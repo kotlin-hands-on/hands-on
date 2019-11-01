@@ -6,9 +6,10 @@ from console. This task is designed to help to simplify the setup of our iOS Fra
 in the Xcode project model.
 
 We need several binaries from the framework to use it with Xcode:
-- `iOS arm64 debug` --- the binary to run the iOS device in debug mode
-- `iOS arm64 release` --- the binary to include into a release version of an app
-- `iOS x64 debug` --- the binary for iOS simulator, which uses the desktop mac CPU
+
+- `iOS arm64 debug` to run on the iOS device in debug mode
+- `iOS arm64 release` to include into a release version of an app
+- `iOS x64 debug` for the iOS Simulator, which uses the desktop Mac CPU
 
 The easiest way to configure Xcode to use a custom-built framework is to
 place the framework under the same folder for all configurations and targets.
@@ -30,6 +31,7 @@ To do this we can double-click on the `KotlinIOS` node (or root node) of the *pr
 to open the *target* settings.
 Next we then click on the `+` in the *Embedded Binaries* section, click *Add Other...* button in the dialog
 to choose the framework from the disk. We can then point to the following folder: 
+
 ```
 SharedCode/build/xcode-frameworks/SharedCode.framework
 ```

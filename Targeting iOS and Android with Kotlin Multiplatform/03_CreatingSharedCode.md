@@ -8,6 +8,7 @@ We will create several new files in our project to implement this.
 ## Updating Gradle Scripts
 
 The `SharedCode` sub-project should generate several artifacts for us:
+
  - A JAR file for the Android project, from the `androidMain` source set
  - The Apple framework 
    - for iOS device and App Store (`arm64` target)

@@ -101,7 +101,7 @@ class ViewController: UIViewController {
 ```
 We use the `import SharedCode` to import our Framework, which we compiled with Kotlin/Native from Kotlin code.
 Next, we call the Kotlin function from it as `CommonKt.createApplicationScreenMessage()`. Follow the 
-[Kotlin/Native as an Apple Framework](/docs/tutorials/native/apple-framework.html) tutorial for
+[Kotlin/Native as an Apple Framework](https://kotlinlang.org/docs/tutorials/native/apple-framework.html) tutorial for
 more details on the Kotlin/Native to Swift (or Objective-C) interop.
 
 The `step-008` branch of the 

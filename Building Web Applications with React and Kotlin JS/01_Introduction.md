@@ -1,5 +1,11 @@
 # Introduction
 
+```warning
+These materials use create-react-app-kotlin-app. Going forward, the whole build experience for Kotlin/JS will be unified under the new and already available kotlin.js Gradle plugin. While topics unrelated to the build system remain the same, there will be changes regarding dependencies, running and deploying your application.
+
+**You can expect this tutorial to be updated to reflect these changes in early 2020.**
+```
+
 In this hands-on tutorial, we will take a look at how we can use Kotlin/JS in conjunction with the popular framework [React](https://reactjs.org/) to build appealing and maintainable applications for the browser. React lets us build web applications in a modern and well-structured way, focusing on the reusability of components and well-structured management of the application state, and is supported by a large ecosystem of community-created materials and components.
 
 Using Kotlin to write React applications allows us to reuse our knowledge about language paradigms, syntax, and tooling to build front-end applications for modern browsers and make use of Kotlin libraries while leveraging the capabilities of the JavaScript platform and its ecosystem.

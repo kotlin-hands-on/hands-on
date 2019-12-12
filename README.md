@@ -4,9 +4,12 @@
 
 ## Kotlin Hands-On Labs
 
-[Hands-On labs](https://play.kotlinlang.org/hands-on) are interactive tutorials to learn Kotlin. The labs are all provided under Apache 2 and are open to contributions. 
+[Hands-On labs](https://play.kotlinlang.org/hands-on) are interactive tutorials to learn Kotlin.
+Each lab corresponds to one or more sample projects, and explains how to create them step-by-step.   
+The labs are all provided under Apache 2 and are open to contributions. 
 
-This readme provides more information on how labs are organised and is targeted at contributors. If you'd like to complete a lab, please use the [website](https://play.kotlinlang.org/hands-on)
+This readme provides more information on how labs are organised and is targeted at contributors.
+If you'd like to complete a lab, please use the [website](https://play.kotlinlang.org/hands-on).
 
 
 ### Structure
@@ -17,27 +20,26 @@ Each labs consists of:
 * Assets such as images
 * Code Samples
 
-Text and assets for all labs are located under this repository under the `lab-name`. The code for each lab has its own repository following the naming convention `kotlin-hands-on-{lab name}`
-
+Text and assets for all labs are located under this repository under the `lab-name`.
+The sample projects corresponding to each lab are separate repositories under the `https://github.com/kotlin-hands-on` organization.  
 
 ### Text Structure
 
-Each lab consists of a series of steps. Each step is represented as an individual markdown file with the naming convention `NN_{step-title}` where
+Each lab consists of a series of steps.
+Each step is represented as an individual markdown file with the naming convention `NN_{step-title}` where
 `NN` is the step number and `step-title` is the step title. 
 
-Each hands-on lab should start with an `01_Introduction` file that clearly highlights what the hands-on lab is going to cover. Ideally it should also show
-a screenshot of the end result (if this is for instance an application). 
-
-The introduction should reference the source code with a last line:
-
-`You can find the code for the hands-on lab on [GitHub](https://github.com/kotlin-hands-on/{lab-name})`
-
+Each hands-on lab should start with an `01_Introduction` file that clearly highlights what the hands-on lab is going to cover.
+Ideally it should also show a screenshot of the end result (if this is for instance an application). 
 
 ### Style and Formatting
 
-* Use *you* pronoun when referring to the user following the tutorial, i.e. "You first need to click on..." 
+* Use *we* (not *you*) pronoun when referring to the user following the tutorial, i.e. "We first need to click on..." 
 * Use bold to highlight UI elements and menu entries. Use | as separators for menu entries, i.e. **File|New|Project...**
 * Use `name` notation to refer to folders and files
+
+If you're not a native speaker, but want to contribute, feel free to do that.
+We (JetBrains) can proofread the final lab text.
 
 #### Code styles
 
@@ -86,7 +88,7 @@ The following syntax allows inlining videos in the text:
 
 ![Video description](video link) 
 
-### Code
+### Sample Projects
 
 The code for the lab is located in its own repository using the naming convention `{lab-name}`
 
@@ -111,19 +113,41 @@ It should contain a README.md with the following contents:
 
 This repository is the code corresponding to the hands-on lab `{link to hands-on lab}`. 
 
+If the lab describes creating the project step-by-step, the state of the project after each step should be present
+in the project and stored in a separate branch or branches. If one branch is enough, it can be called `solutions`
+(see [Introduction to Coroutines and Channels](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/01_Introduction) as an example).
+If each steps modifies the whole project, intermediate steps should be stored in different branches
+(see [Introduction to Kotlin Multiplatform](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform) as an example).
+
+The lab should reference the project(s) containing the source code:
+
+`You can find the code for the hands-on lab on [GitHub](https://github.com/kotlin-hands-on/{lab-name})` 
+
+If the project contains several branches, the lab text should describe these branches, give the detailed instructions on
+installing the project and choosing the correct initial branch. After each step, the correct branch should be referred.
+
+### Automatic compilation and testing of sample projects
+
+We build sample projects at TeamCity to make sure the projects always compile. 
+If a project contains several branches with intermediate state, all the branches should be compiled at TeamCity.
+The tests in each branch should be checked automatically except special branches that contain failing tests for the readers to fix.
+
+The TeamCity build configurations can be found here:
+
+`https://teamcity.jetbrains.com/project/Kotlin_HandsOnLabs?projectTab=overview&mode=builds`.
 
 ### Coding conventions
 
 * Coding conventions should adapt to the [Kotlin Code Style](https://kotlinlang.org/docs/reference/coding-conventions.html). 
-* Packages should be named `com.jetbrains.handson.{lab-name}`
-
-
-### Referencing Code in steps
- 
-[TODO] - Instructions on how to validate code so that we make sure it always compiles 
+* Packages should be named `com.jetbrains.handson.{lab-name}` 
 
 ### Contributing
 
-In order to contribute, please send a pull request with the new tutorial folder structure. Once it has been approved, a new repository will be 
-created for you where you can reference the code. 
+We'll be really happy to get the content contributions from you! 
 
+If you want to contribute and develop a new lab, the best first step is to contact Hadi Hariri or Svetlana Isakova in
+[the KotlinLang slack](http://kotlinlang.slack.com/) and share your idea to make sure something similar isn't planned already.
+When your idea gets approved, a new repository will be created for you where you can reference the code. 
+
+Feel free to contribute the small changes to existing labs directly to the corresponding projects, and better contact us
+before contributing more significant changes to existing labs. 

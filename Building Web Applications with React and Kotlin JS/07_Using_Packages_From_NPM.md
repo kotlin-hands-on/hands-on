@@ -119,7 +119,7 @@ styledDiv {
 
 We can now validate that the buttons actually work by clicking one of them and seeing if the corresponding *share window* opens. If you don’t see anything, you may need to disable your social / ad blocker for it to work.
 
-![image-20190729192417600](/assets/image-20190729192417600.png)
+![image-20190729192417600](./assets/image-20190729192417600.png)
 
 Feel free to repeat this step with some of the other share buttons [offered by the component](https://github.com/nygardk/react-share/blob/master/README.md#features).
 

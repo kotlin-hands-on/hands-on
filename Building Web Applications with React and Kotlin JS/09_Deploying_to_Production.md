@@ -6,7 +6,7 @@ After the hard work of building the application is done, it's time to get it pub
 
 To package all of our assets in production mode, invoke yarn run build. Your application will be packaged and assembled into the `build` folder in the root of your project. This can take a while, as various optimizations are run on your project.
 
-![image-20190730194826045](/assets/image-20190730194826045.png)
+![image-20190730194826045](./assets/image-20190730194826045.png)
 
 After the short wait is over, we'll be greeted by a number of static files inside the `build` folder that are ready for deployment. You can put them on a static HTTP server of your choice, serve them using GitHub Pages, or host them on a cloud provider of your choice.
 
@@ -43,4 +43,4 @@ git push heroku master
 
 If everything has gone according to plan, we'll be able to see our application on the world wide web now!
 
-![image-20190730200111014](/assets/image-20190730200111014.png)
+![image-20190730200111014](./assets/image-20190730200111014.png)

@@ -2,7 +2,7 @@
 
 The two lists we built in the previous sections work nicely on their own. However, after clicking on a video in the "unwatched videos" list and in the "watched videos" list, we can see that we can select *two* videos, even though we only have one player:
 
-![image-20190729172131420](/assets/image-20190729172131420.png)
+![image-20190729172131420](./assets/image-20190729172131420.png)
 
 The reality is that both lists share some overarching state: the selected video (as there can only be one selected video application-wide). However, this shared state can't (and shouldn't be) stored within the individual components, but *lifted out*.
 

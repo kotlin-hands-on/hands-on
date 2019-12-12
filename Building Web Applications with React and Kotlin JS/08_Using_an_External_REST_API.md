@@ -99,7 +99,7 @@ override fun AppState.init() {
 
 Note that even though we are in the `init` function, we are using `setState` to set the unwatchedVideos to the result of our coroutine. Precisely because we are non-blocking, the app has most likely already finished rendering an empty list of `unwatchedVideos`. We can give the React renderer a little nudge in the form of a `setState` invocation to refresh the rendered result. When we go back and check our browser window, we can see that just like that, we have actual data in our application!
 
-![image-20190729201914738](/assets/image-20190729201914738.png)
+![image-20190729201914738](./assets/image-20190729201914738.png)
 
 This concludes the development part of this hands-on. We've come a long way, from an initial "Hello, World"-derivative to a full video organizer.
 

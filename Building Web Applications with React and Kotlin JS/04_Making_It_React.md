@@ -6,11 +6,11 @@ The basic building blocks in React are called *components*. By combining these c
 
 In fact, the "root" node that we are currently rendering is already a React component. If we were to mark this component in our application, it would look something like this:
 
-![image-20190729153736304](/assets/image-20190729153736304.png)
+![image-20190729153736304](./assets/image-20190729153736304.png)
 
 When we structure our application and split it up into components, we end up with a more structured layout, in which each component handles its own responsibilities:
 
-![image-20190729153826920](/assets/image-20190729153826920.png)
+![image-20190729153826920](./assets/image-20190729153826920.png)
 
 Let's begin the process of structuring our application. We’ll start by explicitly specifying the main component we're rendering into the root element: the `App`. Let's create a new file in our project's `src` folder called `App.kt`. Inside this file, let's create our `App` class which inherits from `RComponent`, a **R**eact **Component**. For now, we can keep its generic parameters default (`RProps` and `RState`). There will be more on those later.
 
@@ -157,7 +157,7 @@ When IntelliJ IDEA prompts us to add imports for this functionality, we can simp
 
 Now, when we click on one of the list items in the browser window, we get the corresponding information inside an `alert` window:
 
-![image-20190729161705147](/assets/image-20190729161705147.png)
+![image-20190729161705147](./assets/image-20190729161705147.png)
 
 ### Adding state
 

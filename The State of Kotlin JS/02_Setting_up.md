@@ -6,7 +6,7 @@ Through the _New Project_ wizard, we can select the platform we want to target. 
 
 To properly embrace Kotlin even in the build script, let's make sure we tick _Kotlin DSL build script_.
 
-![image-20191203203529370](/assets/image-20191203203529370.png)
+![image-20191203203529370](./assets/image-20191203203529370.png)
 
 On the following page, pick an apt project name. I'll choose `handson` in this case, but you can of course pick whatever you'd like. Confirming our selection and waiting for the Gradle project to finish syncing brings us to our starting point – a barebones project that's ready to be compiled to JavaScript. Opening the `build.gradle.kts` gives us some insights to what is happening under the hood when we build and execute our application:
 

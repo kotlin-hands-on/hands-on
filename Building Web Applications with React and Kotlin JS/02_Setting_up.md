@@ -18,7 +18,7 @@ We can use CRKA without prior installation through `yarn`. To create a new appli
 
 `yarn` will pick up its work, and after a while, we will be greeted by a success message in our terminal.
 
-![image-20190730162247914](/assets/image-20190730162247914.png)
+![image-20190730162247914](./assets/image-20190730162247914.png)
 
 CRKA ships by default with `webpack-dev-server`, allowing us to try our application locally from within the terminal. To start the development server, we can follow the instructions in the terminal, i.e. type the following commands:
 
@@ -29,17 +29,17 @@ yarn start
 
 CRKA will start compiling the demo application that ships with a new project. After a few seconds, you should see the following confirmation in the command line:
 
-![image-20190730162459994](/assets/image-20190730162459994.png)
+![image-20190730162459994](./assets/image-20190730162459994.png)
 
 The development server automatically opens a web browser as well, pointing at http://localhost:3000 and displaying the compiled application.
 
-![image-20190730162757059](/assets/image-20190730162757059.png)
+![image-20190730162757059](./assets/image-20190730162757059.png)
 
 During development, feel free to keep the terminal open and leave the development server running. It will watch for the changes you make to your application, automatically recompile your Kotlin code, and reload the page while it is running.
 
 Let's open the project in IntelliJ IDEA. To open the project, go to `File > Open` and navigate to the root of our project. When we first open the project, a prompt to upgrade the project to a new version might appear. We can do this without any hesitation.
 
-![image-20190729140409230](/assets/image-20190729140409230.png)
+![image-20190729140409230](./assets/image-20190729140409230.png)
 
 Before we continue, feel free to have a look around, change a string or two, save, and wait for the automatic reload of your browser window. If you've accidentally terminated `yarn start`, you can just restart it from the terminal in IntelliJ IDEA.
 

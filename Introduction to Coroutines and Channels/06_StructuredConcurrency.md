@@ -77,7 +77,7 @@ We can add a 3-second delay to all the coroutines sending requests, so that we h
 the coroutines are started, but before the requests are sent:  
 
 ```kotlin
-suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutineScope {
+suspend fun loadContributorsConcurrent(service: GitHubService, req: RequestData): List<User> = coroutineScope {
     // ... 
     async {
         log("starting loading for ${repo.name}")
@@ -94,7 +94,7 @@ and remove the creation of a new `coroutineScope`.
 Our `async` calls now fail to resolve, so we need to start them via `GlobalScope.async`:
 
 ```kotlin
-suspend fun loadContributorsNotCancellable(req: RequestData): List<User> {   // #1
+suspend fun loadContributorsNotCancellable(service: GitHubService, req: RequestData): List<User> {   // #1
     // ... 
     GlobalScope.async {   // #2
         log("starting loading for ${repo.name}")
@@ -213,7 +213,9 @@ and the dispatcher is a part of this context.
 That's why all the coroutines started by `async` are started with the context of the default dispatcher:
 
 ```kotlin
-suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutineScope {
+suspend fun loadContributorsConcurrent(
+    service: GitHubService, req: RequestData
+): List<User> = coroutineScope {
     // this scope inherits the context from the outer scope 
     // ... 
     async {   // nested coroutine started with the inherited context

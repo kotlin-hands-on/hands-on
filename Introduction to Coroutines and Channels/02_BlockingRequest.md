@@ -27,8 +27,7 @@ uses this API to fetch the list of contributors for the given organization.
 Let's see how it is implemented:
 
 ```kotlin
-fun loadContributorsBlocking(req: RequestData) : List<User> {
-    val service = createGitHubService(req.username, req.password)
+fun loadContributorsBlocking(service: GitHubService, req: RequestData) : List<User> {
     val repos = service
         .getOrgReposCall(req.org)          // #1
         .execute()                         // #2
@@ -97,7 +96,7 @@ If we look at how `loadContributorsBlocking` is called, we find that the `update
 after the `loadContributorsBlocking` call:
 
 ```kotlin
-val users = loadContributorsBlocking(req)
+val users = loadContributorsBlocking(service, req)
 updateResults(users, startTime)
 ```
 

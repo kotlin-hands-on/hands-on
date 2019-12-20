@@ -15,7 +15,7 @@ We use the `thread` function to start a new thread:
 
 ```kotlin
 thread {
-    loadContributorsBlocking(req)
+    loadContributorsBlocking(service, req)
 }
 ```
 
@@ -23,11 +23,12 @@ Now that all the loading has been moved to a separate thread, the main thread is
 
 ![](./assets/3-callbacks/Background.png)
 
-The signature of the `loadContributors` function changes, it takes a `updateResults` callback as a second argument
+The signature of the `loadContributors` function changes, it takes a `updateResults` callback as a last argument
 to call it after all the loading completes:
 
 ```kotlin
-fun loadContributorsBackground(req: RequestData, updateResults: (List<User>) -> Unit)
+fun loadContributorsBackground(service: GitHubService, req: RequestData, 
+                               updateResults: (List<User>) -> Unit)
 ```
 
 Now when the `loadContributorsBackground` is called, the `updateResults` call goes in the callback, not immediately afterwards as it did before:
@@ -56,7 +57,7 @@ To fix this, we need to call the `updateResults` on the resulting list of users:
 
 ```kotlin
 thread {
-    updateResults(loadContributorsBlocking(req))
+    updateResults(loadContributorsBlocking(service, req))
 }
 ```
 
@@ -87,8 +88,8 @@ For convenience, we use the `onResponse` extension function declared in the same
 It takes a lambda as an argument rather than an object expression.
 
 ```kotlin
-fun loadContributorsCallbacks(req: RequestData, updateResults: (List<User>) -> Unit) {
-    val service = createGitHubService(req.username, req.password)
+fun loadContributorsCallbacks(service: GitHubService, req: RequestData, 
+                              updateResults: (List<User>) -> Unit) {
     service.getOrgReposCall(req.org).onResponse { responseRepos ->  // #1
         logRepos(req, responseRepos)
         val repos = responseRepos.bodyList()

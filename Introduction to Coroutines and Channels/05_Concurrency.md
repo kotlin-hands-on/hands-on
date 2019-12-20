@@ -90,7 +90,9 @@ So, copy the content from `loadContributorsSuspend` to the `coroutineScope` call
 so that we can call `async` functions there:
 
 ```kotlin
-suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutineScope {
+suspend fun loadContributorsConcurrent(
+    service: GitHubService, req: RequestData
+): List<User> = coroutineScope {
      // ...
 }
 ```
@@ -118,8 +120,7 @@ We can no longer use `flatMap`: the `map` result is a list of `Deferred` objects
 `awaitAll()` returns `List<List<User>>`, so we simply need to call `flatten().aggregate()` to get the result: 
 
 ```kotlin
-suspend fun loadContributorsConcurrent(req: RequestData): List<User> = coroutineScope {
-    val service = createGitHubService(req.username, req.password)
+suspend fun loadContributorsConcurrent(service: GitHubService, req: RequestData): List<User> = coroutineScope {
     val repos = service
         .getOrgRepos(req.org)
         .also { logRepos(req, it) }

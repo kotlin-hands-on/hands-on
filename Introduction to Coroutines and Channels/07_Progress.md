@@ -14,6 +14,7 @@ each intermediate state:
 
 ```kotlin
 suspend fun loadContributorsProgress(
+    service: GitHubService,
     req: RequestData,
     suspend updateResults: (List<User>, completed: Boolean) -> Unit
 ) {

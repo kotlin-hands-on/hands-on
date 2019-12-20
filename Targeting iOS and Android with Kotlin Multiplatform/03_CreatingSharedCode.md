@@ -143,7 +143,7 @@ Here we can use the [UIDevice](https://developer.apple.com/documentation/uikit/u
 class from the Apple UIKit Framework, which is not available in Java, it is only usable in Swift and Objective-C.
 The Kotlin/Native compiler comes with a set of pre-imported frameworks, so we can use
 the UIKit Framework without having to do any additional steps.
-The Objective-C and Swift Interop is covered in detail in the [documentation](/docs/reference/native/objc_interop.html)
+The Objective-C and Swift Interop is covered in detail in the [documentation](https://kotlinlang.org/docs/reference/native/objc_interop.html)
 
 ## Multiplatform Gradle Project
 
@@ -154,7 +154,7 @@ target has its own platform. The `common` target contains the common Kotlin code
 which is included into every platform compilation. It is allowed to have `expect` declarations.
 Other targets provide `actual` implementations for all the `expect`-actions from the `common` target. 
 A more detailed explanation of multiplatform projects can be found in the
-[Multiplatform Projects](/docs/reference/building-mpp-with-gradle.html) documentation.
+[Multiplatform Projects](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html) documentation.
 
 Let's summarize what we have in the table:
 

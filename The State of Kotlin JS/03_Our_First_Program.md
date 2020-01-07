@@ -36,11 +36,11 @@ From IntelliJ IDEA, we can find the `run` action in the Gradle tool window:
 
 On first start, the `kotlin.js` Gradle plugin will download all required dependencies to get us up and running. After a few seconds, the embedded `webpack-dev-server` will spring to life, and we should be greeted with a very empty browser window!
 
-![image-20191203204605636](/assets/image-20191203204605636.png)
+![image-20191203204605636](./assets/image-20191203204605636.png)
 
 But this is expected. As they say, still waters run deep. Let's right click the page and choose the _Inspect_ action. Inside the DevTools, we can navigate to the console, where will be met with the results of our executed JavaScript code.
 
-![image-20191203204730722](/assets/image-20191203204730722.png)
+![image-20191203204730722](./assets/image-20191203204730722.png)
 
 Before we continue adding some content to this page, let's enable automatic reloads whenever we make modifications to our source code.
 

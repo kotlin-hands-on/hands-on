@@ -45,10 +45,10 @@ After running the `browserTest` task via the IDE or via the command line:
 
 We can find a nicely formatted test report in `build/reports/tests/browserTest/index.html`. Let's open the file in a browser of our choice.
 
-![image-20191203213055870](/assets/image-20191203213055870.png)
+![image-20191203213055870](./assets/image-20191203213055870.png)
 
 As expected, one test breaks, giving us a total of 50% successful tests. We can explore the failed tests by navigating through the provided hyperlinks.
 
-![image-20191203213154776](/assets/image-20191203213154776.png)
+![image-20191203213154776](./assets/image-20191203213154776.png)
 
 Feel free to click around and discover things like where to find the standard output or other interesting statistics that might come in handy. Once you fixed the failing test, re-run the tests and find yourself at 100% and colored in a delightful green hue.

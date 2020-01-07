@@ -1,7 +1,7 @@
 # Introduction
 
 ```warning
-These are supplementary materials for the talk ["The State of Kotlin/JS"](https://www.youtube.com/watch?v=j4A5eR4rD_U&feature=youtu.be&t=10468) from KotlinConf 2019. **You can expect more standalone learning materials regarding Kotlin/JS in early 2020**.
+These are supplementary materials for the talk ["The State of Kotlin/JS"](https://www.youtube.com/watch?v=L4DRD9eWKXo) from KotlinConf 2019. **You can expect more standalone learning materials regarding Kotlin/JS in early 2020**.
 ```
 
 

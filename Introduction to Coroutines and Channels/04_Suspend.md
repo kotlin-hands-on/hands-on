@@ -71,8 +71,7 @@ That's it!
 Everything else stays the same: 
 
 ```kotlin
-suspend fun loadContributorsSuspend(req: RequestData): List<User> {
-    val service = createGitHubService(req.username, req.password)
+suspend fun loadContributorsSuspend(service: GitHubService, req: RequestData): List<User> {
     val repos = service
         .getOrgRepos(req.org)
         .also { logRepos(req, it) }

@@ -41,7 +41,7 @@ If you have set up **live reload** as described in "Writing and running our firs
 
 The website should now greet us with some wonderful mosaic-looking image every time we reload the page.
 
-![img](/assets/img.png)
+![img](./assets/img.png)
 
 Now would be a great time to wander off the path of the tutorial, try your own DOM manipulation techniques, or explore some of the APIs with the help of your IDEs autocomplete feature. But there is of course always more to explore.
 

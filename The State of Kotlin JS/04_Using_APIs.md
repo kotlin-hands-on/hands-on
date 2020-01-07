@@ -2,7 +2,7 @@
 
 A fun element to manipulate in the DOM and to show off the capabilities of the browser APIs in Kotlin is a `<canvas>` element. Let's adjust the contents of `/src/main/resources/index.html` to add a 200x200 canvas to the page.
 
-```html
+```xml
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,7 +37,9 @@ fun main() {
 fun randomCoordinate() = Random.nextDouble(0.0, 200.0)
 ```
 
-We can once again launch our application through the `run` gradle task or via `./gradlew run` from the Gradle wrapper. The website should now greet us with some wonderful mosaic-looking image every time we reload the page.
+If you have set up **live reload** as described in "Writing and running our first program" and still have the browser window open, you should see the changes automatically in the browser. Alternatively, you can relaunch the app via the `run` Gradle task or via `./gradlew run` from the command line.
+
+The website should now greet us with some wonderful mosaic-looking image every time we reload the page.
 
 ![img](/assets/img.png)
 

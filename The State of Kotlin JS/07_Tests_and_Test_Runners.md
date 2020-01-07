@@ -7,17 +7,17 @@ implementation(kotlin("test-js"))
 
 We can now fine tune the behaviour.
 
-```
+```kotlin
 target {
-        browser {
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                    useFirefox()
-                }
+    browser {
+        testTask {
+            useKarma {
+                useChromeHeadless()
+                useFirefox()
             }
         }
     }
+}
 ```
 
 To drive home the point and actually see some tests in action, let's create a file called `src/test/kotlin/AppTest.kt` and fill it with this content:

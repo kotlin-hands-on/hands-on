@@ -51,7 +51,7 @@ We can open the *Build Phases* tab and click `+` to add the *New Run Script Phas
 first position, and add the following code to the shell script text:
 
 ```bash
-cd "$SRCROOT/../../SharedCode/build/xcode-frameworks"
+cd "$SRCROOT/../.."
 ./gradlew :SharedCode:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}
 ```
 

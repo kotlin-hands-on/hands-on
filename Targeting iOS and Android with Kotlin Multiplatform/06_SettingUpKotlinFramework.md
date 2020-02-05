@@ -6,6 +6,7 @@ from console. This task is designed to help to simplify the setup of our iOS Fra
 in the Xcode project model.
 
 We need several binaries from the framework to use it with Xcode:
+
 - `iOS arm64 debug` --- the binary to run the iOS device in debug mode
 - `iOS arm64 release` --- the binary to include into a release version of an app
 - `iOS x64 debug` --- the binary for iOS simulator, which uses the desktop mac CPU

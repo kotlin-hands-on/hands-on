@@ -2,7 +2,7 @@
 
 Until now, we've only used rather boring mock data to display the videos and to render our application. Let's substitute this data by obtaining some actual information from a REST API.
 
-For this use case, we have made a small API available at https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1. This API offers only a single endpoint, videos, and takes a numeric parameter to access an element from the list. Feel free to try out this rather limited API in the browser for a bit. You will see that the objects returned from the API follow the same structure as our `Video` objects (what a coincidence 😏). In the next section, we'll discuss how to efficiently obtain this data and shape it into the form of our Kotlin object.
+For this use case, we have made a small API available at https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1. This API offers only a single endpoint, `videos`, and takes a numeric parameter to access an element from the list. Feel free to try out this rather limited API in the browser for a bit. You will see that the objects returned from the API follow the same structure as our `Video` objects (what a coincidence 😏). In the next section, we'll discuss how to efficiently obtain this data and shape it into the form of our Kotlin object.
 
 ### Using JS functionality from Kotlin
 
@@ -25,13 +25,17 @@ window.fetch("https://url...").then {
 
 Coroutines and structured concurrency are a huge topic in Kotlin. If you want to get an in-depth understanding of how coroutines work, try our [coroutines hands-on lab](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/). Let's get started by adding coroutines as a dependency to our project.
 
-Like the other dependencies we've gotten to know over the course of this hands-on, we can also install coroutines via `yarn`:
+Like the other dependencies we've gotten to know over the course of this hands-on, the relevant Gradle snippet already exists in our configuration from back when we set up the project:
 
-```shell
-yarn add kotlinx-coroutines-core
+```kotlin
+dependencies {
+    //...
+    //Coroutines (chapter 8)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.3")
+}
 ```
 
-Restart the development server, and let's fetch our first video using coroutines!
+Let's fetch our first video using coroutines!
 
 #### Fetching our first video
 
@@ -45,6 +49,13 @@ suspend fun fetchVideo(id: Int): Video {
     val json = jsonPromise.await()
     return json.unsafeCast<Video>()
 }
+```
+
+Use quick-fixes to import the required objects and functions, or alternatively manually add them to the top of `App.kt`:
+
+```kotlin
+import kotlin.browser.window
+import kotlinx.coroutines.*
 ```
 
 Let's look at what's happening in this *suspending function*. We `fetch` a video from the API given an `id`, wait for it to actually be available, turn it into a JSON, wait again for the completion of that operation, and return it, cast as a `Video` Kotlin object.
@@ -107,4 +118,4 @@ The full source code for the final application can be found here.
 
 Stick around if you'd like to find out how we can bundle our application for production use, and how to get your app into the hands of real people by publishing it to the cloud!
 
-You can find the state of the project after this section on the `step-07-using-external-rest-api` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js/tree/step-07-using-external-rest-api) repository.
+You can find the state of the project after this section on the `step-07-using-external-rest-api` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-07-using-external-rest-api) repository.

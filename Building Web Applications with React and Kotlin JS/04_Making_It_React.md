@@ -90,7 +90,7 @@ interface VideoListProps: RProps {
 We now adjust the class definition of `VideoList` to make use of those props:
 
 ```kotlin
-class VideoList(props: VideoListProps): RComponent<VideoListProps, RState>(props) {
+class VideoList: RComponent<VideoListProps, RState>() {
     override fun RBuilder.render() {
         for (video in props.videos) {
             p {
@@ -144,6 +144,7 @@ To do this, we modify the code inside our `VideoList` `render` function inside t
 
 ```kotlin
 p {
+    key = video.id.toString()
     attrs {
         onClickFunction = {
             window.alert("Clicked $video!")
@@ -153,11 +154,20 @@ p {
 }
 ```
 
-When IntelliJ IDEA prompts us to add imports for this functionality, we can simply use the `Alt-Enter` quickfixes to have the IDE do the work for us.
+When IntelliJ IDEA prompts us to add imports for this functionality, we can simply use the `Alt-Enter` quickfixes to have the IDE do the work for us. Alternatively, we can add the required imports manually:
+
+```kotlin
+import kotlinx.html.js.onClickFunction
+import kotlin.browser.window
+```
 
 Now, when we click on one of the list items in the browser window, we get the corresponding information inside an `alert` window:
 
 ![image-20190729161705147](./assets/image-20190729161705147.png)
+
+```note
+Defining an `onClickFunction` directly as a lambda is concise and very useful for prototyping. However, [due to the way equality currently works in Kotlin/JS](https://youtrack.jetbrains.com/issue/KT-15101), it is not the most performance-optimized way of passing click handlers. If you want to optimize rendering performance, consider storing your functions in a variable and passing them.
+```
 
 ### Adding state
 
@@ -176,7 +186,7 @@ There are a few things we need to do to add this state:
 
 
 ```kotlin
-class VideoList(props: VideoListProps) : RComponent<VideoListProps, VideoListState>(props) {
+class VideoList : RComponent<VideoListProps, VideoListState>() {
     override fun RBuilder.render() {
         for (video in props.videos) {
             p {
@@ -204,4 +214,4 @@ class VideoList(props: VideoListProps) : RComponent<VideoListProps, VideoListSta
 
 You can find more details about state in the official [React FAQ](https://reactjs.org/docs/faq-state.html).
 
-You can find the state of the project after this section on the `step-03-first-component` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js/tree/step-03-first-component) repository.
+You can find the state of the project after this section on the `step-03-first-component` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-03-first-component) repository.

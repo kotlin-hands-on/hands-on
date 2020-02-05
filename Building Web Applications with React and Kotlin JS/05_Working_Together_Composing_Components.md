@@ -85,4 +85,4 @@ videoList {
 
 Let's repeat this step for the "watched videos" list, switch back to your browser, and check that everything works as we’d expect. When selecting a video in the two lists, the selection jumps between the lists, instead of being duplicated.
 
-You can find the state of the project after this section on the `step-04-composing-components` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js/tree/step-04-composing-components) repository.
+You can find the state of the project after this section on the `step-04-composing-components` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-04-composing-components) repository.

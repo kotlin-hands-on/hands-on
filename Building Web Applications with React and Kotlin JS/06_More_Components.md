@@ -4,7 +4,7 @@ Now that we have learned how to create a separate, encapsulated component that c
 
 ### Extracting the video player component
 
-Another element that lends itself to becoming a self-contained unit is our video player, currently still visualized by a placeholder image. This time, we can try to identify the props for the video player in advance. Author, talk title, and video link need to be passed to the `VideoPlayer` component. This information is already contained within a `Video` object, so we can pass it as a prop and use its attributes accordingly. When we write the whole component including its respective interfaces, we should end up with a file called VideoPlayer.kt that contains the following:
+Another element that lends itself to becoming a self-contained unit is our video player, currently still visualized by a placeholder image. This time, we can try to identify the props for the video player in advance. Author, talk title, and video link need to be passed to the `VideoPlayer` component. This information is already contained within a `Video` object, so we can pass it as a prop and use its attributes accordingly. When we write the whole component including its respective interfaces, we should end up with a file called `VideoPlayer.kt` that contains the following:
 
 ```kotlin
 import kotlinx.css.*
@@ -13,11 +13,11 @@ import react.*
 import react.dom.*
 import styled.*
 
-interface VideoPlayerProps: RProps {
+interface VideoPlayerProps : RProps {
     var video: Video
 }
 
-class VideoPlayer(props: VideoPlayerProps): RComponent<VideoPlayerProps, RState>(props) {
+class VideoPlayer : RComponent<VideoPlayerProps, RState>() {
     override fun RBuilder.render() {
         styledDiv {
             css {
@@ -44,7 +44,7 @@ fun RBuilder.videoPlayer(handler: VideoPlayerProps.() -> Unit): ReactElement {
 }
 ```
 
-To play nice with the compiler and its never-ending quest for `null`-safety, our usage site in `App.kt`, replacing the previous snippet, looks like this:
+To play nice with the compiler and its never-ending quest for `null`-safety, our usage site in `App.kt`, replacing the previous snippet, looks like this – replacing the previous `styledDiv` that contained the video player:
 
 ```kotlin
 state.currentVideo?.let { currentVideo ->
@@ -65,7 +65,7 @@ The fact that we want to move things between two different lists (an effect that
 Since we want the button to have different text depending on whether the video has been watched or not, we need to give the button some more information to work with – specifically, the status of the video passed in. So, we expand our `VideoPlayerProps` interface:
 
 ```kotlin
-interface VideoPlayerProps: RProps {
+interface VideoPlayerProps : RProps {
     var video: Video
     var onWatchedButtonPressed: (Video) -> Unit
     var unwatchedVideo: Boolean
@@ -128,20 +128,19 @@ override fun AppState.init() {
 }
 ```
 
-We can delete the original file-level declarations for `unwatchedVideos` and `watchedVideos`, and follow the compiler errors to replace all references to (`un`)`watchedVideos` in the `videoList` invocations and replace them with `state.`(`un`)`watchedVideos`. Now, writing the `videoPlayer` call site is rather simple:
+We can delete the original file-level declarations for `unwatchedVideos` and `watchedVideos` in `Main.kt`, and follow the compiler errors to replace all references to (`un`)`watchedVideos` in the `videoList` invocations and replace them with `state.`(`un`)`watchedVideos` inside `App.kt`. Now, writing the `videoPlayer` call site is rather simple:
 
 ```kotlin
 videoPlayer {
     video = currentVideo
     unwatchedVideo = currentVideo in state.unwatchedVideos
     onWatchedButtonPressed = {
-        if(video in state.unwatchedVideos) {
+        if (video in state.unwatchedVideos) {
             setState {
                 unwatchedVideos -= video
                 watchedVideos += video
             }
-        }
-        else {
+        } else {
             setState {
                 watchedVideos -= video
                 unwatchedVideos += video
@@ -157,4 +156,4 @@ Just like that, we've now implemented the largest chunk of the custom logic for 
 
 Now it's time to kick back and let others do the heavy lifting. Let's talk about using ready-made and freely available React components from within Kotlin.
 
-You can find the state of the project after this section on the `step-05-more-components` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js/tree/step-05-more-components) repository.
+You can find the state of the project after this section on the `step-05-more-components` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-05-more-components) repository.

@@ -2,53 +2,150 @@
 
 ### Prerequisites
 
-To get started, let's make sure we have installed an up-to-date version of all the tools we’ll be using in this hands-on tutorial. Please refer to each tool’s individual documentation on how to download and install it on its respective website. The tools we’ll need are:
+To get started, let's make sure we have installed an up-to-date development environment. All we need to get started is:
 
-- `npm` (version `6.10` or above) – [Download/Install](https://www.npmjs.com/get-npm)
-- `yarn` (version `1.16.0` or above) – [Download/Install](https://yarnpkg.com/lang/en/docs/install/#mac-stable)
-- IntelliJ IDEA (version `2019.2.2` or above) with the Kotlin plugin (`1.3.50` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
+- IntelliJ IDEA (version `2019.3.2` or above) with the Kotlin plugin (`1.3.70` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
+
+```warning
+Kotlin 1.3.70 is currently in Early Access Preview. Please refer to the [EAP thread](https://discuss.kotlinlang.org/t/kotlin-1-3-70-early-access-preview/15876) to learn how to update your local installation of Kotlin to 1.3.70.
+```
 
 ### Setting up the project
 
-We are going to set up our project using `create-react-kotlin-app`, *CRKA* for short. [CRKA](https://github.com/JetBrains/create-react-kotlin-app) is a zero-configuration tool used to create React apps with Kotlin (like `create-react-app` for regular React apps). It includes a [list of logical defaults](https://github.com/JetBrains/create-react-kotlin-app#whats-inside) that will allow us to accomplish all the tasks we are going to encounter on our learning journey without having to write a single line of configuration.
+We are going to set up our project using the `org.jetbrains.kotlin.js` Gradle plugin. This state-of-the-art plugin takes care of managing a development environment for us that uses all the latest and greatest things from the JavaScript ecosystem – under the hood, it equips us with a `yarn` and `webpack` installation. If we need to make adjustments, we can do so through Gradle – and with just a little bit of configuration, it will allow us to accomplish all the tasks we are going to encounter on our learning journey.
 
-We can use CRKA without prior installation through `yarn`. To create a new application with its folder structure and appropriate configuration, let's run the following command:
+The easiest way to get started is through the wizard provided by IntelliJ IDEA. From the splash screen or from the `File` menu, we select `New/Project...`. We choose the `Gradle` category, turn on the `Kotlin DSL build script`, and select only `Kotlin/JS for browser` as our target:
 
-```yarn create react-kotlin-app confexplorer```
+![](./assets/new_gradle_project.png)
 
-`yarn` will pick up its work, and after a while, we will be greeted by a success message in our terminal.
+After clicking the `Next` button, we get to give our project a name. I named my project `confexplorer` – because that is what we are building – but feel free to get creative with your naming:
 
-![image-20190730162247914](./assets/image-20190730162247914.png)
+![](./assets/confexplorer.png)
 
-CRKA ships by default with `webpack-dev-server`, allowing us to try our application locally from within the terminal. To start the development server, we can follow the instructions in the terminal, i.e. type the following commands:
+After clicking finish, we can lean back for a few seconds as Gradle initialises a blank project for us that supports JavaScript as a Kotlin compilation target. Once the import has finished, it's time to bring in all those dependencies we will require for the rest of the hands-on.
 
+#### Gradle dependencies and tasks
+
+Throughout the hands-on, we will make use of React, some external dependencies, and even some Kotlin-specific libraries. To save ourselves from running Gradle imports after each chapter, we will add all dependencies right now. The topics related to each set of dependencies is described in the annotated chapter.
+
+Inside our `build.gradle.kts` file, let's make sure that our `repositories` block looks as follows:
+
+```kotlin
+repositories {
+    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+    maven("https://kotlin.bintray.com/kotlin-js-wrappers/")
+    mavenCentral()
+    jcenter()
+}
 ```
-cd confexplorer
-yarn start
+
+Now that we have all sources for our dependencies, let's make sure we include everything we need in our `dependencies` block.
+
+```kotlin
+dependencies {
+    implementation(kotlin("stdlib-js"))
+
+    //React, React DOM + Wrappers (chapter 3)
+    implementation("org.jetbrains:kotlin-react:16.9.0-pre.89-kotlin-1.3.60")
+    implementation("org.jetbrains:kotlin-react-dom:16.9.0-pre.89-kotlin-1.3.60")
+    implementation(npm("react", "16.12.0"))
+    implementation(npm("react-dom", "16.12.0"))
+
+    //Kotlin Styled (chapter 3)
+    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.90-kotlin-1.3.61")
+    implementation(npm("styled-components"))
+    implementation(npm("inline-style-prefixer"))
+
+    //Video Player (chapter 7)
+    implementation(npm("react-player"))
+
+    //Share Buttons (chapter 7)
+    implementation(npm("react-share"))
+
+    //Coroutines (chapter 8)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.3")
+}
 ```
 
-CRKA will start compiling the demo application that ships with a new project. After a few seconds, you should see the following confirmation in the command line:
+After editing the file, IntelliJ IDEA will automatically prompt us import the changed Gradle files. Alternatively, we can also press the "🔁 Reimport All Gradle Projects" button in the Gradle tool window.
 
-![image-20190730162459994](./assets/image-20190730162459994.png)
+#### HTML page
 
-The development server automatically opens a web browser as well, pointing at http://localhost:3000 and displaying the compiled application.
+Because we can't run JavaScript out of nowhere, we need to provide an HTML page (linked to our compiled JS file) that can be loaded in a browser. Let's create the file `/src/main/resources/index.html` and fill it with the following content:
 
-![image-20190730162757059](./assets/image-20190730162757059.png)
+```xml
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello, Kotlin/JS!</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="confexplorer.js"></script>
+</body>
+</html>
+```
 
-During development, feel free to keep the terminal open and leave the development server running. It will watch for the changes you make to your application, automatically recompile your Kotlin code, and reload the page while it is running.
+Depending on how we named our project, the embedded `js` file has a different name. For example, if you named your project `followingAlong`, make sure to embed `followingAlong.js`. Thanks to the Gradle plugin, all of our code and dependencies will be bundled up into this single JavaScript artifact that bears the same name as our project.
 
-Let's open the project in IntelliJ IDEA. To open the project, go to `File > Open` and navigate to the root of our project. When we first open the project, a prompt to upgrade the project to a new version might appear. We can do this without any hesitation.
+Now, before we write a proper "Hello, World" with actual Markup, let's start with a very simple and visual example – a solid colored page. This is just to verify that what we're building is actually reaching the browser and executes fine. For this, we create the file `src/main/kotlin/Main.kt` and fill it with the following Kotlin code snippet:
 
-![image-20190729140409230](./assets/image-20190729140409230.png)
+```kotlin
+import kotlin.browser.document
 
-Before we continue, feel free to have a look around, change a string or two, save, and wait for the automatic reload of your browser window. If you've accidentally terminated `yarn start`, you can just restart it from the terminal in IntelliJ IDEA.
+fun main() {
+    document.bgColor = "red"
+}
+```
 
-### Cleaning up
+Now, we need to compile, run, and serve our code.
 
-Since it's in our interest to understand things *from scratch*, let's remove the example code from our repository. You can always refer back to the example code by creating a new project using the steps above.
+### Running the development server
 
-So, let's delete all the files inside the `src` folder, and start from scratch! We'll explore what each bit of code does, and build our application from the ground up.
+The `kotlin.js` Gradle plugin comes by default with support for an embedded `webpack-dev-server`, which allows us to run the application from our IDE without having to manually set up any kind of server.
 
-This is a blank slate of endless possibilities. Let’s get started!
+We can start the development server by invoking the `run` or `browserDevelopmentRun` task from the Gradle tool window inside IntelliJ IDEA:
 
-You can find the state of the project after this section on the `step-01-empty-project` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js/tree/step-01-empty-project) repository.
+![](./assets/browserDevelopmentRun.png)
+
+If you would like to run the program from the Terminal instead, you can do so via `./gradlew run`.
+
+Our project is compiled and bundled, and after a few seconds, a browser window should open up that shows a red, blank page – the indication that our code is running fine:
+
+![](./assets/redPage.png)
+
+#### Enabling hot reload / continous mode
+
+Instead of manually compiling and executing our project every time we want to see the changes we made, we can make use of the _continuous compilation_ mode that is supported by Kotlin/JS. Instead of using the regular `run` command, we instead invoke Gradle in _continuous_ mode.
+
+Make sure to stop all running development server instances before proceeding.
+
+From inside IntelliJ IDEA, we can pass the same flag via the _run configuration_. After running the Gradle `run` task for the first time from the IDE, IntelliJ IDEA automatically generates a run configuration for it, which we can edit:
+
+![](./assets/editConfigurations.png)
+
+In the "Run/Debug Configurations" dialog, we can add the `--continuous` flag to the arguments for the run configuration:
+
+![](./assets/continuous.png)
+
+After applying the changes to our run configuration, we can use the play button inside IntelliJ IDEA to start our development server back up.
+
+If you would like to run the Gradle continous builds from the Terminal instead, you can do so via `./gradlew run --continuous`.
+
+To test the feature we have just enabled, let's change the color of the page while the Gradle task is running. We could, for example, change it to blue:
+
+```kotlin
+document.bgColor = "blue"
+```
+
+If everything goes well, a couple seconds after saving our change, the project should be recompiled, and our browser page reloads, reflecting the new hue.
+
+During development, feel free to leave the development server running. It will watch for the changes we make in our code, automatically recompile, and reload the page while it is running. If you'd like, you can play around for a bit in this beginning stage, and then continue.
+
+### Ready, set...
+
+We have set up our blank slate of endless possibilities. Let’s get started!
+
+You can find the state of the project after this section on the `master` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/master) repository.
+

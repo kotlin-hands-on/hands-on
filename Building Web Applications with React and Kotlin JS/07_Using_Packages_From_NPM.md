@@ -8,18 +8,24 @@ First up and probably the most obvious missing functionality is the video player
 
 We need to replace our placeholder video component with one that can actually show the YouTube videos we're linking by adding in a ready-made video player for React. We'll use the `react-player` component to show the video and control the appearance of the player. We can take a look at some of the documentation for it and its API in the GitHub [README](https://github.com/CookPete/react-player/blob/master/README.md).
 
-We install the component by running the following command in the root of our project:
+In the beginning, we have already added the `react-player` package to our Gradle build file. This was the responsible snippet:
 
-```shell
-yarn add react-player
+```kotlin
+dependencies {
+    //...
+    //Video Player (chapter 7)
+    implementation(npm("react-player"))
+    //...
+}
 ```
 
-Let's also restart the development server so it makes note of the new dependency.
+You're seeing that right – NPM dependencies can be added to a Gradle build file via the `npm` function. The yarn installation managed by the Gradle plugin will take care of downloading, installing and updating those NPM dependencies for you.
 
-Since we want to use this module from Kotlin, we need to tell our compiler what the component interface looks like – what kind of things are okay to invoke, to set, or to read from this external component, so that we remain safe. To do this, let's create a file called `react-player.kt`, with the following contents:
+Since we want to use this module from Kotlin, we need to tell our compiler what the component interface looks like – what kind of things are okay to invoke, to set, or to read from this external component, so that we remain safe, and can count on tool support. To do this, let's create a file called `react-player.kt`, with the following contents:
 
 ```kotlin
 @file:JsModule("react-player")
+@file:JsNonModule
 
 import react.*
 
@@ -54,13 +60,18 @@ ReactPlayer {
 
 ### Adding social share buttons
 
-As with most things, KotlinConf talks are best enjoyed together. An easy way to share the high-quality content we're going to have in our application with friends and colleagues would be to have some "share" buttons. Ideally, they would support messengers and email. Once more, we can use an off-the-shelf React component for this purpose, for example, [react-share](https://github.com/nygardk/react-share/blob/master/README.md). We can add it as a dependency to the project by running the following command:
+As with most things, KotlinConf talks are best enjoyed together. An easy way to share the high-quality content we're going to have in our application with friends and colleagues would be to have some "share" buttons. Ideally, they would support messengers and email. Once more, we can use an off-the-shelf React component for this purpose, for example, [react-share](https://github.com/nygardk/react-share/blob/master/README.md), another package that we have already added with the corresponding snippet in our Gradle configuration:
 
-```
-yarn add react-share
+```kotlin
+dependencies {
+    //...
+    //Share Buttons (chapter 7)
+    implementation(npm("react-share"))
+    //...
+}
 ```
 
-Restart the development server again, and let's write some wrappers. When we look at the [examples on GitHub](https://github.com/nygardk/react-share/blob/master/demo/Demo.jsx#L61), we can see that a share button consists of two react components: `EmailShareButton` and `EmailIcon`, for example. However, all of them share (mostly) the same interface. We end up with a `react-share.kt` header definition which looks like this:
+Let's once more write some wrappers. When we look at the [examples on GitHub](https://github.com/nygardk/react-share/blob/master/demo/Demo.jsx#L61), we can see that a share button consists of two react components: `EmailShareButton` and `EmailIcon`, for example. However, all of them share (mostly) the same interface. We end up with a `react-share.kt` declaration which looks like this:
 
 ```kotlin
 @file:JsModule("react-share")
@@ -123,4 +134,4 @@ We can now validate that the buttons actually work by clicking one of them and s
 
 Feel free to repeat this step with some of the other share buttons [offered by the component](https://github.com/nygardk/react-share/blob/master/README.md#features).
 
-You can find the state of the project after this section on the `step-06-packages-from-npm` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js/tree/step-06-packages-from-npm) repository.
+You can find the state of the project after this section on the `step-06-packages-from-npm` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-06-packages-from-npm) repository.

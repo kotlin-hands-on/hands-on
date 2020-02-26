@@ -1,6 +1,6 @@
 # A first static page with React
 
-Every good programming story starts with a *Hello World*-derivative – so, let's more from our colored page to exactly that!
+Every good programming story starts with a *Hello World*-derivative – so, let's move from our colored page to exactly that!
 
 Change the code inside `src/Main.kt` to look as follows:
 

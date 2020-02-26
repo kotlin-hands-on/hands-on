@@ -33,7 +33,7 @@ import react.*
 external val ReactPlayer: RClass<dynamic>
 ```
 
-Because JavaScript imports/exports isn't the simplest topic, it can sometimes be tricky to find the correct combination between annotations to get the Kotlin compiler on the same page as us. This line is equivalent to a JavaScript import like `require("react-player").default;`. It tells the compiler that we're certain we'll get a component conforming to `RClass<dynamic>` at runtime.
+Because JavaScript imports/exports isn't the simplest topic, it can sometimes be tricky to find the correct combination between annotations to get the Kotlin compiler on the same page as us. These last two lines are equivalent to a JavaScript import like `require("react-player").default;`. It tells the compiler that we're certain we'll get a component conforming to `RClass<dynamic>` at runtime.
 
 #### Typed wrappers for the video player component
 

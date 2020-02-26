@@ -6,9 +6,6 @@ To get started, let's make sure we have installed an up-to-date development envi
 
 - IntelliJ IDEA (version `2019.3.2` or above) with the Kotlin plugin (`1.3.70` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
 
-```warning
-Kotlin 1.3.70 is currently in Early Access Preview. Please refer to the [EAP thread](https://discuss.kotlinlang.org/t/kotlin-1-3-70-early-access-preview/15876) to learn how to update your local installation of Kotlin to 1.3.70.
-```
 
 ### Setting up the project
 
@@ -32,7 +29,6 @@ Inside our `build.gradle.kts` file, let's make sure that our `repositories` bloc
 
 ```kotlin
 repositories {
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
     maven("https://kotlin.bintray.com/kotlin-js-wrappers/")
     mavenCentral()
     jcenter()

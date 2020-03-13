@@ -69,7 +69,7 @@ explicitly, but it won't happen automatically as it would with a structured one.
 
 ### Cancellation of contributors loading
 
-Let's compare two versions of the `loadConstributorsConcurrent` function:
+Let's compare two versions of the `loadContributorsConcurrent` function:
 one using `coroutineScope` to start all the child coroutines and the other using `GlobalScope`.
 We'll compare how both versions behave when we try to cancel the parent coroutine.
 

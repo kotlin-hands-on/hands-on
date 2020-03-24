@@ -6,5 +6,4 @@ currently available on the JVM.
 
 In this tutorial we're going to see how to create a simple HTTP application that responds to an endpoint, and deploy on the JVM.
 
-
-
+[Source code on GitHub](https://github.com/kotlin-hands-on/getting-started-with-ktor)

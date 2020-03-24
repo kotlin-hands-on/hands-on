@@ -15,6 +15,6 @@ back the response
 ![Browser](./assets/browser.png)
   
 
-We've now successfully created our first Ktor server application. Ktor allows for much more functionality such as server creating websites, serving static content,
+We've now successfully created our first Ktor server application. Ktor allows for much more functionality such as serving static content and front-ends for web sites,
 providing HTTP end-points for RESTful services, etc. For more information check out some of the [tutorials on Ktor](https://play.kotlinlang.org/hands-on) as well 
 as the [documentation on ktor.io](https://ktor.io/servers/index.html).

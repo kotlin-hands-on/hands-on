@@ -29,7 +29,7 @@ Each lab consists of a series of steps.
 Each step is represented as an individual markdown file with the naming convention `NN_{step-title}` where
 `NN` is the step number and `step-title` is the step title. 
 
-Each hands-on lab should start with an `01_Introduction` file that clearly highlights what the hands-on lab is going to cover.
+Each hands-on lab should start with an `00_description.md` file which is the text used for the card displayed on the list of tutorials, and a `01_Introduction` file that clearly highlights what the hands-on lab is going to cover.
 Ideally it should also show a screenshot of the end result (if this is for instance an application). 
 
 ### Style and Formatting

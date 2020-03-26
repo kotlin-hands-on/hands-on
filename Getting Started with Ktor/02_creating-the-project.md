@@ -50,7 +50,7 @@ dependencies for Ktor, which in this case we're including two:
 * `server-netty` which is the module that provides us with the ability to self-host our applications using Netty. 
 
 Ktor allows applications to run within an Application Server compatible with Servlets, such as Tomcat, or as an embedded application, using Jetty, Netty or CIO. In our
-case it will be Netty. If we were to to use something else like Jetty, we'd include the corresponding module `server-jetty`.
+case it will be Netty. If we were to use something else like Jetty, we'd include the corresponding module `server-jetty`.
 
 Once we have our build file ready, we can refresh it (if within the IDE) to download the corresponding dependencies and start writing some code. Our 
 project structure should look like the following

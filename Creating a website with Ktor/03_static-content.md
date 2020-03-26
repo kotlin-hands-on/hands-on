@@ -3,7 +3,7 @@
 The first type of content we want to serve up on our website are existing static files, be these
 images or HTML. 
 
-For serving static content we can use a specific routing function already built in to to Ktor, named `static`. The function takes two parameters, the 
+For serving static content we can use a specific routing function already built in to Ktor, named `static`. The function takes two parameters, the 
 URL which corresponds to static contents, and a lambda where we can define the `resources` bundle that serves this content.
  
 ```kotlin

@@ -42,7 +42,7 @@ routing {
 
 Notice how we can seamlessly combine Kotlin code with HTML tags because after all, it's all Kotlin!
 
-in particular we've added the `get` action to respond to the `/html` endpoint and inside we're adding our actual HTML. On calling this 
+In the code above we've added the `get` action to respond to the `/html` endpoint and inside we're adding our actual HTML. On calling this 
 endpoint, the result should be as shown below
 
 ![Static HTML](./assets/static-html.png)

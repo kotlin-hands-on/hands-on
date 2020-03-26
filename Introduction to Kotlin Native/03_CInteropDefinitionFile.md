@@ -43,7 +43,7 @@ The next lines are about providing linker and compiler options, which can vary d
 Parameters without a suffix is also possible (e.g. `linkerOpts=`) and will be applied to all platforms. 
 
 The convention that is followed is that each library gets its own definition file, usually named the same as the library. For more information on all
-the options available to `cinterop`, see [the Interop documentation](/docs/reference/native/c_interop.html)
+the options available to `cinterop`, see [the Interop documentation](https://kotlinlang.org/docs/reference/native/c_interop.html)
 
 Once we have the definition file ready, we can 
 create project files and open the project in an IDE.

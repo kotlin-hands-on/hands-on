@@ -17,8 +17,8 @@ Let's begin the process of structuring our application. We’ll start by explici
 ```kotlin
 import react.*
 
-class App: RComponent<RProps, RState>() {
-    override fun RBuilder.render() {
+class App : RComponent<RProps, RState>() {
+  override fun RBuilder.render() {
         // typesafe HTML goes here!
     }
 }
@@ -198,7 +198,7 @@ class VideoList : RComponent<VideoListProps, VideoListState>() {
                         }
                     }
                 }
-                if(video == state.selectedVideo) {
+                if (video == state.selectedVideo) {
                     +"▶ "
                 }
                 +"${video.speaker}: ${video.title}"

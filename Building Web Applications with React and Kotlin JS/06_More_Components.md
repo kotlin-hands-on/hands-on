@@ -58,7 +58,7 @@ Finishing up, this means that the video player will only be shown if the `curren
 
 ### Adding a button and wiring it
 
-So far, we haven't really had a way to move our videos from the list of unwatched videos to the list of watched videos (and vice versa). Let's add a button to our `VideoPlayer` Component that will do exactly that.
+So far, we haven't really had a way to move our videos from the list of unwatched videos to the list of watched videos (and vice versa). Let's add a button to our `VideoPlayer` component that will do exactly that.
 
 The fact that we want to move things between two different lists (an effect that happens outside the `VideoPlayer` component) suggests that once again, the handler for our button needs to be *lifted* and passed in from the outside.
 

@@ -27,7 +27,7 @@ class App : RComponent<RProps, AppState>()
 Let's delete the `VideoListState` since we're storing it somewhere further up our hierarchy now. Since we've made the list effectively stateless at this point (by moving all of the state out of the component), we can revert its class definition back to inherit the default state.
 
 ```kotlin
-class VideoListComponent : RComponent<RProps, RState>()
+class VideoList: RComponent<VideoListProps, RState>()
 ```
 
 We are ready to pass down the overarching state using a mechanism we've already seen before – a prop. All we have to do is expand the `VideoListProps` interface to contain the `selectedVideo`.

@@ -32,7 +32,7 @@ To run this first web app, we execute the `run` Gradle task. From the command li
 
 From IntelliJ IDEA, we can find the `run` action in the Gradle tool window:
 
-![](/assets/run_gradle_task_from_ide.png)
+![](./assets/run_gradle_task_from_ide.png)
 
 On first start, the `kotlin.js` Gradle plugin will download all required dependencies to get us up and running. After a few seconds, the embedded `webpack-dev-server` will spring to life, and we should be greeted with a very empty browser window!
 
@@ -52,10 +52,10 @@ Instead of manually compiling and executing our project every time we want to se
 
 If you are working from inside IntelliJ IDEA, we can pass the same flag via the _run configuration_. After running the Gradle `run` task for the first time from the IDE, IntelliJ IDEA automatically generates a run configuration for it, which we can edit:
 
-![](/assets/edit_configurations.png)
+![](./assets/edit_configurations.png)
 
 In the "Run/Debug Configurations" dialog, we can add the `--continuous` flag to the arguments for the run configuration:
 
-![](/assets/run_debug_configurations.png)
+![](./assets/run_debug_configurations.png)
 
 But of course, we can do better than a blank page. Let's actually set up a small page, and start manipulating it with the help of Kotlin/JS.

@@ -6,9 +6,6 @@ To get started, let's make sure we have installed an up-to-date development envi
 
 - IntelliJ IDEA (version `2019.3.2` or above) with the Kotlin plugin (`1.3.70` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
 
-```warning
-Kotlin 1.3.70 is currently in Early Access Preview. Please refer to the [EAP thread](https://discuss.kotlinlang.org/t/kotlin-1-3-70-early-access-preview/15876) to learn how to update your local installation of Kotlin to 1.3.70.
-```
 
 ### Setting up the project
 
@@ -32,7 +29,6 @@ Inside our `build.gradle.kts` file, let's make sure that our `repositories` bloc
 
 ```kotlin
 repositories {
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
     maven("https://kotlin.bintray.com/kotlin-js-wrappers/")
     mavenCentral()
     jcenter()
@@ -46,13 +42,13 @@ dependencies {
     implementation(kotlin("stdlib-js"))
 
     //React, React DOM + Wrappers (chapter 3)
-    implementation("org.jetbrains:kotlin-react:16.9.0-pre.89-kotlin-1.3.60")
-    implementation("org.jetbrains:kotlin-react-dom:16.9.0-pre.89-kotlin-1.3.60")
-    implementation(npm("react", "16.12.0"))
-    implementation(npm("react-dom", "16.12.0"))
+    implementation("org.jetbrains:kotlin-react:16.13.0-pre.94-kotlin-1.3.70")
+    implementation("org.jetbrains:kotlin-react-dom:16.13.0-pre.94-kotlin-1.3.70")
+    implementation(npm("react", "16.13.1"))
+    implementation(npm("react-dom", "16.13.1"))
 
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.90-kotlin-1.3.61")
+    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.94-kotlin-1.3.70")
     implementation(npm("styled-components"))
     implementation(npm("inline-style-prefixer"))
 
@@ -63,7 +59,7 @@ dependencies {
     implementation(npm("react-share"))
 
     //Coroutines (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5")
 }
 ```
 

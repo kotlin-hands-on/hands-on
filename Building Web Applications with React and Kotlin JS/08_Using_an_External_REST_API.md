@@ -31,7 +31,7 @@ Like the other dependencies we've gotten to know over the course of this hands-o
 dependencies {
     //...
     //Coroutines (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5")
 }
 ```
 

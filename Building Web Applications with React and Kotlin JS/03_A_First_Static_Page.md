@@ -146,7 +146,7 @@ We do not need to do perform any extra steps to start using the functionality, b
 dependencies {
     //...
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.90-kotlin-1.3.61")
+    implementation("org.jetbrains:kotlin-styled:16.13.0-pre.94-kotlin-1.3.70")
     implementation(npm("styled-components"))
     implementation(npm("inline-style-prefixer"))
     //...

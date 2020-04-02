@@ -13,7 +13,7 @@ To prevent components from being hard-wired together in strange, criss-cross way
 We define an interface:
 
 ```kotlin
-interface AppState: RState {
+external interface AppState: RState {
     var currentVideo: Video?
 }
 ```
@@ -33,7 +33,7 @@ class VideoListComponent : RComponent<RProps, RState>()
 We are ready to pass down the overarching state using a mechanism we've already seen before – a prop. All we have to do is expand the `VideoListProps` interface to contain the `selectedVideo`.
 
 ```kotlin
-interface VideoListProps : RProps {
+external interface VideoListProps : RProps {
     var videos: List<Video>
     var selectedVideo: Video?
 }
@@ -54,7 +54,7 @@ But this refactoring has caused a **new problem**: We have no access to the stat
 While we might wish we could alter the state of our parent component, this is not allowed in React. We can solve the problem of modifying application state from within a component by moving the logic for handling user interaction into a prop, and passing it in from the parent. Remember that in Kotlin, variables can have the [type of a function](https://kotlinlang.org/docs/reference/lambdas.html#function-types). We can expand the `VideoListProps` interface so that it contains a variable `onSelectVideo`, which is a function from `Video` returning `Unit`:
 
 ```kotlin
-interface VideoListProps : RProps {
+external interface VideoListProps : RProps {
     var videos: List<Video>
     var selectedVideo: Video?
     var onSelectVideo: (Video) -> Unit

@@ -82,7 +82,7 @@ When we reuse our list, we will probably want to fill it with different content.
 In our case, we would like to add a prop which contains the list of talks. Let's restructure our code accordingly. Within `VideoList.kt`, let's add an interface definition like this:
 
 ```kotlin
-interface VideoListProps: RProps {
+external interface VideoListProps: RProps {
     var videos: List<Video>
 }
 ```
@@ -174,7 +174,7 @@ Defining an `onClickFunction` directly as a lambda is concise and very useful fo
 Instead of simply alerting the user, let's make it so that they can actually select a video. We highlight the selected video with a ▶ triangle. To achieve this, we need to introduce some *state* specific to this component. Just as we did with props, we can do it by defining an interface:
 
 ```kotlin
-interface VideoListState: RState {
+external interface VideoListState: RState {
     var selectedVideo: Video?
 }
 ```

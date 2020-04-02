@@ -13,7 +13,7 @@ import react.*
 import react.dom.*
 import styled.*
 
-interface VideoPlayerProps : RProps {
+external interface VideoPlayerProps : RProps {
     var video: Video
 }
 
@@ -65,7 +65,7 @@ The fact that we want to move things between two different lists (an effect that
 Since we want the button to have different text depending on whether the video has been watched or not, we need to give the button some more information to work with – specifically, the status of the video passed in. So, we expand our `VideoPlayerProps` interface:
 
 ```kotlin
-interface VideoPlayerProps : RProps {
+external interface VideoPlayerProps : RProps {
     var video: Video
     var onWatchedButtonPressed: (Video) -> Unit
     var unwatchedVideo: Boolean
@@ -106,7 +106,7 @@ When the button is clicked, a video should either be:
 Now that these lists can actually change, it's time to move them into our application state! Again, the interface gets expanded with a couple more lines:
 
 ```kotlin
-interface AppState : RState {
+external interface AppState : RState {
     var currentVideo: Video?
     var unwatchedVideos: List<Video>
     var watchedVideos: List<Video>

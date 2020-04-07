@@ -11,7 +11,7 @@ We'll be using [IntelliJ IDEA](https://www.jetbrains.com/idea).
 Let's create a new file in our project called `CustomerTest.http` and 
 enter the following contents:
 
-```http request
+```
 POST http://0.0.0.0:8080/customer
 Content-Type: application/json
 
@@ -82,7 +82,7 @@ If everything is correct, we should see the output in the Run tool window
 For the order endpoints we can follow the same procedure and define a new HTTP request
 file
 
-```http request
+```
 GET http://0.0.0.0:8080/order/2020-04-06-01
 Content-Type: application/json
 

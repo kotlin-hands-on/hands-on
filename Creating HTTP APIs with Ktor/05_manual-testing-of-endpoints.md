@@ -72,7 +72,6 @@ Once the server is up and running, we can execute each request by hitting Alt+En
 
 ![Run POST Request](./assets/run-post-request.png) 
 
-
 If everything is correct, we should see the output in the Run tool window
 
 ![Run Output](./assets/run-output.png)

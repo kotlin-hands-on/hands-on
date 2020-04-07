@@ -23,7 +23,6 @@ Content-Type: application/json
 }
 
 
-###
 POST http://0.0.0.0:8080/customer
 Content-Type: application/json
 
@@ -34,7 +33,6 @@ Content-Type: application/json
   "email": "john.smith@company.com"
 }
 
-###
 POST http://0.0.0.0:8080/customer
 Content-Type: application/json
 
@@ -46,20 +44,16 @@ Content-Type: application/json
 }
 
 
-###
+
 GET http://0.0.0.0:8080/customer
 Accept: application/json
 
-###
 GET http://0.0.0.0:8080/customer/200
 
-###
 GET http://0.0.0.0:8080/customer/500
 
-###
 DELETE http://0.0.0.0:8080/customer/100
 
-###
 DELETE http://0.0.0.0:8080/customer/500
 ```
 
@@ -91,7 +85,7 @@ file
 GET http://0.0.0.0:8080/order/2020-04-06-01
 Content-Type: application/json
 
-###
+
 GET http://0.0.0.0:8080/order/2020-04-06-01/total
 Content-Type: application/json
 ```

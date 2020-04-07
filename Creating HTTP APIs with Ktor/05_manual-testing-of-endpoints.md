@@ -33,6 +33,7 @@ Content-Type: application/json
   "email": "john.smith@company.com"
 }
 
+
 POST http://0.0.0.0:8080/customer
 Content-Type: application/json
 

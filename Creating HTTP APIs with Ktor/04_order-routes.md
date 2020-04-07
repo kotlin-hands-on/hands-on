@@ -3,14 +3,14 @@
 Now that we have our `/customer` endpoint done, let's move on to `Orders`, where we'll
 be responding to GET requests, but using two different patterns
 
-```http request
+```
 GET http://0.0.0.0:8080/order/
 Content-Type: application/json
 
 GET http://0.0.0.0:8080/order/{id}
 Content-Type: application/json
 
-###
+
 GET http://0.0.0.0:8080/order/{id}/total
 Content-Type: application/json
 ```

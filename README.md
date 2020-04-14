@@ -23,6 +23,11 @@ Each labs consists of:
 Text and assets for all labs are located under this repository under the `lab-name`.
 The sample projects corresponding to each lab are separate repositories under the `https://github.com/kotlin-hands-on` organization.  
 
+### Hands-On Initiator Command Line tool
+
+There's a [command line tool](https://github.com/kotlin-hands-on/hands-on-init) that can make the process of initializing everythhing much easier.
+
+
 ### Text Structure
 
 Each lab consists of a series of steps.
@@ -63,7 +68,7 @@ fun main() {
 ```
 
 
-#### Promt styles
+#### Prompt styles
 
 Support 3 promt modes: `note`, `warning`, `tip`, `todo`.
 

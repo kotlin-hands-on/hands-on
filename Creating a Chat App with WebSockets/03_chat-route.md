@@ -56,5 +56,14 @@ fun Route.chatRoute() {
 We're creating a connections set, and then for every request made to `/chat`, we'll be adding
 the connection to this set. Once the chat has finalized, we'll remove it. 
 
+Finally, let's create the function that registers our route, which will later be called
+by the application initialization code
 
+```kotlin
+fun Application.registerChatRoutes() {
+    routing {
+        chatRoute()
+    }
+}
+```
 

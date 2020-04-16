@@ -1,4 +1,4 @@
-# Project Setup
+# Project setup
 
 If we were to start a fresh idea from zero, the wizard for multiplatform projects which is available in IntelliJ IDEA would be our go-to solution. In order to reduce the amount of time spent adjusting Gradle imports while going through this tutorial, a starter template is available for this specific tutorial that includes configuration and all required dependencies for Kotlin/JS, Kotlin/JVM, as well as common code.
 

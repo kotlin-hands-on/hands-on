@@ -1,4 +1,4 @@
-# Frontend Setup
+# Frontend setup
 
 At this point, we have successfully built the server side of our application! Now, it is time to make it human-usable. For this, we want to build a small application written in Kotlin/JS that can load the JSON responses from the server, display them in the shape of a list, as well as allow the user to add and remove elements to this list.
 

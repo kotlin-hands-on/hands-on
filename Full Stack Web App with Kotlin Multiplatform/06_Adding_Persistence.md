@@ -1,4 +1,4 @@
-# Adding Persistence
+# Adding persistence
 
 ### Why MongoDB?
 

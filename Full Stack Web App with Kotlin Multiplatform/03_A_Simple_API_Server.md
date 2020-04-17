@@ -152,7 +152,7 @@ routing {
         }
         delete("/{id}") {
             val id = call.parameters["id"]?.toInt() ?: error("Invalid delete request")
-            collection.deleteOne(ShoppingListItem::id eq id)
+            shoppingList.removeIf { it.id == id }
             call.respond(HttpStatusCode.OK)
         }
     }

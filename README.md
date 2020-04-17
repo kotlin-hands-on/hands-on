@@ -115,18 +115,14 @@ It should contain a README.md with the following contents:
 
 This repository is the code corresponding to the hands-on lab `{link to hands-on lab}`. 
 
-If the lab describes creating the project step-by-step, the state of the project after each step should be present
-in the project and stored in a separate branch or branches. If one branch is enough, it can be called `solutions`
-(see [Introduction to Coroutines and Channels](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/01_Introduction) as an example).
-If each steps modifies the whole project, intermediate steps should be stored in different branches
-(see [Introduction to Kotlin Multiplatform](https://github.com/kotlin-hands-on/intro-kotlin-mutliplatform) as an example).
-
 The lab should reference the project(s) containing the source code:
 
-`You can find the code for the hands-on lab on [GitHub](https://github.com/kotlin-hands-on/{lab-name})` 
+`You can find the code for the hands-on lab on [GitHub](https://github.com/kotlin-hands-on/{lab-name})`
 
-If the project contains several branches, the lab text should describe these branches, give the detailed instructions on
-installing the project and choosing the correct initial branch. After each step, the correct branch should be referred.
+If the lab describes creating the project step-by-step, the state of the project after each step should be present
+in the project as a separate commit. After each step, the correct commit should be referred in the text. `master` branch
+should contain only the initial state of the project, and the final state with the complete commit history should be
+stored in the `final` branch.  
 
 ### Automatic compilation and testing of sample projects
 

@@ -2,7 +2,7 @@
 
 Ktor projects can be created using either Gradle or Maven. We can use [start.ktor.io](https://start.ktor.io) as a starting point to create new projects, or alternatively use the Ktor 
 [IntelliJ IDEA plugin](https://plugins.jetbrains.com/plugin/10823-ktor) for that performs the same steps as the web wizard. However, in this tutorial we're going to create the project from scratch so that
-we understand how things are built. However, we can also use 
+we understand how things are built. However, we can also use the said plugin or web wizard to speed things up.
 
 
 ### Getting the right dependencies

@@ -16,7 +16,7 @@ fun Application.module() {
 
 And our `application.conf` (remember to place this under resources) will be
 
-```
+```groovy
 ktor {
     deployment {
         port = 8080

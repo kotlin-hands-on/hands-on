@@ -12,7 +12,8 @@ Let's create a new file in our project called `CustomerTest.http` and
 enter the following contents:
 
 ```
-POST http://0.0.0.0:8080/customer
+### Create customer #100
+POST http://localhost:8080/customer
 Content-Type: application/json
 
 {
@@ -22,8 +23,8 @@ Content-Type: application/json
   "email": "jane.smith@company.com"
 }
 
-
-POST http://0.0.0.0:8080/customer
+### Create customer with #200
+POST http://localhost:8080/customer
 Content-Type: application/json
 
 {
@@ -33,8 +34,8 @@ Content-Type: application/json
   "email": "john.smith@company.com"
 }
 
-
-POST http://0.0.0.0:8080/customer
+### Create customer #300
+POST http://localhost:8080/customer
 Content-Type: application/json
 
 {
@@ -45,17 +46,21 @@ Content-Type: application/json
 }
 
 
-
-GET http://0.0.0.0:8080/customer
+### Get all created customers
+GET http://localhost:8080/customer
 Accept: application/json
 
-GET http://0.0.0.0:8080/customer/200
+### Get customer #200
+GET http://localhost:8080/customer/200
 
-GET http://0.0.0.0:8080/customer/500
+### Try to get nonexistent customer
+GET http://localhost:8080/customer/500
 
-DELETE http://0.0.0.0:8080/customer/100
+### Delete customer #200
+DELETE http://localhost:8080/customer/100
 
-DELETE http://0.0.0.0:8080/customer/500
+### Try to delete nonexistent customer
+DELETE http://localhost:8080/customer/500
 ```
 
 IntelliJ IDEA now allows us to run each of these individually or all together. In our case
@@ -82,11 +87,12 @@ For the order endpoints we can follow the same procedure and define a new HTTP r
 file
 
 ```
-GET http://0.0.0.0:8080/order/2020-04-06-01
+### Get order
+GET http://localhost:8080/order/2020-04-06-01
 Content-Type: application/json
 
-
-GET http://0.0.0.0:8080/order/2020-04-06-01/total
+### Get total of order
+GET http://localhost:8080/order/2020-04-06-01/total
 Content-Type: application/json
 ```
 

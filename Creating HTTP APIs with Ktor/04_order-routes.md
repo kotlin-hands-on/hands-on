@@ -1,7 +1,7 @@
 # Order Routes
 
 Now that we have our `/customer` endpoint done, let's move on to `Orders`, where we'll
-be responding to GET requests, but using two different patterns
+be responding to GET requests, but using three different patterns:
 
 ```
 GET http://0.0.0.0:8080/order/
@@ -86,7 +86,7 @@ fun Route.getOrderRoute() {
         }
     }
 }
-``` 
+```
 
 ### Totalizing an order
 

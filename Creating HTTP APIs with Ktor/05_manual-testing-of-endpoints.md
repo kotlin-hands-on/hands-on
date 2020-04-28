@@ -4,14 +4,14 @@ Now that we have all the endpoints ready, it's time to test our application. Whi
 we can use any browser to test GET verbs, we'll need another tool such as Postman, curl, or IntelliJ IDEA
 to test other verbs. 
 
-We'll be using [IntelliJ IDEA](https://www.jetbrains.com/idea).
+We'll be using [IntelliJ IDEA](https://www.jetbrains.com/idea) Ultimate Edition to do this directly from the IDE.
 
 ## Creating a Customer HTTP test file
 
 Let's create a new file in our project called `CustomerTest.http` and 
 enter the following contents:
 
-```
+```kotlin
 POST http://0.0.0.0:8080/customer
 Content-Type: application/json
 
@@ -22,15 +22,16 @@ Content-Type: application/json
   "email": "jane.smith@company.com"
 }
 
+
 ###
 POST http://0.0.0.0:8080/customer
 Content-Type: application/json
 
 {
-"id": "200",
-"firstName": "John",
-"lastName": "Smith",
-"email": "john.smith@company.com"
+  "id": "200",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@company.com"
 }
 
 ###
@@ -38,10 +39,10 @@ POST http://0.0.0.0:8080/customer
 Content-Type: application/json
 
 {
-"id": "300",
-"firstName": "Mary",
-"lastName": "Smith",
-"email": "mary.smith@company.com"
+  "id": "300",
+  "firstName": "Mary",
+  "lastName": "Smith",
+  "email": "mary.smith@company.com"
 }
 
 
@@ -63,7 +64,7 @@ DELETE http://0.0.0.0:8080/customer/500
 ```
 
 IntelliJ IDEA now allows us to run each of these individually or all together. In our case
-we want to run it individually. 
+we want to run them individually. 
 
 ## Running our server 
 
@@ -85,11 +86,11 @@ If everything is correct, we should see the output in the Run tool window
 For the order endpoints we can follow the same procedure and define a new HTTP request
 file
 
-```
+```kotlin
 GET http://0.0.0.0:8080/order/2020-04-06-01
 Content-Type: application/json
 
-
+###
 GET http://0.0.0.0:8080/order/2020-04-06-01/total
 Content-Type: application/json
 ```

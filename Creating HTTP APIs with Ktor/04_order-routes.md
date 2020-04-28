@@ -53,7 +53,7 @@ In this case, and as we don't have a POST verb, we'll prepopulate our database w
 
 With orders, we're going to follow a different pattern when it comes to defining routes. 
 Instead of grouping all routes under a single `route` function with different
-verbs, we'll use individual functions
+verbs, we'll use individual functions.
 
 ### Listing all orders, and a specific order
 
@@ -75,15 +75,12 @@ For returning a specific order, once again similar to customers, but again in it
 ```kotlin
 fun Route.getOrderRoute() {
     get("/order/{id}") {
-        val id = call.parameters["id"]
-        if (id != null) {
-            val order = orderStorage.find { it.number.compareTo(id) == 0 }
-            if (order != null) {
-                call.respond(order)
-            } else {
-                call.respondText("Not Found", status = HttpStatusCode.NotFound)
-            }
-        }
+        val id = call.parameters["id"] ?: return@get call.respondText("Bad Request", status = HttpStatusCode.BadRequest)
+        val order = orderStorage.find { it.number == id } ?: return@get call.respondText(
+            "Not Found",
+            status = HttpStatusCode.NotFound
+        )
+        call.respond(order)
     }
 }
 ```
@@ -96,18 +93,13 @@ totalizing this. The code itself is straightforward.
 ```kotlin
 fun Route.totalizeOrderRoute() {
     get("/order/{id}/total") {
-        val id = call.parameters["id"]
-        if (id != null) {
-            val order = orderStorage.find { it.number.compareTo(id) == 0 }
-            if (order != null) {
-                val total = order.contents.map { it.price * it.amount }.sumByDouble { it }
-                call.respondText("Total for order is $total")
-            } else {
-                call.respondText("Not Found", status = HttpStatusCode.NotFound)
-            }
-        } else {
-            call.respondText("Bad Request", status = HttpStatusCode.BadRequest)
-        }
+        val id = call.parameters["id"] ?: return@get call.respondText("Bad Request", status = HttpStatusCode.BadRequest)
+        val order = orderStorage.find { it.number == id } ?: return@get call.respondText(
+            "Not Found",
+            status = HttpStatusCode.NotFound
+        )
+        val total = order.contents.map { it.price * it.amount }.sum()
+        call.respondText("Total for order is $total")
     }
 }
 ```
@@ -115,7 +107,7 @@ fun Route.totalizeOrderRoute() {
 What we notice here is that we're using a route parameter is part of the URL and not necessarily 
 trailing, which is absolutely possible. 
 
-Rest of the code is similar to what we've already seen.
+The rest of the code is similar to what we've already seen.
 
 ## Registering the route 
 

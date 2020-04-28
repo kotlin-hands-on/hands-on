@@ -9,14 +9,17 @@ tests requests, namely, `withTestApplication`
 
 Create a new file under the `test` folder of the project named `OrderTests.kt` and enter the following 
 code:
- 
+
 ```kotlin
 class OrderRouteTests {
     @Test
     fun testGetOrder() {
         withTestApplication({ module(testing = true) }) {
             handleRequest(HttpMethod.Get, "/order/2020-04-06-01").apply {
-                assertEquals("{\"number\":\"2020-04-06-01\",\"contents\":[{\"item\":\"Ham Sandwich\",\"amount\":2,\"price\":5.5},{\"item\":\"Water\",\"amount\":1,\"price\":1.5},{\"item\":\"Beer\",\"amount\":3,\"price\":2.3},{\"item\":\"Cheesecake\",\"amount\":1,\"price\":3.75}]}", response.content)
+                assertEquals(
+                    """{"number":"2020-04-06-01","contents":[{"item":"Ham Sandwich","amount":2,"price":5.5},{"item":"Water","amount":1,"price":1.5},{"item":"Beer","amount":3,"price":2.3},{"item":"Cheesecake","amount":1,"price":3.75}]}""",
+                    response.content
+                )
                 assertEquals(HttpStatusCode.OK, response.status())
             }
         }
@@ -26,10 +29,10 @@ class OrderRouteTests {
 
 We're indicating to our application that we want to run it as a test, and then using the
 `handleRequest` helper method (also shipped as part of Ktor), we'd like to make a request
-to a specific endpoint, in this case `/order/{id}`. 
+to a specific endpoint, in this case `/order/{id}`. Note that since our string constains a lot of quotation marks around keys and values (like `"number"`), this is a great place to use [raw strings](https://kotlinlang.org/docs/reference/basic-types.html#string-literals) using triple-quotes (`"""`), saving us the hassle of individually escaping every special character inside the string.
 
 If we try and compile this code however, it won't work. This is due to the parameter being passed in 
-to our application (testing = true). For this to work, we need to add this to our application
+to our application (`testing = true`). For this to work, we need to add the corresponding parameter to our application:
 
 ```kotlin
 fun Application.module(testing: Boolean = false) {

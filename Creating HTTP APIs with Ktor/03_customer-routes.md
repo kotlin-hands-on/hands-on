@@ -6,7 +6,7 @@ added, listed, and deleted.
 
 ## Storage 
 To not complicate the code, for this tutorial
-we'll be using an in memory storage (i.e. a mutable list of customers). Usually we'd 
+we'll be using an in-memory storage (i.e. a mutable list of customers). Usually we'd 
 be storing this information in a database. 
 
 Create a file name `Customer.kt` in a new package named `models` and inside it copy the following
@@ -106,24 +106,23 @@ the following code to the `get({id})` entry:
 
 ```kotlin
 get("{id}") {
-    val id = call.parameters["id"]
-    if (id != null) {
-        val customer = customerStorage.find { it.id.compareTo(id) == 0 }
-        if (customer != null) {
-            call.respond(customer)
-        } else {
-            call.respondText("Not Found", status = HttpStatusCode.NotFound)
-        }
-    }
+    val id = call.parameters["id"] ?: return@get call.respondText(
+        "Missing or malformed id",
+        status = HttpStatusCode.BadRequest
+    )
+    val customer =
+        customerStorage.find { it.id == id } ?: return@get call.respondText(
+            "No customer with id $id",
+            status = HttpStatusCode.NotFound
+        )
+    call.respond(customer)
 }
 ```
 
-The first line is checking to see if the parameter exists. If it does exist (i.e. does not return null), we'll then 
-try to locate the corresponding record. If we find it, we'll respond with the object. Otherwise, we'll return a 
+The first line is checking to see if the parameter exists. If it does not exist, we respond with a "Bad Request", 400 status code. If it does exist, we'll then try to `find` the corresponding record. If we find it, we'll respond with the object. Otherwise, we'll return a 
 `Not Found` message with the 404 status code.
 
-You may be wondering whether we should be handling the scenario where `id` is null. In principle this isn't required as
-this would only happen if a parameter `{id}` were not passed in, in which case the previous route would handle the request.
+Note that while return a 400 "Bad request" when the `id` is null, this should never be encountered. Why? Because this would only happen if no parameter `{id}` was passed in – but in this case, the previous route would handle the request.
 
 ### Creating a customer
 
@@ -135,7 +134,7 @@ post {
     customerStorage.add(customer)
     call.respondText("Customer stored correctly", status = HttpStatusCode.Accepted)
 }
-``` 
+```
 
 We first receive the customer using `call.receive` which automatically deserializes the JSON request into the `Customer` object.
 Next, we add the customer to storage and respond with status code 201.
@@ -150,22 +149,17 @@ Deleting a customer follows a similar procedure to listing a specific customer. 
 
 ```kotlin
 delete("{id}") {
-    val id = call.parameters["id"]
-    if (id != null) {
-        if (customerStorage.removeIf { it.id == id }) {
-            call.respondText("Customer removed correctly", status = HttpStatusCode.Accepted)
-        } else {
-            call.respondText("Not Found", status = HttpStatusCode.NotFound)
-        }
+    val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
+    if (customerStorage.removeIf { it.id == id }) {
+        call.respondText("Customer removed correctly", status = HttpStatusCode.Accepted)
     } else {
-        call.respondText("Bad Request", status = HttpStatusCode.BadRequest)
+        call.respondText("Not Found", status = HttpStatusCode.NotFound)
     }
 }
 ```
 
-One difference with the `get` is that we're explicitly checking to make sure the `id` is not null. If it is, we can respond
-with a bad request 400 code. This is because we don't have a pattern `delete` with no route parameters, as we did in the case
-of `get`. 
+Similar to the definition of our `get` request, we make sure that the `id` is not null. If it is, we can respond
+with a "Bad Request" 400 code. This is because we don't have a pattern `delete` with no route parameters.
 
 ## Registering the routes
 

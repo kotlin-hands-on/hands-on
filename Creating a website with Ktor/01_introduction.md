@@ -1,6 +1,6 @@
 # Introduction
 
-In this tutorial we're going to create a website using [Ktor](https://ktor.io), that serves 3 different types of content
+In this tutorial we're going to create a website using [Ktor](https://ktor.io), that serves 3 different types of content:
 
 * Static pages and images
 * HTML using [Kotlinx.HTML](https://github.com/Kotlin/kotlinx.html)

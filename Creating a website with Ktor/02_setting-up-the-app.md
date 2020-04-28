@@ -2,7 +2,7 @@
 
 While the steps for this application are similar to the [Getting Started with Ktor](https://play.kotlinlang.org/hands-on/Getting%20Started%20with%20Ktor/01_introduction) tutorial, there is one small change. We'll be using an external configuration file to configure 
 the port and some other parameters of our application. This means that instead of creating an embedded server and defining the port 
-in code
+in code like this:
 
 ```kotlin
 fun main() {
@@ -13,7 +13,7 @@ fun main() {
 }
 ```
 
-we'll be using the follow structure
+we'll be using the follow structure in our code:
 
 ```kotlin
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -25,8 +25,8 @@ fun Application.module() {
 }
 ```
 
-and an `application.conf` file which uses [HOCON - Human-Optimized Config Object Notation](https://github.com/lightbend/config/blob/master/HOCON.md) to configure the application. This file
-resides in the `resources` folder of the project.
+This code uses an `application.conf` file which uses [HOCON - Human-Optimized Config Object Notation](https://github.com/lightbend/config/blob/master/HOCON.md) to configure the application. This file
+resides in the `resources` folder of the project, and contains the following configuration:
 
 ```kotlin
 ktor {
@@ -47,7 +47,7 @@ configurations.
 
 In addition we're adding logging to the application using the [logback](http://logback.qos.ch/) library. For this we simply need to add
 the corresponding artifact dependency in our `build.gradle` file, and place the `logback.xml` configuration file 
-in the `resources` folder
+in the `resources` folder.
 
 **application.conf**
 

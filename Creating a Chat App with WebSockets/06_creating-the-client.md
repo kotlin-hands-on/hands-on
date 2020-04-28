@@ -84,7 +84,7 @@ fun main() {
             port = 8080, path = "/chat"
     ) {
         var message = readLine() ?: ""
-        while (message.compareTo("exit", true) != 0) {
+        while (!message.equals("exit", true)) {
             send(message)
             when (val frame = incoming.receive()) {
                 is Frame.Text -> println(frame.readText())
@@ -114,7 +114,7 @@ fun main() = runBlocking {
             port = 8080, path = "/chat"
     ) {
         var message = readLine() ?: ""
-        while (message.compareTo("exit", true) != 0) {
+        while (!message.equals("exit", true)) {
             send(message)
             when (val frame = incoming.receive()) {
                 is Frame.Text -> println(frame.readText())

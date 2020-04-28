@@ -3,7 +3,7 @@
 In this tutorial we'll see how to create a chat application using [Ktor](https://ktor.io). We'll be developing
 both the client and server using this framework. 
 
-## Web Sockets
+## WebSockets
 
 WebSockets is a sub-protocol of HTTP. It starts as a normal HTTP request with an upgrade request header, and the connection switches to be a 
 bidirectional communication instead of a request response one.
@@ -17,7 +17,7 @@ Frames could be the following types:
 * Close
 * Ping/Pong.
 
-As consumers of Ktor, we'd normally be handling Binary and Text frames. The others are usually
+As consumers of Ktor, we'd normally be handling `Binary` and `Text` frames. The others are usually
 handled by Ktor. 
 
 ## Creating the project

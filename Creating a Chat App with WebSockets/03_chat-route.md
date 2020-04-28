@@ -1,6 +1,6 @@
 # Chat Route
 
-This first step is to create a route for the WebSocket. In this case we are going to define the /chat route, but 
+This first step is to create a route for the WebSocket. In this case we are going to define the `/chat` route, but 
 initially, we are going to make that route to act as an “echo” WebSocket route, that will send you back the same 
 text messages that we send to it.
 
@@ -23,7 +23,7 @@ fun Route.chatRoute() {
 
 `webSocket` routes are intended to be long-lived. Since it is a suspension block and uses 
 lightweight Kotlin coroutines, it is fine and we can handle (depending on the machine and the complexity) hundreds of 
-thousands of connections at once, while keeping your code easy to read and to write.
+thousands of connections at once, while keeping our code easy to read and to write.
 
 ### Maintaining a list of open connections
 
@@ -51,9 +51,9 @@ fun Route.chatRoute() {
         }
     }
 }
-```  
+```
 
-We're creating a connections set, and then for every request made to `/chat`, we'll be adding
+We're creating a `connections` set, and then for every request made to `/chat`, we'll be adding
 the connection to this set. Once the chat has finalized, we'll remove it. 
 
 Finally, let's create the function that registers our route, which will later be called

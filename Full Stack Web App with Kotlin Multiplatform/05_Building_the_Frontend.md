@@ -53,7 +53,7 @@ We've laid the groundwork on the client, and have a clean API to access the data
 
 #### Configuring an entry point for our application
 
-Instead of rendering a simple "Hello, Kotlin/JS" string, it's time we make our application render a functional `App` component. We replace the content inside `src/jsMain/Main.kt` with the following:
+Instead of rendering a simple "Hello, Kotlin/JS" string, it's time we make our application render a functional `App` component. We replace the content inside `src/jsMain/kotlin/Main.kt` with the following:
 
 ```kotlin
 import react.child
@@ -75,7 +75,7 @@ The next step is to provide an implementation for the `App` component we would l
 - load the shopping list elements from the server (and set the state accordingly), and
 - provide React with instructions on how to render the list.
 
-Based on these requirements, we can implement the `App` component as follows. We create and fill the file `src/jsMain/App.kt`:
+Based on these requirements, we can implement the `App` component as follows. We create and fill the file `src/jsMain/kotlin/App.kt`:
 
 ```kotlin
 import react.*

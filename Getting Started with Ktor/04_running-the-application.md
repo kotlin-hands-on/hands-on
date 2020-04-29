@@ -8,13 +8,11 @@ using `gradle build` and then running the application as we would run any
 ![Run](./assets/run.png)
 
 If there are no compilation errors, the server should start and we can now
-make a request via a browser or any HTTP client to `http://localhost:8080/` getting
-back the response
+make a request via a browser or any HTTP client to `http://localhost:8080/`, yielding the expected response:
 
 
 ![Browser](./assets/browser.png)
-  
 
-We've now successfully created our first Ktor server application. Ktor allows for much more functionality such as serving static content and front-ends for web sites,
-providing HTTP end-points for RESTful services, etc. For more information check out some of the [tutorials on Ktor](https://play.kotlinlang.org/hands-on) as well 
+We've now successfully created our first Ktor server application – but we have of course barely scratched the surface of what Ktor can do. Ktor allows for much more functionality such as serving static content and front-ends for web sites,
+providing HTTP end-points for RESTful services, etc. For further information, check out some of the [tutorials on Ktor](https://play.kotlinlang.org/hands-on) as well 
 as the [documentation on ktor.io](https://ktor.io/servers/index.html).

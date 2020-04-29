@@ -30,9 +30,8 @@ In real-world application we'd usually do this in a [configuration file](https:/
 purposes this works well.
 
 The next step is to define our actual routing table, which in this case has a single entry `get("/)` responding to the `/` URL. 
-When a user makes the request, we'll respond with the corresponding text, which is done using `call.respondText` and passing the content type. In our case
-as can be seen, this is `text/plain`. 
+When a user makes a request to this endpoint, we use `call.respondText` to respond with `"Hello, World!"`, having a content-type of `text/plain`. 
 
-Finally we start the server and pass as argument `wait` the value true so that the application doesn't immediately exit, i.e. it stays running until we kill it.
+Finally, we start the server. To keep the server running until we terminate the process, we pass the argument `wait = true`.
 
  

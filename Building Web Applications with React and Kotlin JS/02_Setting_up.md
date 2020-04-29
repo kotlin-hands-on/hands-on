@@ -29,7 +29,7 @@ Inside our `build.gradle.kts` file, let's make sure that our `repositories` bloc
 
 ```kotlin
 repositories {
-    maven("https://kotlin.bintray.com/kotlin-js-wrappers/")
+    maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
     mavenCentral()
     jcenter()
 }
@@ -39,7 +39,7 @@ Now that we have all sources for our dependencies, let's make sure we include ev
 
 ```kotlin
 dependencies {
-    implementation(kotlin("stdlib-js"))
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
 
     //React, React DOM + Wrappers (chapter 3)
     implementation("org.jetbrains:kotlin-react:16.13.0-pre.94-kotlin-1.3.70")

@@ -1,14 +1,15 @@
-# Propagating Messages
+# Propagating messages
 
-Now that we have a list of connections, instead of just echoing back the message to a single
-connection, we want to send it to all the connections we maintain. 
+### Maintaining a list of open connections
 
-Let's update the code in the `chatRoute` function to perform this action:
+Now that we have a simple echo route implemented, before being able to do a multi-chat, we need to keep
+a list of open connections. For this we can use a synchronized set.
+
+Add the following code to the `chatRoute` function:
 
 ```kotlin
 fun Route.chatRoute() {
     val connections = Collections.synchronizedSet(LinkedHashSet<DefaultWebSocketServerSession>())
-
     webSocket("/chat") {
         connections += this
         try {
@@ -16,9 +17,7 @@ fun Route.chatRoute() {
                 when (val frame = incoming.receive()) {
                     is Frame.Text -> {
                         val text = frame.readText()
-                        connections.forEach {
-                            it.outgoing.send(Frame.Text(text))
-                        }
+                        outgoing.send(Frame.Text(text))
                     }
                 }
             }
@@ -29,8 +28,25 @@ fun Route.chatRoute() {
 }
 ```
 
-Essentially we've replaced the `outgoing.send` with a `forEach` on `connections`
-and sending it to each element in the list.
+We're creating a `connections` set, and then for every request made to `/chat`, we'll be adding
+the connection to this set. Once the chat has finalized, we'll remove it.
+
+### Fanning out
+
+Now that we have a list of connections, instead of just echoing back the message to a single
+connection, we want to send it to all the connections we maintain. 
+
+Let's update the code in the `chatRoute` function to perform this action. Essentially, we replace the `outgoing.send` with a `forEach` on `connections` and sending it to each element in the list.
+
+```kotlin
+
+                        connections.forEach {
+                            it.outgoing.send(Frame.Text(text))
+                        }
+
+```
+
+
 
 ## Giving connections some identity
 

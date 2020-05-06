@@ -10,50 +10,7 @@ We have one of two options for creating the client:
 
 In our case, we're going with the first option.
 
-## Configuring the project file 
-
-Let's add a new module to our project with the following `build.gradle` file
-
-```groovy
-plugins {
-    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
-}
-
-
-group 'com.jetbrains.handson'
-version '1.0-SNAPSHOT'
-
-repositories {
-    jcenter()
-    mavenCentral()
-    maven {
-        url "https://kotlin.bintray.com/kotlinx"
-    }
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "io.ktor:ktor-client-websockets:$ktor_version"
-    implementation "io.ktor:ktor-client-okhttp:$ktor_version"
-}
-
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-```
-
-and our `gradle.properties` file contain the following versions
-
-```
-ktor_version=1.3.2
-kotlin.code.style=official
-kotlin_version=1.3.70
-logback_version=1.2.1
-kotlin_serialization=0.20.0
-```
+We have already had a look at the relevant Gradle packages in the _Introduction_ section, so we can move straight on to writing some code!
 
 ## Creating the client code
 

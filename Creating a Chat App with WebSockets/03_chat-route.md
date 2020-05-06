@@ -1,21 +1,20 @@
-# Chat Route
+# A simple echo server
 
-This first step is to create a route for the WebSocket. In this case we are going to define the `/chat` route, but 
-initially, we are going to make that route to act as an “echo” WebSocket route, that will send you back the same 
-text messages that we send to it.
+Before we dive into any chat functionality, let's build a minimal example so that we can get an understanding of how WebSockets work in Ktor. We'll define a simple WebSocket handler that just takes whatever you send to it and sends it back to you – an "echo" server.
 
-Let's create a file named Chat.kt and enter the following code:
+### Setting up the route
+To get every message that arrives on a WebSocket connection to `/chat` echoed back to the user, we create a handler function for the endpoint and register it with our application module.
 
+#### Creating a `Route` extension
+
+Let's create a file named `Chat.kt` and enter the following code:
 ```kotlin
 fun Route.chatRoute() {
     webSocket("/chat") {
-        while (true) {
-            when (val frame = incoming.receive()) {
-                is Frame.Text -> {
-                    val text = frame.readText()
-                    outgoing.send(Frame.Text(text))
-                }
-            }
+        for (frame in incoming) {
+            frame as? Frame.Text ?: continue
+            val receivedText = frame.readText()
+            outgoing.send(Frame.Text(receivedText))
         }
     }
 }
@@ -25,45 +24,25 @@ fun Route.chatRoute() {
 lightweight Kotlin coroutines, it is fine and we can handle (depending on the machine and the complexity) hundreds of 
 thousands of connections at once, while keeping our code easy to read and to write.
 
-### Maintaining a list of open connections
+At this point, the `chatRoute` function is still unused (and our IDE will even warn us about this), so our next step is to register this route with our application.
 
-Now that we have a simple echo route implemented, before being able to do a multi-chat, we need to keep
-a list of open connections. For this we can use a synchronized set.
+#### Registering the route
 
-Add the following code to the `chatRoute` function:
-
+In `Application.kt`, we change the code of `Application.module()` to look as follows:
 ```kotlin
-fun Route.chatRoute() {
-    val connections = Collections.synchronizedSet(LinkedHashSet<DefaultWebSocketServerSession>())
-    webSocket("/chat") {
-        connections += this
-        try {
-            while (true) {
-                when (val frame = incoming.receive()) {
-                    is Frame.Text -> {
-                        val text = frame.readText()
-                        outgoing.send(Frame.Text(text))
-                    }
-                }
-            }
-        } finally {
-            connections -= this
-        }
-    }
-}
-```
-
-We're creating a `connections` set, and then for every request made to `/chat`, we'll be adding
-the connection to this set. Once the chat has finalized, we'll remove it. 
-
-Finally, let's create the function that registers our route, which will later be called
-by the application initialization code
-
-```kotlin
-fun Application.registerChatRoutes() {
+fun Application.module() {
+    install(WebSockets)
     routing {
         chatRoute()
     }
 }
 ```
+
+Note that there are many ways how you can structure your routes with Ktor. If you'd like to learn more about different styles of routing in Ktor, check out Hadi Hariri's blogpost on [Routing in Ktor](https://hadihariri.com/2020/04/02/Routing-in-Ktor/).
+
+This is the first time where we start running our application for the first time!
+
+#### Seeing it in action
+
+
 

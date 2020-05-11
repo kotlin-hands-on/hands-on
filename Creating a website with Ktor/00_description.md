@@ -1,4 +1,4 @@
-# Creating a website with Ktor
+# Creating an interactive website with Ktor
 
-Learn how to serve files, return HTML using Kotlinx.HTML and templating engines
-such as Freemarker, with Ktor.
+Learn how to serve files, use templating engines such as Freemarker and the kotlinx.html DSL, and work with form input from Ktor.
+

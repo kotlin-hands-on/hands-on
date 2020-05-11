@@ -1,17 +1,14 @@
 # Introduction
 
-In this tutorial we're going to create an HTTP API application that can serve as 
-a backend for any application, be this mobile, web, desktop, or even a B2B service. 
+In this hands-on, we're going to create an HTTP API using Kotlin and Ktor that can serve as a backend for any application, be it mobile, web, desktop, or even a B2B service. We will see how routes are defined and structured, how serialization features help with simplifying tedious tasks, and how we can test parts of our application both manually and automated.
 
-If you're new to Ktor make sure you check out how to create new projects 
-with [Getting Started with Ktor](https://play.kotlinlang.org/hands-on/Getting%20Started%20with%20Ktor/01_introduction). 
+### What we will build
 
-This tutorial is going to follow some more real-world practices such as using configuration
-files for configuring the application start-up, as well as organizing routes in a way that is 
-maintainable. 
+Throughout the hands-on, we'll build a simple JSON API that allows us to query information about the customers of our fictitious business, as well as the orders we currently want to fulfill.
 
-We'll be using two ways to define routes and organize these by files. This certainly isn't the only
-way to define routes in applications but does offer a more maintainable approach. For other styles and options 
-check out the blog post by [Hadi Hariri](https://twitter.com/hhariri) on [Routing in Ktor](https://hadihariri.com/2020/04/02/Routing-in-Ktor/).
+We will build a convenient way of listing all customers & orders in our system, get information for individual customers & orders, and provide functionality to add new entries and remove old entries.
 
-[Source code on GitHub](https://github.com/kotlin-hands-on/creating-http-api-ktor)
+We will be using two ways to define routes and organize these by files. They certainly aren't the only ways to define routes in applications, but they showcase differently maintainable approaches. For other styles and options check out the blog post by [Hadi Hariri](https://twitter.com/hhariri) on [Routing in Ktor](https://hadihariri.com/2020/04/02/Routing-in-Ktor/).
+
+You can find the [template project](https://github.com/kotlin-hands-on/creating-http-api-ktor/) as well as the source code of the [final](https://github.com/kotlin-hands-on/creating-http-api-ktor/tree/final) application on the corresponding GitHub repository.
+

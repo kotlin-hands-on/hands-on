@@ -1,26 +1,13 @@
-# Order Routes
+# Order routes
 
-Now that we have our `/customer` endpoint done, let's move on to `Orders`, where we'll
-be responding to GET requests, but using three different patterns:
-
-```
-GET http://0.0.0.0:8080/order/
-Content-Type: application/json
-
-GET http://0.0.0.0:8080/order/{id}
-Content-Type: application/json
+Now that we have API endpoints for `Customer`s done, let's move on to `Orders`. While some of the implementation is rather similar, we will be using a different way of structuring our application routes, and include routes that sum up the price of individual items in an order. 
 
 
-GET http://0.0.0.0:8080/order/{id}/total
-Content-Type: application/json
-```
+### Defining the model
 
-The first will return all orders, the second will return an order given the `id`, and the third will return the total of
-an order.
+The orders we want to store in our system should be identifiable by an order number (which might contain dashes), and should contain a list of order items. These order items should have a textual description, the number how often this item appears in the order, as well as the price for the individual item (so that we can compute the total price of an order on demand).
 
-## Defining the model
-
-Let's first define our model and storage 
+We create a new file called `Order.kt` and fill it with the definition of the two data classes:
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -30,7 +17,11 @@ data class Order(val number: String, val contents: List<OrderItem>)
 
 @Serializable
 data class OrderItem(val item: String, val amount: Int, val price: Double)
+```
 
+We also once again need a place to store our orders. To skip having to define a `POST` route – something you're more than welcome to attempt on your own using the knowledge from the `Customer` routes – we will prepopulate our `orderStorage` with some sample orders. We can again define it as a top-level declaration inside the `Order.kt` file.
+
+```kotlin
 val orderStorage = listOf(Order(
     "2020-04-06-01", listOf(
         OrderItem("Ham Sandwich", 2, 5.50),
@@ -47,18 +38,32 @@ val orderStorage = listOf(Order(
 )
 ```
 
-In this case, and as we don't have a POST verb, we'll prepopulate our database with some orders.
+### Defining order routes
+We respond to a set of `GET` requests with three different patterns:
 
-## Defining Order Routes
+
+
+```kotlin
+GET http://0.0.0.0:8080/order/
+Content-Type: application/json
+
+GET http://0.0.0.0:8080/order/{id}
+Content-Type: application/json
+
+GET http://0.0.0.0:8080/order/{id}/total
+Content-Type: application/json
+```
+
+The first will return all orders, the second will return an order given the `id`, and the third will return the total of an order (prices of individual `OrderItems` multiplied by number of each item).
 
 With orders, we're going to follow a different pattern when it comes to defining routes. 
 Instead of grouping all routes under a single `route` function with different
-verbs, we'll use individual functions.
+HTTP methods, we'll use individual functions.
 
-### Listing all orders, and a specific order
+#### Listing all and individual orders
 
-For listing all orders, we'll follow the same pattern as with customers, with the difference 
-that we're defining it in its own function:
+For listing all orders, we'll follow the same pattern as with customers – the difference 
+being that we're defining it in its own function. Let's create a file called `OrderRoutes.kt` inside the `routes` package, and start with the implementation of the route inside a function called `listOrdersRoute()`.
 
 ```kotlin
 fun Route.listOrdersRoute() {
@@ -70,7 +75,7 @@ fun Route.listOrdersRoute() {
 }
 ```
 
-For returning a specific order, once again similar to customers, but again in its own function
+We apply the same structure to individual orders – with a similar implementation to customers, but encapsulated in its own function:
 
 ```kotlin
 fun Route.getOrderRoute() {
@@ -85,10 +90,10 @@ fun Route.getOrderRoute() {
 }
 ```
 
-### Totalizing an order
+#### Totalizing an order
 
-Getting the total amount of an order consists of iterating over the the items of an order and 
-totalizing this. The code itself is straightforward. 
+Getting the total amount of an order consists of iterating over the items of an order and 
+totalizing this. Implemented as a `totalizeOrderRoute` function, it looks like this, which besides the summing process should already look familiar:
 
 ```kotlin
 fun Route.totalizeOrderRoute() {
@@ -99,20 +104,16 @@ fun Route.totalizeOrderRoute() {
             status = HttpStatusCode.NotFound
         )
         val total = order.contents.map { it.price * it.amount }.sum()
-        call.respondText("Total for order is $total")
+        call.respond(total)
     }
 }
 ```
 
-What we notice here is that we're using a route parameter is part of the URL and not necessarily 
-trailing, which is absolutely possible. 
+A small thing to note here is that we are not limited to suffixes of routes for parameters – as we can see, it's absolutely possible to have a section in the middle be a route parameter (`/order/{id}/total`).
 
-The rest of the code is similar to what we've already seen.
+### Registering the routes
 
-## Registering the route 
-
-Finally, much like the case of customers, we need to register the routes. As mentioned in the previous 
-step, in this case we can see why grouping routing makes things more sense.
+Finally, much like the case of customers, we need to register the routes. Hopefully, this makes it clear why grouping routes makes more sense as the number of routes grow. Still in `OrderRoutes.kt`, we add an `Application` extension function called `registerOrderRoutes`:
 
 ```kotlin
 fun Application.registerOrderRoutes() {
@@ -124,7 +125,7 @@ fun Application.registerOrderRoutes() {
 }
 ```
 
-We then add the function call in our `Application.module` function:
+We then add the function call in our `Application.module()` function in `Application.kt`:
 
 ```kotlin
 fun Application.module() {
@@ -135,3 +136,5 @@ fun Application.module() {
     registerOrderRoutes()
 }
 ```
+
+Now that we have everything wired up, we can finally start testing our application, and see if everything works as we would expect it to!

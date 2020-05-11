@@ -1,14 +1,11 @@
-# Automated Testing
+# Automated testing
 
-While manual testing is great and necessary, it also makes sense to
-have automated testing of endpoints. 
+While manual testing is great and necessary, it also makes sense to have automated testing of endpoints. 
 
-Ktor allows us to test endpoints without having to start up the entire underlying 
-engine (such as Netty). The framework ships with a few helper methods for running
-tests requests, namely, `withTestApplication`
+Thanks to `ktor-server-tests`, Ktor allows us to test endpoints without having to start up the entire underlying engine (such as Netty). The framework ships with a few helper methods for running
+tests requests, one significant one being `withTestApplication`.
 
-Create a new file under the `test` folder of the project named `OrderTests.kt` and enter the following 
-code:
+Let's write a unit test to ensure that our order route returns properly formatted JSON content. We create a new file under `test/kotlin` called `OrderTests.kt` and add the following code:
 
 ```kotlin
 class OrderRouteTests {
@@ -27,12 +24,11 @@ class OrderRouteTests {
 }
 ```
 
-We're indicating to our application that we want to run it as a test, and then using the
-`handleRequest` helper method (also shipped as part of Ktor), we'd like to make a request
-to a specific endpoint, in this case `/order/{id}`. Note that since our string constains a lot of quotation marks around keys and values (like `"number"`), this is a great place to use [raw strings](https://kotlinlang.org/docs/reference/basic-types.html#string-literals) using triple-quotes (`"""`), saving us the hassle of individually escaping every special character inside the string.
+By using `withTestApplication`, we're indicating to our application that we want to run it as a test. Using the `handleRequest` helper method (also shipped as part of Ktor), we define request to a specific endpoint, in this case `/order/{id}`.
 
-If we try and compile this code however, it won't work. This is due to the parameter being passed in 
-to our application (`testing = true`). For this to work, we need to add the corresponding parameter to our application:
+Note that since our string contains a lot of quotation marks around keys and values (like `"number"`), this is a great place to use [raw strings](https://kotlinlang.org/docs/reference/basic-types.html#string-literals) using triple-quotes (`"""`), saving us the hassle of individually escaping every special character inside the string.
+
+If we try and compile this code however, it won't work. This is due to the parameter being passed to our application (`testing = true`). For this to work, we need to add the corresponding parameter to our application:
 
 ```kotlin
 fun Application.module(testing: Boolean = false) {
@@ -44,11 +40,7 @@ fun Application.module(testing: Boolean = false) {
 }
 ```
 
-With this, we can now run our unit test and see the results.
+With this, we can now run our unit test from the IDE and see the results. Much like we've done for this endpoint, we can add all other endpoints as tests and automate the testing of our HTTP API.
 
-Much like we've done for this endpoint, we can add all other endpoints as tests and automate the testing of our HTTP endpoint.
-
-With this step, we've finalized our HTTP API application. From here on we can add other 
-features such as Authentication, etc.
-
+And just like that, we have finished building our small JSON-based HTTP API. Of course, there are tons of topics you can still explore around Ktor and building APIs with it, so your learning journey doesn't have to stop here!
 

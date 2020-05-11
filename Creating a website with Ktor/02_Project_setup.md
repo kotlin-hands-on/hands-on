@@ -4,7 +4,7 @@ If we were to start a fresh idea from zero, Ktor would have a few ways of settin
 
 For this tutorial, however, we have made a starter template available that includes all configuration and required dependencies for the project.
 
-[**Please clone the project repository from GitHub, and open it in IntelliJ IDEA.**](https://github.com/kotlin-hands-on/chat-app-websockets)
+[**Please clone the project repository from GitHub, and open it in IntelliJ IDEA.**](https://github.com/kotlin-hands-on/creating-website-ktor/)
 
 The template repository contains a basic Gradle projects for us to build our project. Because it already contains all dependencies that we will need throughout the hands-on, **you don't need to make any changes to the Gradle configuration.**
 

@@ -59,4 +59,4 @@ It's time to pat ourselves on the back – we've put together a nice little jour
 
 ![](./assets/ktor_journal.gif)
 
-This concludes the guided part of this hands-on. We have included the final state of the journal application in the GitHub repository on the [`final` branch](). But of course, your journey doesn't have to stop here. Check out the _What's next_ section to get an idea of how you could expand the application, and where to go if you need help in your endeavors!
+This concludes the guided part of this hands-on. We have included the final state of the journal application in the GitHub repository on the [`final` branch](https://github.com/kotlin-hands-on/creating-website-ktor/tree/final). But of course, your journey doesn't have to stop here. Check out the _What's next_ section to get an idea of how you could expand the application, and where to go if you need help in your endeavors!

@@ -10,6 +10,6 @@ The goal of this hands-on is to write a minimal journal app. We'll start by seei
 
 ![](./assets/ktor_journal.gif)
 
-You can find the template project as well as the source code of the final application on the corresponding [GitHub](https://github.com/kotlin-hands-on/creating-static-website-ktor) repository.
+You can find the [template project](https://github.com/kotlin-hands-on/creating-website-ktor) as well as the source code of the [final](https://github.com/kotlin-hands-on/creating-website-ktor/tree/final) application on the corresponding GitHub repository.
 
 Let's dive right in and start setting up our project for development!

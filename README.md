@@ -25,7 +25,8 @@ The sample projects corresponding to each lab are separate repositories under th
 
 ### Hands-On Initiator Command Line tool
 
-There's a [command line tool](https://github.com/kotlin-hands-on/hands-on-init) that can make the process of initializing everythhing much easier.
+There's a [command line tool](https://github.com/kotlin-hands-on/hands-on-init) that can make the process of
+initializing everythhing much easier.
 
 
 ### Text Structure
@@ -34,7 +35,8 @@ Each lab consists of a series of steps.
 Each step is represented as an individual markdown file with the naming convention `NN_{step-title}` where
 `NN` is the step number and `step-title` is the step title. 
 
-Each hands-on lab should start with an `00_description.md` file which is the text used for the card displayed on the list of tutorials, and a `01_Introduction` file that clearly highlights what the hands-on lab is going to cover.
+Each hands-on lab should start with an `00_description.md` file which is the text used for the card displayed on the
+list of tutorials, and a `01_Introduction` file that clearly highlights what the hands-on lab is going to cover.
 Ideally it should also show a screenshot of the end result (if this is for instance an application). 
 
 ### Style and Formatting
@@ -42,6 +44,14 @@ Ideally it should also show a screenshot of the end result (if this is for insta
 * Use *we* (not *you*) pronoun when referring to the user following the tutorial, i.e. "We first need to click on..." 
 * Use bold to highlight UI elements and menu entries. Use | as separators for menu entries, i.e. **File|New|Project...**
 * Use `name` notation to refer to folders and files
+* Use plain language. Avoid fancy and elaborate words. 
+* Use simple sentences. Remove words if they don’t affect the meaning.
+* Use keywords that users can relate to. 
+* Put statements in the positive form.
+* Avoid the jargon and slang.
+* Avoid the nested structure. 
+* Avoid acronyms (e.g., i.e., a.k.a., etc.).
+* Use Oxford comma (serial comma) - the final comma in a list of things. Example: _Running, testing, and packaging._
 
 #### Code styles
 
@@ -70,7 +80,7 @@ fun main() {
 
 #### Prompt styles
 
-Support 3 promt modes: `note`, `warning`, `tip`, `todo`.
+You can use of the three promt modes: `note`, `warning`, `tip`, `todo`.
 
 ```
 `​`​`note
@@ -82,35 +92,42 @@ when an unknown printer took a galley of type and scrambled it to make.
 
 ### Assets
 
-All assets, excluding code, should be placed in a subfolder named `assets` under each lab folder and the asset should be referenced relative to this.
+All assets, excluding code, should be placed in a subfolder named `assets` under each lab folder. 
+The asset should be referenced relative to this:
+
+```
+![](./assets/path/ImageName.png)
+```
 
 ### Videos
 
 The following syntax allows inlining videos in the text:
 
+```
 ![Video description](video link) 
+```
 
 ### Sample Projects
 
-The code for the lab is located in its own repository using the naming convention `{lab-name}`
+The code for the lab is located in its own repository in
+[https://github.com/kotlin-hands-on](https://github.com/kotlin-hands-on) organization using the naming convention `{lab-name}`
 
-The description for the repository should be `{lab-name} Hands-On Lab`. Please make sure you use the appropriate .gitignore file:
+Please make sure you use the appropriate `.gitignore` file:
 
 ```
 .gradle/
-build/
+gradle/
 *.iml
+.idea/
+build/
 out/
 .DS_Store
-.idea/
-gradle/
 ```
 
 It should contain a README.md with the following contents:
 
 * License (by default this would be Apache 2.0 License)
 * [JetBrains GitHub Label](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
-* Title which would be `{lab-name} Hands-On Lab`
 * The following text:
 
 This repository is the code corresponding to the hands-on lab `{link to hands-on lab}`. 
@@ -127,12 +144,13 @@ stored in the `final` branch.
 ### Automatic compilation and testing of sample projects
 
 We build sample projects at TeamCity to make sure the projects always compile. 
-If a project contains several branches with intermediate state, all the branches should be compiled at TeamCity.
-The tests in each branch should be checked automatically except special branches that contain failing tests for the readers to fix.
+If a project contains two branches, both branches should be compiled at TeamCity.
+The tests in each branch should be checked automatically except special branches
+that contain failing tests for the readers to fix.
 
 The TeamCity build configurations can be found here:
 
-`https://teamcity.jetbrains.com/project/Kotlin_HandsOnLabs?projectTab=overview&mode=builds`.
+[https://teamcity.jetbrains.com/project/Kotlin_HandsOnLabs?projectTab=overview&mode=builds](https://teamcity.jetbrains.com/project/Kotlin_HandsOnLabs?projectTab=overview&mode=builds)
 
 ### Coding conventions
 

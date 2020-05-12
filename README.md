@@ -26,7 +26,7 @@ The sample projects corresponding to each lab are separate repositories under th
 ### Hands-On Initiator Command Line tool
 
 There's a [command line tool](https://github.com/kotlin-hands-on/hands-on-init) that can make the process of
-initializing everythhing much easier.
+initializing everything much easier.
 
 
 ### Text Structure

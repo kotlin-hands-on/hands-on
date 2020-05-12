@@ -6,7 +6,7 @@
 
 [Hands-On labs](https://play.kotlinlang.org/hands-on) are interactive tutorials to learn Kotlin.
 Each lab corresponds to one or more sample projects, and explains how to create them step-by-step.   
-The labs are all provided under Apache 2 and are open to contributions. 
+The labs are all provided under the Apache 2.0 license and are open to contributions. 
 
 This readme provides more information on how labs are organised and is targeted at contributors.
 If you'd like to complete a lab, please use the [website](https://play.kotlinlang.org/hands-on).
@@ -18,7 +18,7 @@ Each labs consists of:
 
 * Text
 * Assets such as images
-* Code Samples
+* Code samples
 
 Text and assets for all labs are located under this repository under the `lab-name`.
 The sample projects corresponding to each lab are separate repositories under the `https://github.com/kotlin-hands-on` organization.  
@@ -36,8 +36,8 @@ Each step is represented as an individual markdown file with the naming conventi
 `NN` is the step number and `step-title` is the step title. 
 
 Each hands-on lab should start with an `00_description.md` file which is the text used for the card displayed on the
-list of tutorials, and a `01_Introduction` file that clearly highlights what the hands-on lab is going to cover.
-Ideally it should also show a screenshot of the end result (if this is for instance an application). 
+list of tutorials, and a `01_Introduction.md` file that clearly highlights what the hands-on lab is going to cover.
+Ideally it should also show a screenshot of the end result (if this is for instance an application).
 
 ### Style and Formatting
 
@@ -48,8 +48,8 @@ Ideally it should also show a screenshot of the end result (if this is for insta
 * Use simple sentences. Remove words if they don’t affect the meaning.
 * Use keywords that users can relate to. 
 * Put statements in the positive form.
-* Avoid the jargon and slang.
-* Avoid the nested structure. 
+* Avoid jargon and slang.
+* Avoid nested structure.
 * Avoid acronyms (e.g., i.e., a.k.a., etc.).
 * Use Oxford comma (serial comma) - the final comma in a list of things. Example: _Running, testing, and packaging._
 
@@ -80,7 +80,7 @@ fun main() {
 
 #### Prompt styles
 
-You can use of the three promt modes: `note`, `warning`, `tip`, `todo`.
+You can use four different prompt modes: `note`, `warning`, `tip`, `todo`.
 
 ```
 `​`​`note
@@ -143,8 +143,8 @@ stored in the `final` branch.
 
 ### Automatic compilation and testing of sample projects
 
-We build sample projects at TeamCity to make sure the projects always compile. 
-If a project contains two branches, both branches should be compiled at TeamCity.
+We build sample projects on TeamCity to make sure the projects always compile. 
+If a project contains two branches, both branches should be compiled on TeamCity.
 The tests in each branch should be checked automatically except special branches
 that contain failing tests for the readers to fix.
 
@@ -159,7 +159,7 @@ The TeamCity build configurations can be found here:
 
 ### Contributing
 
-We'll be really happy to get the content contributions from you! 
+We'll be really happy to get content contributions from you! 
 
 If you want to contribute and develop a new lab, the best first step is to create an issue in this project describing
 your idea to make sure something similar isn't planned already.
@@ -168,5 +168,4 @@ When your idea gets approved, a new repository will be created for you where you
 If you're not a native speaker, but want to contribute, feel free to do that.
 We (JetBrains) can proofread the final lab text. 
 
-Feel free to contribute the small changes to existing labs directly to the corresponding projects, and better contact us
-before contributing more significant changes to existing labs. 
+Feel free to contribute small changes to existing labs directly to the corresponding projects. If you're planning on contributing more significant changes to existing labs, we recommend you get in touch with us first via an issue.

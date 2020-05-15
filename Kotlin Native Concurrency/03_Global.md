@@ -1,4 +1,4 @@
-## 3) Global State
+# Global State
 
 Before we get into actual concurrent code, lets chat a bit about global state. Some things in Kotlin can be referenced globally, from any thread. Kotlin/Native state rules apply to everything, so global state has some special rules applied out of the box.
 
@@ -22,9 +22,9 @@ object DefaultGlobalState{
 }
 ```
 
-This will compile fine[^1], but all global `object` instances are frozen by default, so you'll see your old friend `InvalidMutabilityException`.
+This will compile fine, but all global `object` instances are frozen by default, so you'll see your old friend `InvalidMutabilityException`. (Kotlin 1.4 will include better warnings for situations like this, but they will still compile.)
 
-If you need that state to be mutable you do have some options. You can use atomics, which we'll talk about later, but you can also make that object thread local. That means each thread has it's own copy, and according to rule #1, that means it can be mutable.
+If you need that state to be mutable you do have some options. You can use atomics, which we'll talk about later, but you can also make that object thread local. That means each thread has its own copy, and according to rule #1, that means it can be mutable.
 
 Run `canChangeThreadLocal()`.
 
@@ -48,7 +48,7 @@ i 5
 i 6
 ```
 
-Keep in mind that if you were accessing `ThreadLocalGlobalState` from another thread, the value of `i` would be different. *Each thread gets it's own copy of an object annotated with `@ThreadLocal`.*
+Keep in mind that if you were accessing `ThreadLocalGlobalState` from another thread, the value of `i` would be different. *Each thread gets its own copy of an object annotated with `@ThreadLocal`.*
 
 We haven't explained how to leave the main thread yet, but to see how `@ThreadLocal` behaves with multiple threads, run `threadLocalDifferentThreads()`. In the following code, the lambda passed to `background` runs in a different thread:
 
@@ -156,7 +156,3 @@ fun globalCountingSharedFail(){
     globalCounterDataShared.i++
 }
 ```
-
----
-
-[^1]: Kotlin 1.4 will include better warnings for situations like this, but they will still compile.

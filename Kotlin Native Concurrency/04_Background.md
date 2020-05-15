@@ -1,8 +1,8 @@
-## 4) Background
+# Background
 
 We're going to leave the main thread now. In Kotlin/Native, if you are *directly* managing your concurrency, you'll probably be using `Worker`. `Worker` is Kotlin/Native's concurrency helper. Each `Worker` has it's own thread internally, and you can schedule work to be done on that thread.
 
-We won't be going into detail about how to use `Worker` directly. It is kind of a low level feature, and pretty much all apps will use a concurrency library that sits on top of `Worker`. If you are familiar with Java's `Thread`, the situation is similar. Most developers are aware that `Thread` exists, but rarely use it directly.
+We won't be going into detail about how to use `Worker` directly. It is kind of a low-level feature, and pretty much all apps will use a concurrency library that sits on top of `Worker`. If you are familiar with Java's `Thread`, the situation is similar. Most developers are aware that `Thread` exists, but rarely use it directly.
 
 Instead of using `Worker`, we're going to craft our own concurrency function called `background`.
 
@@ -63,11 +63,11 @@ Am I frozen? false
 Am I frozen now? true
 ```
 
-`sd` gets frozen when the lambda argument to `background` is frozen. It is very important to understand that concurrency function args can capture state, and when they are frozen, that state is also frozen.
+`sd` gets frozen when the lambda argument to `background` is frozen. It is very important to understand that concurrency function arguments can capture state, and when they are frozen, that state is also frozen.
 
-As an alternate visualization, see below. When we call `background`, that function argument is frozen, and since it captures `sd`, which is a local val in the calling function, `sd` is also frozen.
+As an alternate visualization, see below. When we call `background`, that function argument is frozen, and since it captures `sd`, which is a local `val` in the calling function, `sd` is also frozen.
 
-![Frozen Code](assets/frozencode.png)
+![Frozen Code](./assets/frozencode.png)
 
 Local values are easy to understand and deal with. Where this becomes more problematic, and triggers more controversy, is when you wind up capturing more state than you had intended.
 

@@ -1,8 +1,8 @@
-## 5) Debugging
+# Debugging
 
 ### InvalidMutabilityException
 
-The issue you will most likely encouter is `InvalidMutabilityException`, when attempting to edit frozen state. Fixing this means figuring out how the state was frozen. The Kotlin/Native runtime provides a function `ensureNeverFrozen()` which can be called on any object. If called on a frozen object, it will fail immediately. If called on an unfrozen object, if that object is later being frozen, the freezing process will fail.
+The issue you will most likely encounter is `InvalidMutabilityException`, when attempting to edit frozen state. Fixing this means figuring out how the state was frozen. The Kotlin/Native runtime provides a function `ensureNeverFrozen()` which can be called on any object. If called on a frozen object, it will fail immediately. If called on an unfrozen object, if that object is later being frozen, the freezing process will fail.
 
 See `ensureNeverFrozenFailNow()` and `ensureNeverFrozenFailLater()` for examples.
 

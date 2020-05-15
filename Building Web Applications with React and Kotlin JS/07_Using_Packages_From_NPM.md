@@ -21,7 +21,7 @@ dependencies {
 
 You're seeing that right – NPM dependencies can be added to a Gradle build file via the `npm` function. The yarn installation managed by the Gradle plugin will take care of downloading, installing and updating those NPM dependencies for you.
 
-Since we want to use this module from Kotlin, we need to tell our compiler what the component interface looks like – what kind of things are okay to invoke, to set, or to read from this external component, so that we remain safe, and can count on tool support. To do this, let's create a file called `react-player.kt`, with the following contents:
+Since we want to use this module from Kotlin, we need to tell our compiler what the component interface looks like – what kind of things are okay to invoke, to set, or to read from this external component, so that we remain safe, and can count on tool support. To do this, let's create a file called `ReactPlayer.kt`, with the following contents:
 
 ```kotlin
 @file:JsModule("react-player")
@@ -30,7 +30,7 @@ Since we want to use this module from Kotlin, we need to tell our compiler what 
 import react.*
 
 @JsName("default")
-external val ReactPlayer: RClass<dynamic>
+external val reactPlayer: RClass<dynamic>
 ```
 
 Because JavaScript imports/exports isn't the simplest topic, it can sometimes be tricky to find the correct combination between annotations to get the Kotlin compiler on the same page as us. These last two lines are equivalent to a JavaScript import like `require("react-player").default;`. It tells the compiler that we're certain we'll get a component conforming to `RClass<dynamic>` at runtime.
@@ -43,7 +43,7 @@ Fortunately, we know the structure of the interfaces used by the imported compon
 
 ```kotlin
 //...
-external val ReactPlayer: RClass<ReactPlayerProps>
+external val reactPlayer: RClass<ReactPlayerProps>
 
 external interface ReactPlayerProps : RProps {
     var url: String
@@ -53,7 +53,7 @@ external interface ReactPlayerProps : RProps {
 Within our `VideoPlayer` class, it is finally time to replace the boring gray rectangle with some actual, moving images! We remove the `img` tag and replace it with
 
 ```kotlin
-ReactPlayer {
+reactPlayer {
     attrs.url = props.video.videoUrl
 }
 ```
@@ -71,7 +71,7 @@ dependencies {
 }
 ```
 
-Let's once more write some wrappers. When we look at the [examples on GitHub](https://github.com/nygardk/react-share/blob/master/demo/Demo.jsx#L61), we can see that a share button consists of two react components: `EmailShareButton` and `EmailIcon`, for example. However, all of them share (mostly) the same interface. We end up with a `react-share.kt` declaration which looks like this:
+Let's once more write some wrappers. When we look at the [examples on GitHub](https://github.com/nygardk/react-share/blob/master/demo/Demo.jsx#L61), we can see that a share button consists of two react components: `EmailShareButton` and `EmailIcon`, for example. However, all of them share (mostly) the same interface. We end up with a `ReactShare.kt` declaration which looks like this:
 
 ```kotlin
 @file:JsModule("react-share")
@@ -81,16 +81,16 @@ import react.RClass
 import react.RProps
 
 @JsName("EmailIcon")
-external val EmailIcon: RClass<IconProps>
+external val emailIcon: RClass<IconProps>
 
 @JsName("EmailShareButton")
-external val EmailShareButton: RClass<ShareButtonProps>
+external val emailShareButton: RClass<ShareButtonProps>
 
 @JsName("TelegramIcon")
-external val TelegramIcon: RClass<IconProps>
+external val telegramIcon: RClass<IconProps>
 
 @JsName("TelegramShareButton")
-external val TelegramShareButton: RClass<ShareButtonProps>
+external val telegramShareButton: RClass<ShareButtonProps>
 
 external interface ShareButtonProps : RProps {
     var url: String
@@ -102,7 +102,7 @@ external interface IconProps : RProps {
 }
 ```
 
-Above our `ReactPlayer` usage site in `VideoPlayer.kt`, let's add the two share buttons (in a `styledDiv` for a layout that is a bit nicer).
+Above our `reactPlayer` usage site in `VideoPlayer.kt`, let's add the two share buttons (in a `styledDiv` for a layout that is a bit nicer).
 
 ```kotlin
 styledDiv {
@@ -110,17 +110,17 @@ styledDiv {
         display = Display.flex
         marginBottom = 10.px
     }
-    EmailShareButton {
+    emailShareButton {
         attrs.url = props.video.videoUrl
-        EmailIcon {
+        emailIcon {
             attrs.size = 32
             attrs.round = true
         }
     }
 
-    TelegramShareButton {
+    telegramShareButton {
         attrs.url = props.video.videoUrl
-        TelegramIcon {
+        telegramIcon {
             attrs.size = 32
             attrs.round = true
         }

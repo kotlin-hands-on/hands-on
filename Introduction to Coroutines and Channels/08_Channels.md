@@ -176,7 +176,7 @@ Since we call the `receive` calls sequentially, no additional synchronization is
 As with the `loadContributorsProgress` function, we can create an `allUsers` variable to store
 the intermediate states of the "all contributors" list.
 When we receive each new list from the channel,
-we can add it to the list of all users, aggregate the result, and update the state using the `updateState` callback:
+we can add it to the list of all users, aggregate the result, and update the state using the `updateResults` callback:
 
 ```kotlin
 suspend fun loadContributorsChannels(

@@ -62,7 +62,7 @@ import kotlin.browser.document
 
 fun main() {
     render(document.getElementById("root")) {
-        child(functionalComponent = App)
+        child(App)
     }
 }
 ```
@@ -168,7 +168,7 @@ To use this `InputComponent` from our application. we add the following snippet 
 
 ```kotlin
 child(
-    functionalComponent = InputComponent,
+    InputComponent,
     props = jsObject {
         onSubmit = { input ->
             val cartItem = ShoppingListItem(input.replace("!", ""), input.count { it == '!' })

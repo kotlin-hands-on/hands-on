@@ -117,7 +117,6 @@ styledDiv {
             attrs.round = true
         }
     }
-
     telegramShareButton {
         attrs.url = props.video.videoUrl
         telegramIcon {

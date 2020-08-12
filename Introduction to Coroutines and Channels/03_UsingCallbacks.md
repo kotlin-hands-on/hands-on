@@ -176,7 +176,7 @@ for (repo in repos) {
 } 
 ```
 
-Note that we're using a synchronized version of the list and `AtomicInteger`, since in a general there's no guarantee
+Note that we're using a synchronized version of the list and `AtomicInteger`, since in general there's no guarantee
 that different callback processing `getRepoContributors` requests will always be called from the same thread.
 
 You can see that writing the right code with callbacks might be non-trivial and error-prone, especially when

@@ -5,7 +5,7 @@ we can use any browser to test `GET` requests, we'll need a separate tool to tes
 
 ### Creating a customer HTTP test file
 
-`.http` files are one way of specifying HTTP requests to be executed by different types of tools, including IntelliJ IDEA Ultimate Edition. Let's create a new file in the `test` directory of our project called `CustomerTest.http` and enter the following contents:
+`.http` files are one way of specifying HTTP requests to be executed by different types of tools, including IntelliJ IDEA Ultimate Edition. Let's create a new directory `test` under `src` of our project; inside let's create a file called `CustomerTest.http` and enter the following contents:
 
 ```kotlin
 POST http://127.0.0.1:8080/customer

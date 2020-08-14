@@ -34,6 +34,8 @@ Now that we have a well-defined `Customer` class and a storage for our customer 
 We want to respond to `GET`, `POST`, and `DELETE` requests on the `/customer` endpoint. As such, let's define our routes with the corresponding HTTP methods. Create a file called `CustomerRoutes.kt` in a new package called `routes`, and fill it with the following:
 
 ```kotlin
+import io.ktor.routing.*
+
 fun Route.customerRouting() {
     route("/customer") {
         get {

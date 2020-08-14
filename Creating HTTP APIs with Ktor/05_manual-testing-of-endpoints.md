@@ -78,7 +78,7 @@ If everything is correct, we should see the output in the Run tool window:
 
 ### Order endpoints
 
-For the order endpoints we can follow the same procedure: we create a new file in the `test` directory of our project, and fill it with some HTTP requests:
+For the order endpoints we can follow the same procedure: we create a new file called `OrderTest.http` in the `test` directory of our project, and fill it with some HTTP requests:
 
 ```kotlin
 GET http://127.0.0.1:8080/order/2020-04-06-01

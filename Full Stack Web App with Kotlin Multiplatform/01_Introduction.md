@@ -22,11 +22,11 @@ To achieve all this functionality, we will first build a small backend that serv
 
 To make the app available even while we're standing in the supermarket, we'll also cover how to deploy the shopping list to a cloud provider in the last chapter.
 
-Before we dive in and start coding our application, let's talk for a brief moment about why choosing a Kotlin multiplatform architecture for such a type of project can be benefitial.
+Before we dive in and start coding our application, let's talk for a brief moment about why choosing a Kotlin multiplatform architecture for such a type of project can be beneficial.
 
 ### Benefits of a multiplatform architecture
 
-We will write this whole application in Kotlin: The backend will use Kotlin/JVM, the frontend will use Kotlin/JS. This has a number of benefits: Besides syntax, it also allows us to share our libraries and  programming paradigms (such as using coroutines for concurrency), on both frontend and backend.
+We will write this whole application in Kotlin: the backend will use Kotlin/JVM, the frontend will use Kotlin/JS. This has a number of benefits: besides syntax, it also allows us to share our libraries and  programming paradigms (such as using coroutines for concurrency), on both frontend and backend.
 
 Using Kotlin throughout the whole stack also makes it possible to write classes and functions that can be used from both the JVM and JS targets of our application. For this application, we will primarily use this functionality to share a typesafe representation of our data between client and server.
 

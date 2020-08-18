@@ -81,7 +81,7 @@ At this point, it's time we move on without further guidance – but that doesn'
 
 ### Relevant Gradle configuration
 
-The `stage` task as an alias for `installDist`:
+The `stage` task is an alias for `installDist`:
 
 ```kotlin
 // Alias "installDist" as "stage" for Heroku

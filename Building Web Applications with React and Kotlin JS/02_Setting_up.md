@@ -49,21 +49,21 @@ dependencies {
 
     //Kotlin Styled (chapter 3)
     implementation("org.jetbrains:kotlin-styled:1.0.0-pre.94-kotlin-1.3.70")
-    implementation(npm("styled-components"))
-    implementation(npm("inline-style-prefixer"))
+    implementation(npm("styled-components", "5.1.1"))
+    implementation(npm("inline-style-prefixer", "6.0.0"))
 
     //Video Player (chapter 7)
-    implementation(npm("react-player"))
+    implementation(npm("react-player", "2.6.0"))
 
     //Share Buttons (chapter 7)
-    implementation(npm("react-share"))
+    implementation(npm("react-share", "4.2.1"))
 
     //Coroutines (chapter 8)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5")
 }
 ```
 
-After editing the file, IntelliJ IDEA will automatically prompt us import the changed Gradle files. Alternatively, we can also press the "🔁 Reimport All Gradle Projects" button in the Gradle tool window.
+After editing the file, IntelliJ IDEA will automatically prompt us to import the changed Gradle files. Alternatively, we can also press the "🔁 Reload All Gradle Projects" button in the Gradle tool window.
 
 #### HTML page
 

@@ -67,7 +67,7 @@ With this, we've reached the end of building our application – but of course, 
 
 ### Relevant Gradle configuration
 
-Kmongo is added with a single dependency to the project – a specific verion that includes coroutine and serialization support out of the box:
+Kmongo is added with a single dependency to the project – a specific version that includes coroutine and serialization support out of the box:
 
 ```kotlin
 val jvmMain by getting {

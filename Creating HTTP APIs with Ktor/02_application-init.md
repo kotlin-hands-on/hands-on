@@ -36,7 +36,7 @@ Let's briefly go through these dependencies one-by-one:
 
 ### Configurations: `application.conf` and `logback.xml`
 
-The repository also includes a basic `application.conf` in HOCON format, located in the `resources` folder. Ktor uses this file to determine the port on which it should run, and it also defines the entry point of our application. If you'd like to learn more about how a Ktor server is configured, check out the [official documentation](https://ktor.io/servers/configuration.html).
+The repository also includes a basic `application.conf` in [HOCON](https://en.wikipedia.org/wiki/HOCON) format, located in the `resources` folder. Ktor uses this file to determine the port on which it should run, and it also defines the entry point of our application. If you'd like to learn more about how a Ktor server is configured, check out the [official documentation](https://ktor.io/servers/configuration.html).
 
 Also included in the same folder is a `logback.xml` file, which sets up the basic logging structure for our server. If you'd like to learn more about logging in Ktor, check out the [official documentation](https://ktor.io/servers/logging.html). 
 

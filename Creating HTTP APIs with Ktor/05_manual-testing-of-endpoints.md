@@ -5,7 +5,7 @@ we can use any browser to test `GET` requests, we'll need a separate tool to tes
 
 ### Creating a customer HTTP test file
 
-`.http` files are one way of specifying HTTP requests to be executed by different types of tools, including IntelliJ IDEA Ultimate Edition. Let's create a new file in the `test` directory of our project called `CustomerTest.http` and enter the following contents:
+`.http` files are one way of specifying HTTP requests to be executed by different types of tools, including IntelliJ IDEA Ultimate Edition. Let's create a new directory `test` under `src` of our project; inside let's create a file called `CustomerTest.http` and enter the following contents:
 
 ```kotlin
 POST http://127.0.0.1:8080/customer
@@ -78,7 +78,7 @@ If everything is correct, we should see the output in the Run tool window:
 
 ### Order endpoints
 
-For the order endpoints we can follow the same procedure: we create a new file in the `test` directory of our project, and fill it with some HTTP requests:
+For the order endpoints we can follow the same procedure: we create a new file called `OrderTest.http` in the `test` directory of our project, and fill it with some HTTP requests:
 
 ```kotlin
 GET http://127.0.0.1:8080/order/2020-04-06-01

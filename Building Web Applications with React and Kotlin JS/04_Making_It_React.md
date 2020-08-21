@@ -12,7 +12,7 @@ When we structure our application and split it up into components, we end up wit
 
 ![image-20190729153826920](./assets/image-20190729153826920.png)
 
-Let's begin the process of structuring our application. We’ll start by explicitly specifying the main component we're rendering into the root element: the `App`. Let's create a new file in our project's `src` folder called `App.kt`. Inside this file, let's create our `App` class which inherits from `RComponent`, a **R**eact **Component**. For now, we can keep its generic parameters default (`RProps` and `RState`). There will be more on those later.
+Let's begin the process of structuring our application. We’ll start by explicitly specifying the main component we're rendering into the root element: the `App`. Let's create a new file in our project's `src/main/kotlin` folder called `App.kt`. Inside this file, let's create our `App` class which inherits from `RComponent`, a **R**eact **Component**. For now, we can keep its generic parameters default (`RProps` and `RState`). There will be more on those later.
 
 ```kotlin
 import react.*

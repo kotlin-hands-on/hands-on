@@ -65,6 +65,7 @@ To turn on compilation with optimizations for our Gradle assets, we need to pass
 We can now trigger a deployment, for example by running the following command:
 
 ```bash
+git add -A
 git commit -m "prepare app for cloud deployment"
 git push heroku master
 ```

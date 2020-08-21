@@ -2,7 +2,7 @@
 
 Every good programming story starts with a *Hello World*-derivative – so, let's move from our colored page to exactly that!
 
-Change the code inside `src/Main.kt` to look as follows:
+Change the code inside `src/main/kotlin/Main.kt` to look as follows:
 
 ```kotlin
 import react.dom.*

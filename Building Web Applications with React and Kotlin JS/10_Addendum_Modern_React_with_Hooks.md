@@ -75,7 +75,7 @@ We can use the Effect Hook when we want to perform side effects in a functional 
 ```kotlin
 val randomFact = functionalComponent<RProps> {
     val (randomFact, setRandomFact) = useState<String?>(null)
-    useEffect(listOf()) {
+    useEffect(emptyList()) {
         GlobalScope.launch {
             val fortyTwoFact = window.fetch("http://numbersapi.com/42").await().text().await()
             setRandomFact(fortyTwoFact)
@@ -87,7 +87,7 @@ val randomFact = functionalComponent<RProps> {
 
 To keep track of the API result, we make use of the State Hook which we introduced in the previous section. We then call `useEffect`, run the call to our API, and use the `setRandomFact` function provided to us by the State Hook to update the stored result.
 
-Note that `useEffect` is called with its first parameter, it's _dependencies_. Dependencies simply describe the props or state which needs to change in order for the Effect Hook to be run again. In our case, we only want to make the call to the external API once, regardless of other state changes in our application, so we pass an `emptyList()`.
+Note that `useEffect` is called with its first parameter, its _dependencies_. Dependencies simply describe the props or state which needs to change in order for the Effect Hook to be run again. In our case, we only want to make the call to the external API once, regardless of other state changes in our application, so we pass an `emptyList()`.
 
 If we omitted `emptyList()`, our Effect Hook would be called after each invocation of `setRandomFact`, resulting in an endless loop.
 

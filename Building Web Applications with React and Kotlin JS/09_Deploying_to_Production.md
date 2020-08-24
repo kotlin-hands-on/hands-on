@@ -48,6 +48,7 @@ We configure the `buildpack-static` by adding a file called `static.json` to the
 We can now trigger a deployment, for example by running the following command:
 
 ```bash
+git add -A
 git commit -m "add stage task and static content root configuration"
 git push heroku master
 ```

@@ -4,7 +4,7 @@
 
 To get started, let's make sure we have installed an up-to-date development environment. All we need to get started is:
 
-- IntelliJ IDEA (version `2019.3.2` or above) with the Kotlin plugin (`1.3.70` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
+- IntelliJ IDEA (version `2020.1` or above) with the Kotlin plugin (`1.4.0` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
 
 
 ### Setting up the project
@@ -42,24 +42,24 @@ dependencies {
     implementation(kotlin("stdlib-js"))
 
     //React, React DOM + Wrappers (chapter 3)
-    implementation("org.jetbrains:kotlin-react:16.13.0-pre.94-kotlin-1.3.70")
-    implementation("org.jetbrains:kotlin-react-dom:16.13.0-pre.94-kotlin-1.3.70")
+    implementation("org.jetbrains:kotlin-react:16.13.1-pre.110-kotlin-1.4.0")
+    implementation("org.jetbrains:kotlin-react-dom:16.13.1-pre.110-kotlin-1.4.0")
     implementation(npm("react", "16.13.1"))
     implementation(npm("react-dom", "16.13.1"))
 
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.94-kotlin-1.3.70")
-    implementation(npm("styled-components"))
-    implementation(npm("inline-style-prefixer"))
+    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.110-kotlin-1.4.0")
+    implementation(npm("styled-components", "~5.1.1"))
+    implementation(npm("inline-style-prefixer", "~6.0.0"))
 
     //Video Player (chapter 7)
-    implementation(npm("react-player"))
+    implementation(npm("react-player", "~2.6.0"))
 
     //Share Buttons (chapter 7)
-    implementation(npm("react-share"))
+    implementation(npm("react-share", "~4.2.1"))
 
     //Coroutines (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
 }
 ```
 
@@ -88,7 +88,7 @@ Depending on how we named our project, the embedded `js` file has a different na
 Now, before we write a proper "Hello, World" with actual Markup, let's start with a very simple and visual example – a solid colored page. This is just to verify that what we're building is actually reaching the browser and executes fine. For this, we create the file `src/main/kotlin/Main.kt` and fill it with the following Kotlin code snippet:
 
 ```kotlin
-import kotlin.browser.document
+import kotlinx.browser.document
 
 fun main() {
     document.bgColor = "red"

@@ -158,7 +158,7 @@ When IntelliJ IDEA prompts us to add imports for this functionality, we can simp
 
 ```kotlin
 import kotlinx.html.js.onClickFunction
-import kotlin.browser.window
+import kotlinx.browser.window
 ```
 
 Now, when we click on one of the list items in the browser window, we get the corresponding information inside an `alert` window:

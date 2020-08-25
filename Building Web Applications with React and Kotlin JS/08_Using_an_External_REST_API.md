@@ -31,7 +31,7 @@ Like the other dependencies we've gotten to know over the course of this hands-o
 dependencies {
     //...
     //Coroutines (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
 }
 ```
 
@@ -54,7 +54,7 @@ suspend fun fetchVideo(id: Int): Video {
 Use quick-fixes to import the required objects and functions, or alternatively manually add them to the top of `App.kt`:
 
 ```kotlin
-import kotlin.browser.window
+import kotlinx.browser.window
 import kotlinx.coroutines.*
 ```
 

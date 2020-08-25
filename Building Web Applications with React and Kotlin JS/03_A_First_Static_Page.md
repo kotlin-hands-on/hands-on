@@ -6,7 +6,7 @@ Change the code inside `src/main/kotlin/Main.kt` to look as follows:
 
 ```kotlin
 import react.dom.*
-import kotlin.browser.document
+import kotlinx.browser.document
 
 fun main() {
     render(document.getElementById("root")) {
@@ -146,9 +146,9 @@ We do not need to do perform any extra steps to start using the functionality, b
 dependencies {
     //...
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:16.13.0-pre.94-kotlin-1.3.70")
-    implementation(npm("styled-components"))
-    implementation(npm("inline-style-prefixer"))
+    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.110-kotlin-1.4.0")
+    implementation(npm("styled-components", "~5.1.1"))
+    implementation(npm("inline-style-prefixer", "~6.0.0"))
     //...
 }
 ```

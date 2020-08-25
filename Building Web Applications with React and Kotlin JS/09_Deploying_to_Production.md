@@ -4,7 +4,7 @@ After the hard work of building the application is done, it's time to get it pub
 
 ### Packaging a production build
 
-To package all of our assets in production mode, it is enough to run the `build` task in Gradle via the tool window in IntelliJ IDEA or by running `./gradlew build`.  This generates an optimized build of your project, applying various impovements such as DCE (dead code elimination).
+To package all of our assets in production mode, it is enough to run the `build` task in Gradle via the tool window in IntelliJ IDEA or by running `./gradlew build`.  This generates an optimized build of your project, applying various improvements such as DCE (dead code elimination).
 
 After the short wait is over, we'll be greeted by a number of static files inside the `/build/distributions` folder that are ready for deployment. They include the JS files, HTML files and other resources required to run our application. You can put them on a static HTTP server of your choice, serve them using GitHub Pages, or host them on a cloud provider of your choice.
 

@@ -14,7 +14,7 @@ In the beginning, we have already added the `react-player` package to our Gradle
 dependencies {
     //...
     //Video Player (chapter 7)
-    implementation(npm("react-player"))
+    implementation(npm("react-player", "~2.6.0"))
     //...
 }
 ```
@@ -66,7 +66,7 @@ As with most things, KotlinConf talks are best enjoyed together. An easy way to 
 dependencies {
     //...
     //Share Buttons (chapter 7)
-    implementation(npm("react-share"))
+    implementation(npm("react-share", "~4.2.1"))
     //...
 }
 ```

@@ -63,7 +63,7 @@ dependencies {
 }
 ```
 
-After editing the file, IntelliJ IDEA will automatically prompt us import the changed Gradle files. Alternatively, we can also press the "🔁 Reimport All Gradle Projects" button in the Gradle tool window.
+After editing the file, IntelliJ IDEA will automatically prompt us to import the changed Gradle files. Alternatively, we can also press the "🔁 Reimport All Gradle Projects" button in the Gradle tool window.
 
 #### HTML page
 

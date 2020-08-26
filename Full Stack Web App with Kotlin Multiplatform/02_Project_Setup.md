@@ -21,9 +21,9 @@ Like all Kotlin projects targeting more than one platform, our project uses the 
 
 ```kotlin
 plugins {
-    kotlin("multiplatform") version "1.3.71"
+    kotlin("multiplatform") version "1.4.0"
     application //to run JVM part
-    kotlin("plugin.serialization") version "1.3.70"
+    kotlin("plugin.serialization") version "1.4.0"
 }
 ```
 
@@ -37,12 +37,12 @@ jvm {
 }
 js {
     browser {
-        // . . .
+        binaries.executable()
     }
 }
 ```
 
-For more detailed information on targets, check out the [respective section](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#setting-up-targets) in the guide.
+For more detailed information on targets, check out the [respective section](https://kotlinlang.org/docs/reference/mpp-discover-project.html#targets) in the guide.
 
 #### Source Sets
 
@@ -72,6 +72,6 @@ sourceSets {
 
 Each source set also corresponds to a folder in the `src` directory. In our project, we see the corresponding three folders `commonMain`, `jsMain`, and `jvmMain`, which contain their own `resources` and `kotlin` folders.
 
-For more detailed information on source sets, check out the [respective section](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#configuring-source-sets) in the guide. There are a few other snippets that are yet to be explained – but we will discuss them at later chapters in this hands-on, when they become relevant to what we are trying to achieve.
+For more detailed information on source sets, check out the [respective section](https://kotlinlang.org/docs/reference/mpp-discover-project.html#source-sets) in the guide. There are a few other snippets that are yet to be explained – but we will discuss them at later chapters in this hands-on, when they become relevant to what we are trying to achieve.
 
 For now, we will focus on building our application, starting with a strong backbone – a simple API server.

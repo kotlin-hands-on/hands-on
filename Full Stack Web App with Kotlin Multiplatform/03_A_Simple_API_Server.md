@@ -30,9 +30,8 @@ import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.litote.kmongo.*
-import org.litote.kmongo.async.*
 import org.litote.kmongo.coroutine.*
-import org.litote.kmongo.async.getCollection
+import org.litote.kmongo.reactivestreams.KMongo
 import com.mongodb.ConnectionString
 
 fun main() {
@@ -205,14 +204,15 @@ The artifacts required to use ktor are a part of the `jvmMain` `dependencies` bl
 
 ```kotlin
 val jvmMain by getting {
-        dependencies {
-            implementation("io.ktor:ktor-server-core:$ktorVersion")
-            implementation("io.ktor:ktor-server-netty:$ktorVersion")
-            implementation("ch.qos.logback:logback-classic:1.2.3")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion") // JVM dependency
-            // . . .
-        }
+    dependencies {
+        implementation("io.ktor:ktor-serialization:$ktorVersion")
+        implementation("io.ktor:ktor-server-core:$ktorVersion")
+        implementation("io.ktor:ktor-server-netty:$ktorVersion")
+        implementation("ch.qos.logback:logback-classic:1.2.3")
+        implementation("io.ktor:ktor-websockets:$ktorVersion")
+        implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.1.1")
     }
+}
 ```
 
 `kotlinx.serialization` and its integration with ktor also requires a few common artifacts to be present, which we can find in the `commonMain` source set:
@@ -220,9 +220,9 @@ val jvmMain by getting {
 ```kotlin
 val commonMain by getting {
     dependencies {
-        implementation("io.ktor:ktor-serialization:$ktorVersion")
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
-        // . . .
+        implementation(kotlin("stdlib-common"))
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
     }
 }
 ```

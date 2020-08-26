@@ -19,7 +19,7 @@ By migrating our code to use an external database, we no longer need to keep a c
 Inside `src/jvmMain/kotlin/Server.kt`, we remove the declaration for `shoppingList`, and add the following three top-level variables:
 
 ```kotlin
-val client = KMongo.createClient()
+val client = KMongo.createClient().coroutine
 val database = client.getDatabase("shoppingList")
 val collection = database.getCollection<ShoppingListItem>()
 ```
@@ -73,7 +73,7 @@ Kmongo is added with a single dependency to the project – a specific version t
 val jvmMain by getting {
     dependencies {
         // . . .
-        implementation("org.litote.kmongo:kmongo-coroutine-serialization:3.12.2")
+        implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.1.1")
     }
 }
 ```

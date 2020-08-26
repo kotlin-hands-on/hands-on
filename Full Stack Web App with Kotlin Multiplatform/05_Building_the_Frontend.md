@@ -21,7 +21,7 @@ import io.ktor.client.request.*
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 
-import kotlin.browser.window
+import kotlinx.browser.window
 
 val endpoint = window.location.origin // only needed until https://github.com/ktorio/ktor/issues/1695 is resolved
 
@@ -58,7 +58,7 @@ Instead of rendering a simple "Hello, Kotlin/JS" string, it's time we make our a
 ```kotlin
 import react.child
 import react.dom.render
-import kotlin.browser.document
+import kotlinx.browser.document
 
 fun main() {
     render(document.getElementById("root")) {
@@ -84,7 +84,7 @@ import kotlinext.js.*
 import kotlinx.html.js.*
 import kotlinx.coroutines.*
 
-val scope = MainScope()
+private val scope = MainScope()
 
 val App = functionalComponent<RProps> { _ ->
     val (shoppingList, setShoppingList) = useState(emptyList<ShoppingListItem>())

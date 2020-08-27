@@ -16,7 +16,6 @@ For this hands-on, the `dependencies` block in our `build.gradle` file is probab
 
 ```groovy
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "io.ktor:ktor-server-core:$ktor_version"
     implementation "io.ktor:ktor-server-netty:$ktor_version"
     implementation "io.ktor:ktor-html-builder:$ktor_version"

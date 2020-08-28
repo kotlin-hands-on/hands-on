@@ -38,6 +38,7 @@ kotlin {
         else
             ::iosX64
 
+    // Build SharedCode.framework
     iOSTarget("ios") {
         binaries {
             framework {
@@ -46,41 +47,53 @@ kotlin {
         }
     }
 
+    // Build android.jar
     jvm("android")
 
+    // Use the Kotlin/Native stdlib
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
     }
 
+    // Use the Kotlin/JVM stdlib
     sourceSets["androidMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
     }
 }
 
+// Replace the destination directory with the source files.
+// (It's Sync-like-rsync, not Sync-like-atomic.)
 val packForXcode by tasks.creating(Sync::class) {
-    val targetDir = File(buildDir, "xcode-frameworks")
-
-    /// selecting the right configuration for the iOS 
-    /// framework depending on the environment
-    /// variables set by Xcode build
+    // Let xcodebuild CONFIGURATION pick the kind of framework
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets
-                          .getByName<KotlinNativeTarget>("ios")
-                          .binaries.getFramework(mode)
+    // Tell Gradle "mode" factors into what we're building.
+    // This way, changing CONFIGURATION will cause a rebuild.
     inputs.property("mode", mode)
+    // Tell Gradle to link the framework for that configuration before running packForXcode.
+    val framework =
+        kotlin.targets
+            .getByName<KotlinNativeTarget>("ios")
+            .binaries.getFramework(mode)
     dependsOn(framework.linkTask)
 
+    // Configure the paths to keep in sync
     from({ framework.outputDirectory })
+    val targetDir = File(buildDir, "xcode-frameworks")
     into(targetDir)
 
-    /// generate a helpful ./gradlew wrapper with embedded Java path
+    // After syncing, add a script to ensure xcodebuild uses the correct Java when calling gradlew.
     doLast {
-        val gradlew = File(targetDir, "gradlew")
-        gradlew.writeText("#!/bin/bash\n" 
-            + "export 'JAVA_HOME=${System.getProperty("java.home")}'\n" 
-            + "cd '${rootProject.rootDir}'\n" 
-            + "./gradlew \$@\n")
-        gradlew.setExecutable(true)
+        val gradleWrapper = File(targetDir, "gradlew")
+        gradleWrapper.writeText(
+            """
+            #!/bin/bash
+            export 'JAVA_HOME=${System.getProperty("java.home")}'
+            cd '${rootProject.rootDir}' || exit 1
+            ./gradlew "$@"
+
+        """.trimIndent()
+        )
+        gradleWrapper.setExecutable(true)
     }
 }
 
@@ -104,10 +117,8 @@ package com.jetbrains.handson.mpp.mobile
 
 expect fun platformName(): String
 
-fun createApplicationScreenMessage() : String {
-  return "Kotlin Rocks on ${platformName()}"
-}
-
+fun createApplicationScreenMessage() =
+    "Kotlin Rocks on ${platformName()}"
 ```
 
 That is the common part. The code to generate the final message. It `expect`s the platform part
@@ -119,10 +130,7 @@ Now we need to create the implementation file (and missing directories) for Andr
 ```kotlin
 package com.jetbrains.handson.mpp.mobile
 
-actual fun platformName(): String {
-  return "Android"
-}
-
+actual fun platformName() = "Android"
 ```
 
 We create a similar implementation file (and missing directories) for the iOS target in the `SharedCode/src/iosMain/kotlin/actual.kt`:
@@ -132,11 +140,10 @@ package com.jetbrains.handson.mpp.mobile
 
 import platform.UIKit.UIDevice
 
-actual fun platformName(): String {
-  return UIDevice.currentDevice.systemName() +
-         " " +
-         UIDevice.currentDevice.systemVersion
-}
+actual fun platformName() =
+    UIDevice.currentDevice.run {
+      "$systemName $systemVersion"
+    }
 ```
 
 Here we can use the [UIDevice](https://developer.apple.com/documentation/uikit/uidevice?language=objc)

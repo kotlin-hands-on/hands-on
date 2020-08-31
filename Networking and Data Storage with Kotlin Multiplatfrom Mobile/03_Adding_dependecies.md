@@ -14,7 +14,7 @@ To add a multiplatform library to the KMM module, we need to add dependency inst
 We need to specify a dependency on `kotlinx.coroutines` in the common source set in order to add them to our project. We will do this by adding the following line to the `build.gradle.kts` file in the KMM module directory:
 
 ```kotlin
-val coroutinesVersion = "1.3.9"
+val coroutinesVersion = "1.3.9-native-mt"
 
 sourceSets {
     commonMain {

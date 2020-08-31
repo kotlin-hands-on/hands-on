@@ -2,7 +2,7 @@
 
 Congratulations! We've just created two nice little iOS and Android applications with some of the most common features of mobile clients: retrieving data from the network and caching it in a local database. Our applications have fully native UIs, and we only had to implement the business logic once in the Kotlin Multiplatform Mobile module. 
 
-![Emulator and Simulator](./assets/android-and-ios.png)
+<img alt="Emulator and Simulator" src="./assets/android-and-ios.png" width="700">
 
 ## What's next?
 

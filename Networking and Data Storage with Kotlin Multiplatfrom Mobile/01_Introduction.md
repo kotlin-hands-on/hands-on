@@ -4,7 +4,7 @@ In this practical hands-on guide, we will create a Kotlin Multiplatform Mobile (
 
 We will use the **SpaceX** API, which provides public access to information about SpaceX rocket launches. The SpaceX API has detailed [documentation](https://docs.spacexdata.com/?version=latest). Our application will display a list of rocket launches together with the launch date, results, and a detailed description of the launch. This is what our applications will look like:
 
-![Emulator and Simulator](./assets/android-and-ios.png)
+<img alt="Emulator and Simulator" src="./assets/android-and-ios.png" width="700">
 
 We will use the [Ktor](https://ktor.io/clients/index.html) library to handle HTTP requests and [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) for request serialization. We will use [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) to write asynchronous code. The [SQLDelight](https://github.com/cashapp/sqldelight) library will be used for database operations. We will use the [CoroutineWorker](https://github.com/Autodesk/coroutineworker) library to manage coroutines in background threads.
 

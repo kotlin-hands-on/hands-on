@@ -131,7 +131,8 @@ actual class DatabaseDriverFactory {
 We will create instances of these factories later in the code of the Android and iOS projects.
 
 Hint! You can navigate throw `expect` declarations and `actual` realizations with the handy gutter:
-![Expect/Actual gutter](./assets/expect-actual.png)
+
+<img alt="Expect/Actual gutter" src="./assets/expect-actual.png" width="700">
 
 ## Implementing cache 
 

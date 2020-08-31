@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
 All done! Select "androidApp" from the run configurations menu, choose emulator, and press the run button:
 
-![Android application](./assets/android-application.png)
+<img alt="Android application" src="./assets/android-application.png" width="300">
 
 Congratulations! You've just created an Android application, which has its business logic implemented in Kotlin Multiplatform Mobile module. To earn the title of "cross-platform Kotlin mobile developer" let’s take it even further and implement an iOS application!
 

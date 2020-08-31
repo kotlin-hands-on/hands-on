@@ -106,7 +106,7 @@ Next we need to provide actual implementations for this expected class.
 
 On Android, the SQLite driver is implemented by the `AndroidSqliteDriver` class. We need to pass the database information and the link to the context to `AndroidSqliteDriver` class constructor. To do this, let's create `com.jetbrains.handson.kmm.shared.cache` package in the `shared/src/androidMain/kotlin` directory and create a `DatabaseDriverFactory` class inside it with the actual implementation:
 
-```Kotlin
+```kotlin
 actual class DatabaseDriverFactory(private val context: Context) {
     actual fun createDriver(): SqlDriver {
         return AndroidSqliteDriver(AppDatabase.Schema, context, "test.db")
@@ -116,7 +116,7 @@ actual class DatabaseDriverFactory(private val context: Context) {
 
 Let's do the same for iOS. On iOS, the SQLite driver implementation is the `NativeSqliteDriver` class. We need to create a `com.jetbrains.handson.kmm.shared.cache` package in the `shared/src/iosMain/kotlin` directory and create a `DatabaseDriverFactory` class inside it with the actual implementation:
 
-```Kotlin
+```kotlin
 import com.jetbrains.handson.kmm.shared.cache.AppDatabase
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver

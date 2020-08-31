@@ -11,6 +11,7 @@ We will use the [Ktor](https://ktor.io/clients/index.html) library to handle HTT
 ## Preparing the local environment
 
 In this tutorial, we will be using 
+
 * [Android Studio](https://developer.android.com/studio/) with the [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/13881-mobile-multiplatform) for working with the shared module and Android project.
 * [Xcode](https://developer.apple.com/xcode/) for building the iOS application.
 

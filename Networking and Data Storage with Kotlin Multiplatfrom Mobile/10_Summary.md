@@ -7,6 +7,7 @@ Congratulations! We've just created two nice little iOS and Android applications
 ## What's next?
 
 Check out these guides, if to want to know more about:
+
 * [How to network with Ktor](https://helpserver.labs.jb.gg/help/kotlin-mobile/use-ktor-for-networking.html)
 * [How to work with SQLDelight](https://helpserver.labs.jb.gg/help/kotlin-mobile/configure-sqldelight-for-data-storage.html)
 * [How to integrate KMM in your existing app](https://helpserver.labs.jb.gg/help/kotlin-mobile/integrate-in-existing-app.html)

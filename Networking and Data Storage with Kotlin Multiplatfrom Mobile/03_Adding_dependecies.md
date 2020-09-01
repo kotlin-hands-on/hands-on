@@ -7,7 +7,7 @@ We will use the following multiplatform libraries in our project:
 * `kotlinx.serialization` – to deserialize JSON responses into objects of entity classes.
 * `SQLDelight` – this will generate Kotlin code from SQL queries to create a type-safe database API.
 
-To add a multiplatform library to the KMM module, we need to add dependency instructions (in our case, implementation) to the dependencies block of the relevant source sets in the 'build.gradle.kts' file in the **KMM module's directory**. You can read more about adding dependencies in the [documentation](https://helpserver.labs.jb.gg/help/kotlin-mobile/add-dependencies.html#multiplatform-libraries).
+To add a multiplatform library to the KMM module, we need to add dependency instructions (in our case, implementation) to the dependencies block of the relevant source sets in the 'build.gradle.kts' file in the **KMM module's directory**. You can read more about adding dependencies in the [documentation](https://kotlinlang.org/docs/mobile/add-dependencies.html#multiplatform-libraries).
 
 ### Adding kotlinx.coroutines
 

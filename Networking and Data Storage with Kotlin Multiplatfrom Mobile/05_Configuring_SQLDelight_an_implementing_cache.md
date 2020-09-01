@@ -86,7 +86,7 @@ LEFT JOIN Rocket ON Rocket.id == Launch.rocketId;
 
 When the project is compiled, the generated Kotlin code will be stored in the `/shared/build/generated/sqldelight` directory. The generator will create an interface with the named `AppDatabase`, as we specified in `build.gradle.kts` 
 
-You can learn more about how to work with SQLDelight in the [KMM documentation](https://helpserver.labs.jb.gg/help/kotlin-mobile/configure-sqldelight-for-data-storage.html).
+You can learn more about how to work with SQLDelight in the [KMM documentation](https://kotlinlang.org/docs/mobile/configure-sqldelight-for-data-storage.html).
 
 ## Creating platform database drivers
 

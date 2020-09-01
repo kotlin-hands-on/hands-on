@@ -12,7 +12,7 @@ To view the complete structure of our mobile multiplatform project, let's switch
 
 <img alt="Project view" src="./assets/project-view.png" width="200">
 
-You can explore the features [included in your project](https://helpserver.labs.jb.gg/help/kotlin-mobile/discover-kmm-project.html) and how to use them, or you can go directly to the next step and start coding!
+You can explore the features [included in your project](https://kotlinlang.org/docs/mobile/discover-kmm-project.html) and how to use them, or you can go directly to the next step and start coding!
 
 Here's the [Git commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/57964ab4f1243799dc84d3bbe2b97b8fd6ef8a14) with the KMM project created and configured. Now we are ready to start developing our multiplatform application.
 

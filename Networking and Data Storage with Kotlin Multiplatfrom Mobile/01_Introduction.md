@@ -6,7 +6,12 @@ We will use the **SpaceX** API, which provides public access to information abou
 
 <img alt="Emulator and Simulator" src="./assets/android-and-ios.png" width="700">
 
-We will use the [Ktor](https://ktor.io/clients/index.html) library to handle HTTP requests and [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) for request serialization. We will use [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) to write asynchronous code. The [SQLDelight](https://github.com/cashapp/sqldelight) library will be used for database operations. We will use the [CoroutineWorker](https://github.com/Autodesk/coroutineworker) library to manage coroutines in background threads.
+We will use: 
+
+* [Ktor](https://ktor.io/clients/index.html) library to handle HTTP requests 
+* [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) for request serialization
+* [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) to write asynchronous code
+* [SQLDelight](https://github.com/cashapp/sqldelight) library will be used for database operations.
 
 You can find the [template project](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage) as well as the source code of the [final application](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) on the corresponding GitHub repository.
 

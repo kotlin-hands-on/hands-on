@@ -6,8 +6,8 @@ The configuration we need was configured by the KMM Android Studio plugin, so we
 // ... 
 
 dependencies {
-    implementation(project(":shared")) // 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7-1.4-M3")
+    implementation(project(":shared")) 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("com.google.android.material:material:1.2.0")
     implementation("androidx.appcompat:appcompat:1.2.0")

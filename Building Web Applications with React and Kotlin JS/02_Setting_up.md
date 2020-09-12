@@ -29,7 +29,9 @@ Inside our `build.gradle.kts` file, let's make sure that our `repositories` bloc
 
 ```kotlin
 repositories {
-    maven("https://kotlin.bintray.com/kotlin-js-wrappers/")
+    maven {
+        url = "https://kotlin.bintray.com/kotlin-js-wrappers/"
+    }
     mavenCentral()
     jcenter()
 }

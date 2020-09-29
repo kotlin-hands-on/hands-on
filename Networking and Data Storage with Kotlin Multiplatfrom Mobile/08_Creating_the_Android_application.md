@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             displayLaunches(true) 
         }
 
-        displayLaunches()
+        displayLaunches(false)
     }
 
     private fun displayLaunches(needReload: Boolean) {

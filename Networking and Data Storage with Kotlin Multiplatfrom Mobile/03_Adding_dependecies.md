@@ -7,11 +7,11 @@ We will use the following multiplatform libraries in our project:
 * `kotlinx.serialization` – to deserialize JSON responses into objects of entity classes.
 * `SQLDelight` – this will generate Kotlin code from SQL queries to create a type-safe database API.
 
-To add a multiplatform library to the KMM module, we need to add dependency instructions (in our case, implementation) to the dependencies block of the relevant source sets in the 'build.gradle.kts' file in the **KMM module's directory**. You can read more about adding dependencies in the [documentation](https://kotlinlang.org/docs/mobile/add-dependencies.html#multiplatform-libraries).
+To add a multiplatform library to the KMM module, we need to add dependency instructions (in our case, implementation) to the dependencies block of the relevant source sets in the 'build.gradle.kts' file in the **KMM shared directory**. You can read more about adding dependencies in the [documentation](https://kotlinlang.org/docs/mobile/add-dependencies.html#multiplatform-libraries).
 
 ### Adding kotlinx.coroutines
 
-We need to specify a dependency on `kotlinx.coroutines` in the common source set in order to add them to our project. We will do this by adding the following line to the `build.gradle.kts` file in the KMM module directory:
+We need to specify a dependency on `kotlinx.coroutines` in the common source set in order to add them to our project. We will do this by adding the following line to the `build.gradle.kts` file in the KMM shared directory:
 
 ```kotlin
 val coroutinesVersion = "1.3.9-native-mt"
@@ -47,7 +47,7 @@ buildscript {
 }
 ```
 
-Add this line to the plugins block at the very beginning of the `build.gradle` file in the **KMM module directory**:
+Add this line to the plugins block at the very beginning of the `build.gradle` file in the **KMM shared directory**:
 
 ```kotlin 
 plugins {
@@ -128,7 +128,7 @@ buildscript {
 
 ```
 
-Add this line to the plugins block at the very beginning of the `build.gradle` file in the KMM module directory:
+Add this line to the plugins block at the very beginning of the `build.gradle` file in the KMM shared directory:
 
 ```kotlin
 plugins {

@@ -4,7 +4,7 @@ In order to get our application running on managed infrastructure (such as cloud
 
 #### The PORT variable
 
-On managed platforms, the port on which the application should run is often determined externally, and exposed through the `PORT` environment variable. If present, we can can respect this setting by configuring our `embeddedServer` in `src/jvmMain/kotlin/Server.kt` like this:
+On managed platforms, the port on which the application should run is often determined externally, and exposed through the `PORT` environment variable. If present, we can respect this setting by configuring our `embeddedServer` in `src/jvmMain/kotlin/Server.kt` like this:
 
 ```kotlin
 fun main() {

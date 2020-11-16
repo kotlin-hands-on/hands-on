@@ -130,7 +130,7 @@ actual class DatabaseDriverFactory {
 
 We will create instances of these factories later in the code of the Android and iOS projects.
 
-Hint! You can navigate throw `expect` declarations and `actual` realizations with the handy gutter:
+Hint! You can navigate through `expect` declarations and `actual` realizations with the handy gutter:
 
 <img alt="Expect/Actual gutter" src="./assets/expect-actual.png" width="700">
 

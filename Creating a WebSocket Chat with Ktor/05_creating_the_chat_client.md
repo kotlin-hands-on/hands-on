@@ -118,7 +118,7 @@ We have now finished implementing our WebSocket-based chat client with Kotlin an
 
 You might still notice some smaller usability issues caused by the limitations of terminal input, like incoming messages overwriting messages which are currently being composed. Managing more complex terminal user interfaces is outside the scope of this tutorial, though, and as such left as an exercise to the reader 😉.
 
-You can also find the final version of the project on the final branch on GitHub.
+[You can also find the final version of the project on the final branch on GitHub.](https://github.com/kotlin-hands-on/chat-app-websockets/tree/final)
 
 ![app_in_action](./assets/app_in_action.gif)
 

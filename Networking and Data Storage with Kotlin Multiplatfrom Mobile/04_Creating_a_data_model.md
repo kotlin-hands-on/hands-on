@@ -49,4 +49,4 @@ data class Links(
 
 Each serializable class must be marked with the `@Serializable` annotation. The `kotlinx.serialization` plugin automatically generates a default serializer for `@Serializable` classes unless we explicitly pass a link to a serializer through the annotation argument, but in our case we don't need to do that. The `@SerialName` annotation allows us to redefine field names, which lets us declare properties in data classes with names that are more easily readable.
 
-You can find the state of the project after this section in [this commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/1f67a228290d58d31eb743ad649712adcf82352e) on the final branch in the GitHub repository.
+You can find the state of the project after this section on the [final branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) in the GitHub repository.

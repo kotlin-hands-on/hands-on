@@ -249,4 +249,4 @@ private fun insertLaunch(launch: RocketLaunch) {
 
 All done! We will create an instance of the `Database` class later on in step 7, when we create our SDK facade class.
 
-You can find the state of the project after this section in [this commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/565161bcc3726990ff1d8e5f4d67e27e8ec87e84) on the final branch in the GitHub repository.
+You can find the state of the project after this section on the [final branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) in the GitHub repository.

@@ -168,5 +168,5 @@ Once we've done this, we need to sync the Gradle project.
 
 ## Results so far
 
-Now we have added all the dependencies we need to our KMM module. You can find the state of the project after this section in [this commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/16edf1d75c35219feb5b08f2d8e8d48bec38b52f) on the final branch in the GitHub repository.
+Now we have added all the dependencies we need to our KMM module. You can find the state of the project after this section on the [final branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) in the GitHub repository.
 

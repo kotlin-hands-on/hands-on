@@ -39,4 +39,4 @@ Clients of our SDK could use a `forceReload` flag to load the latest information
 
 To handle exceptions produced by the Ktor client, in Swift, we need to mark our function with `@Throws` annotation. All Kotlin exceptions are unchecked, while Swift has only checked errors. Thus, to make Swift code aware of expected exceptions, Kotlin functions should be marked with an `@Throws` annotation specifying a list of potential exception classes.
 
-You can find the state of the project after this section in [this commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/ee34552708fa95f5d23bc1d13237cb11f5409ff0) on the final branch in the GitHub repository.
+You can find the state of the project after this section on the [final branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) in the GitHub repository.

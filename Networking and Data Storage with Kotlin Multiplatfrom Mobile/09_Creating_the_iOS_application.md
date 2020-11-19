@@ -179,4 +179,4 @@ All done! Press the run button and see the result:
 
 <img alt="iOS Application" src="./assets/ios-application.png" width="300">
 
-You can find the state of the project after this section in [this commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/f4d1c5150b48d4691ae6dba565dd0a145790e5f3) on the final branch in the GitHub repository.
+You can find the final version of the project on the [final branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) in the GitHub repository.

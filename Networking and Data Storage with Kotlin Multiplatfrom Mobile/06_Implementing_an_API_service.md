@@ -56,4 +56,4 @@ In order for our Android application to access the internet, we need to declare 
 </manifest>
 ```
 
-You can find the state of the project after this section in [this commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/0f6622355ed988a3d8c5999f3359dfd038a3c734) on the final branch in the GitHub repository.
+You can find the state of the project after this section on the [final branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) in the GitHub repository.

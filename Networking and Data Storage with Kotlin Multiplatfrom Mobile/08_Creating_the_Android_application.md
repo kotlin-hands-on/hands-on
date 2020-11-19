@@ -151,5 +151,5 @@ All done! Select "androidApp" from the run configurations menu, choose emulator,
 
 Congratulations! You've just created an Android application, which has its business logic implemented in Kotlin Multiplatform Mobile module. To earn the title of "cross-platform Kotlin mobile developer" let’s take it even further and implement an iOS application!
 
-You can find the state of the project after this section in [this commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/355ce6e4ddb662e9fc978e10bfcc73c075bdaa5b) on the final branch in the GitHub repository.
+You can find the state of the project after this section on the [final branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) in the GitHub repository.
 

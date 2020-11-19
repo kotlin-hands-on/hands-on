@@ -110,7 +110,7 @@ As with the `kotlinx.serialization` library, we first need to add the compiler p
 Define the SQLDelight version in the root `gradle.properties` file to ensure that we use the same version for both the plugin and the libraries:
 
 ```
-sqlDelightVersion=1.4.1
+sqlDelightVersion=1.4.2
 ```
 
 In the `build.gradle` file in the **project root directory**, we need to specify the classpath for the plugin in the build system dependencies:

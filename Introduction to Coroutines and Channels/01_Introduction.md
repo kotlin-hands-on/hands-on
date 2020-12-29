@@ -25,11 +25,10 @@ by Roman Elizarov at KotlinConf.
 
 ### Set-up
 
-We'll need one of the latest versions of IntelliJ IDEA, so any version from 2018.1 onwards.
-You can download the latest free community version [here](https://www.jetbrains.com/idea/download/).
+We'll need IntelliJ IDEA; you can download the latest free community version [here](https://www.jetbrains.com/idea/download/).
 
-Make sure version 1.3 of the Kotlin plugin is installed.
-To update the Kotlin plugin, use `Tools | Kotlin | Configure  Kotlin Plugin Updates`.
+Make sure version 1.4 of the Kotlin plugin is installed.
+To update the Kotlin plugin, use `Tools | Kotlin | Configure Kotlin Plugin Updates`.
 
 ### Downloading project
 
@@ -43,12 +42,8 @@ and specifying the project path:
 $ git clone http://github.com/kotlin-hands-on/intro-coroutines
 ```
  
-Note that the project includes the `solutions` branch, so it is possible to use the `Compare with branch...`
+The project includes the `solutions` branch, so it is possible to use the `Compare with branch...`
 action to compare your solution with the proposed one.
-
-Alternatively, you can [download the project](http://github.com/kotlin-hands-on/intro-coroutines/archive/master.zip) directly
-(but only the `main` branch).
-
 
 ### Generating GitHub developer token
 

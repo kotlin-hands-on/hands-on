@@ -3,7 +3,7 @@
 Kotlin coroutines are extremely inexpensive in comparison to threads.
 Each time when we want to start a new computation asynchronously, we can create a new coroutine.
 
-To start a new coroutine we can just use one of the main "coroutine builders": `launch`, `async`, or `runBlocking`.
+To start a new coroutine we use one of the main "coroutine builders": `launch`, `async`, or `runBlocking`.
 Different libraries can define additional coroutine builders.
 
 `async` starts a new coroutine and returns a `Deferred` object.

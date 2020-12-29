@@ -1,7 +1,7 @@
 # Testing coroutines
 
 Let's discuss how to test the code that uses coroutines.
-It'd be nice to test our solutions and make sure that the solution with concurrent coroutines is faster than the solution
+It'd be nice to test our solutions, make sure that the solution with concurrent coroutines is faster than the solution
 with `suspend` functions, and check that the solution with channels is faster than the simple "progress" one.
 Let's have a look at how to compare the total running time of these solutions.
 
@@ -90,7 +90,7 @@ while virtual time equals the delay argument exactly, which is 1000 milliseconds
 To enjoy the full effect of "virtual" `delay` in child coroutines,
 we should start all the child coroutines with `TestCoroutineDispatcher`. 
 Otherwise, it won't work.
-This dispatcher is automatically inherited from the other `TestCoroutineScope`, unless we provide the same dispatchers:
+This dispatcher is automatically inherited from the other `TestCoroutineScope`, unless we provide a different dispatcher:
 
 ```kotlin
 @Test
@@ -123,7 +123,7 @@ which is more flexible and easier to test.
 Note that the testing API that supports virtual time is experimental and may change in the future.
 By default, we'll see compiler warnings if we use it. 
 To suppress these warnings, we need to annotate the test function or the whole class containing the tests.
-We can add `@UseExperimental(ExperimentalCoroutinesApi::class)` to our test class or function.
+We can add `@OptIn(ExperimentalCoroutinesApi::class)` to our test class or function.
 By adding such annotation, we emphasize that we understand that the API can change and is ready
 to update our usages if needed (most probably, automatically).
  
@@ -211,7 +211,7 @@ The first intermediate result for the last version with 'channels' is available 
 and we can see that difference in tests using virtual time.
 
 The tests for the remaining "suspend" and "progress" tasks are very similar;
-we can find them in the project 'solutions' branch.
+you can find them in the project 'solutions' branch.
 
 You can find more information about using virtual time and
 experimental testing package [here](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/).

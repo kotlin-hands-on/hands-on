@@ -116,8 +116,9 @@ The resulting list should be sorted in descending order according to the number 
 #### Task
 
 Open `src/tasks/Aggregation.kt` and implement `List<User>.aggregate()` function.
-[The corresponding test file](https://www.jetbrains.com/help/idea/navigating-between-test-and-test-subject.html)
-shows an example of the expected result.
+The corresponding test file `test/tasks/AggregationKtTest.kt` shows an example of the expected result.
+You can jump between the source code and the test class automatically [using IntelliJ IDEA
+shortcut](https://www.jetbrains.com/help/idea/create-tests.html#test-code-navigation).
 
 After implementing this task, the resulting list for `Kotlin` organization should be similar to the following:
 

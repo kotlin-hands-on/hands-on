@@ -3,7 +3,7 @@
 _Coroutine scope_ is responsible for the structure and parent-child relationships between different coroutines.
 We always start new coroutines inside a scope.
 _Coroutine context_ stores additional technical information used to run a given coroutine,
-like the dispatcher specifying the thread or threads the coroutine should be scheduled on.
+like the coroutine custom name, or the dispatcher specifying the threads the coroutine should be scheduled on.
 
 When `launch`, `async`, or `runBlocking` are used to start a new coroutine, they automatically create the corresponding scope.
 All these functions take a lambda with receiver as an argument, and the implicit receiver type is the `CoroutineScope`:

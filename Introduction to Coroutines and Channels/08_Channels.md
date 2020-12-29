@@ -176,7 +176,7 @@ Since we call the `receive` calls sequentially, no additional synchronization is
 As with the `loadContributorsProgress` function, we can create an `allUsers` variable to store
 the intermediate states of the "all contributors" list.
 When we receive each new list from the channel,
-we can add it to the list of all users, aggregate the result, and update the state using the `updateResults` callback:
+we add it to the list of all users, aggregate the result, and update the state using the `updateResults` callback:
 
 ```kotlin
 suspend fun loadContributorsChannels(
@@ -218,6 +218,6 @@ We've learned how to use suspend functions, execute coroutines concurrently, and
 information between coroutines using channels.
 
 Note that neither coroutines nor channels will completely eradicate the complexity that comes from concurrency,
-but they will definitely make your life easier when we need to reason it and understand what's going on.
+but they will definitely make your life easier when you need to reason it and understand what's going on.
 
 Next, we'll discuss how to test the code that uses coroutines.

@@ -1,6 +1,6 @@
 # Using suspend functions
 
-Retrofit recently added native support for coroutines, and we're going to use it.
+Retrofit provides native support for coroutines, and we're going to use it.
 Instead of returning `Call<List<Repo>>`, we now define our API call as a `suspend` function:
 
 ```kotlin
@@ -14,9 +14,6 @@ interface GitHubService {
 
 The main idea behind it is that when we use a `suspend` function to perform a request, the underlying thread isn't blocked.
 We'll discuss how exactly it works a bit later. 
-
-To make use of this functionality, we need the latest version of the Retrofit library.
-For this tutorial, we don't need to change anything; the right version is already specified in the project dependencies. 
 
 Note that now `getOrgRepos` returns the result directly instead of returning a `Call`.
 If the result is unsuccessful, an exception is thrown.
@@ -46,12 +43,12 @@ interface GitHubService {
 
 The task is to change the code of the function loading contributors to make use of these new `suspend` functions.
  
-However, a `suspend` function can't be called everywhere,
+A `suspend` function can't be called everywhere,
 if it is called from `loadContributorsBlocking`, there will be an error:
 "Suspend function 'getOrgRepos' should only be called from a coroutine or another suspend function".
 So, we need to mark our new version of the `loadContributors` function as `suspend` in order to use this new API.
 
-Please now do the following task, and right after that we'll discuss how `suspend` functions actually work and how
+Please now do the following task, and right after that we'll discuss how `suspend` functions work and how
 they are different from regular ones.
 We'll also see how to call a `suspend` function from a non-suspending one.
 
@@ -92,19 +89,19 @@ directly.
 But that's an implementation detail specific to the Retrofit library.
 With other libraries, the API will be different, but the concept is the same:
 
-_Our code with `suspend` functions looks surprisingly similar to the "blocking" version.
-It's readable and expresses exactly what we're trying to achieve._
+Our code with `suspend` functions looks surprisingly similar to the "blocking" version.
+It's readable and expresses exactly what we're trying to achieve.
 
 The major difference with a blocking version is that instead of blocking the thread, we suspend the coroutine:
 
 ```
-thread -> coroutine
 block -> suspend
+thread -> coroutine
 ```
 
 Coroutines are often called light-weight threads.
 That means we can run code on coroutines similar to how we run code on threads.
-However, the operations that were blocking before (and had to be avoided because of that),
+The operations that were blocking before (and had to be avoided because of that),
 can now suspend the coroutine instead.
 
 How can we start a new coroutine?
@@ -129,7 +126,7 @@ so, we'll simply say that in this case, `launch` _starts a new coroutine_ that i
 for loading data and showing the results.
 
 Coroutines are computations that run on top of threads and can be suspended.
-By saying "suspended", we mean that the corresponding computation can be paused,
+When a coroutine is "suspended", the corresponding computation is paused,
 removed from the thread, and stored in memory.
 Meanwhile, the thread is free to be occupied with other activities:
 
@@ -170,7 +167,7 @@ We can also modify the template for running all the Kotlin files and enable this
 In our case, all the code runs on one coroutine,
 the mentioned above "load contributors" coroutine, denoted as `@coroutine#1`.
 
-However, in this version, while waiting for the result, we don't reuse the thread for sending other requests,
+In this version, while waiting for the result, we don't reuse the thread for sending other requests,
 because we have written our code in a sequential way. The new request is sent only when the previous result is received.
 `suspend` functions treat the thread fairly and don't block it for "waiting",
 but it doesn't yet bring any concurrency to the picture. Let's see how this can be improved.

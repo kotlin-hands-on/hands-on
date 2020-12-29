@@ -4,7 +4,7 @@ Despite the information for some repositories being loaded rather fast,
 the user only sees the resulting list once all the data is loaded.
 Until then, the loader icon runs showing the progress, but there's no information about the current state,
 and what contributors are already loaded.  
-However, we could show the intermediate results earlier and display all the contributors after loading the data
+We could show the intermediate results earlier and display all the contributors after loading the data
 for each of the repositories:
 
 ![](./assets/7-progress/Loading.gif)
@@ -35,10 +35,10 @@ launch(Dispatchers.Default) {
 }
 ```
 
-Note that the `updateResults` parameter is declared as `suspend` in `loadContributorsProgress`.
+The `updateResults` parameter is declared as `suspend` in `loadContributorsProgress`.
 We need that to call `withContext`, which is a `suspend` function inside the corresponding lambda argument.
 
-Note also that `updateResults` callback now takes an additional `Boolean` parameter as an argument saying whether 
+`updateResults` callback takes an additional `Boolean` parameter as an argument saying whether 
 all the loading completed and our results are final.
 
 #### Task
@@ -86,7 +86,7 @@ An `updateResults` callback is called after each request is completed:
 
 We haven't used any concurrency so far. This code is sequential, so we don't need synchronization.
 
-However, we'd like to send requests concurrently and update the intermediate results after getting the response
+We'd like to send requests concurrently and update the intermediate results after getting the response
 for each repository:
 
 ![](./assets/7-progress/ProgressAndConcurrency.png) 

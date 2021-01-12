@@ -73,7 +73,7 @@ Now, we can pass in the selected video as a prop, and move the logic for *select
 
 ```kotlin
 videoList {
-    videos = watchedVideos
+    videos = unwatchedVideos
     selectedVideo = state.currentVideo
     onSelectVideo = { video ->
         setState {

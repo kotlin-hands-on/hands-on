@@ -101,7 +101,7 @@ Now, we need to compile, run, and serve our code.
 
 The `kotlin.js` Gradle plugin comes by default with support for an embedded `webpack-dev-server`, which allows us to run the application from our IDE without having to manually set up any kind of server.
 
-We can start the development server by invoking the `run` or `browserDevelopmentRun` task from the Gradle tool window inside IntelliJ IDEA:
+We can start the development server by invoking the `run` or `browserDevelopmentRun`(available in `other` directory or `kotlin browser` directory) task from the Gradle tool window inside IntelliJ IDEA:
 
 ![](./assets/browserDevelopmentRun.png)
 

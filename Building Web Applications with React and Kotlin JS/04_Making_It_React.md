@@ -87,6 +87,8 @@ external interface VideoListProps: RProps {
 }
 ```
 
+The [external modifier](https://kotlinlang.org/docs/reference/js-interop.html#external-modifier) indicates to the compiler that the implementation of the interface is provided externally, so it does not try to generate any JavaScript code from the declaration.
+
 We now adjust the class definition of `VideoList` to make use of those props:
 
 ```kotlin

@@ -73,7 +73,7 @@ suspend fun DefaultClientWebSocketSession.inputMessages() {
         try {
             send(message)
         } catch (e: Exception) {
-            println("Error while sending: " + e.localizedMessage)
+            e as? CancellationException ?: println("Error while receiving: " + e.localizedMessage)
             return
         }
     }

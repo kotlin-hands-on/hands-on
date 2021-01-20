@@ -34,7 +34,7 @@ fun loadContributorsBackground(service: GitHubService, req: RequestData,
 Now when the `loadContributorsBackground` is called, the `updateResults` call goes in the callback, not immediately afterwards as it did before:
 
 ```kotlin
-loadContributorsBackground(req) { users ->
+loadContributorsBackground(service, req) { users ->
     SwingUtilities.invokeLater {
         updateResults(users, startTime)
     }

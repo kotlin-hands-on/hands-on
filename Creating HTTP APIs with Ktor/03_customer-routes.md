@@ -21,7 +21,7 @@ First, we need to define a place to put all these potential customers.
 
 ### Storing customers
 
-To not complicate the code, for this tutorial we'll be using an in-memory storage (i.e. a mutable list of `Customer`s) – in a real application, we would be storing this information in a database, so that it doesn't get lost after restarting our application. We can simply add this line to the top level of the `Customer.kt` file:
+To not complicate the code, for this tutorial we'll be using an in-memory storage (i.e. a mutable list of `Customer`s) – in a real application, we would be storing this information in a database, so that it doesn't get lost after restarting our application. We can simply add this line right after the data class declaration in `Customer.kt` file:
 
 ```kotlin
 val customerStorage = mutableListOf<Customer>()
@@ -132,11 +132,11 @@ Next, we implement the option for a client to `POST` a JSON representation of a 
 post {
     val customer = call.receive<Customer>()
     customerStorage.add(customer)
-    call.respondText("Customer stored correctly", status = HttpStatusCode.Accepted)
+    call.respondText("Customer stored correctly", status = HttpStatusCode.Created)
 }
 ```
 
-`call.receive` integrates with the Content Negotiation feature we configured one of the previous sections. Calling it with the generic parameter `Customer` automatically deserializes the JSON request body into a Kotlin `Customer` object. We can then add the customer to our storage and respond with a status code of 201 "Accepted".
+`call.receive` integrates with the Content Negotiation feature we configured one of the previous sections. Calling it with the generic parameter `Customer` automatically deserializes the JSON request body into a Kotlin `Customer` object. We can then add the customer to our storage and respond with a status code of 201 "Created".
 
 At this point, it is worth highlighting again that in this tutorial, we are also intentionally glancing over issues that could arise from e.g. multiple requests accessing the storage at the same time. In production, data structures and code that can be accessed from multiple requests / threads at the same time should account for these cases – something that is out of the scope of this hands-on.
 

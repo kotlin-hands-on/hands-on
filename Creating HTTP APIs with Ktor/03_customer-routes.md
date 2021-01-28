@@ -132,11 +132,11 @@ Next, we implement the option for a client to `POST` a JSON representation of a 
 post {
     val customer = call.receive<Customer>()
     customerStorage.add(customer)
-    call.respondText("Customer stored correctly", status = HttpStatusCode.Accepted)
+    call.respondText("Customer stored correctly", status = HttpStatusCode.Created)
 }
 ```
 
-`call.receive` integrates with the Content Negotiation feature we configured one of the previous sections. Calling it with the generic parameter `Customer` automatically deserializes the JSON request body into a Kotlin `Customer` object. We can then add the customer to our storage and respond with a status code of 201 "Accepted".
+`call.receive` integrates with the Content Negotiation feature we configured one of the previous sections. Calling it with the generic parameter `Customer` automatically deserializes the JSON request body into a Kotlin `Customer` object. We can then add the customer to our storage and respond with a status code of 201 "Created".
 
 At this point, it is worth highlighting again that in this tutorial, we are also intentionally glancing over issues that could arise from e.g. multiple requests accessing the storage at the same time. In production, data structures and code that can be accessed from multiple requests / threads at the same time should account for these cases – something that is out of the scope of this hands-on.
 
@@ -148,7 +148,7 @@ The implementation for deleting a customer follows a similar procedure as we hav
 delete("{id}") {
     val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
     if (customerStorage.removeIf { it.id == id }) {
-        call.respondText("Customer removed correctly", status = HttpStatusCode.Accepted)
+        call.respondText("Customer removed correctly", status = HttpStatusCode.OK)
     } else {
         call.respondText("Not Found", status = HttpStatusCode.NotFound)
     }

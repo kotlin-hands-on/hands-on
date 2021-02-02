@@ -69,7 +69,7 @@ If you'd like to learn more about FreeMarker's syntax, check out [their official
 
 ### Defining a model for the journal entries
 
-As defined by our usage in the FreeMarker template, the `BlogEntry` class needs to attributes: a `headline` and a `body`, both of type `String`. Let's create a file named `BlogEntry.kt` next to `Application.kt`, and fill it with the corresponding Kotlin data class, which can then be injected into the template:
+As defined by our usage in the FreeMarker template, the `BlogEntry` class needs two attributes: a `headline` and a `body`, both of type `String`. Let's create a file named `BlogEntry.kt` next to `Application.kt`, and fill it with the corresponding Kotlin data class, which can then be injected into the template:
 
 ```kotlin
 package com.jetbrains.handson.website

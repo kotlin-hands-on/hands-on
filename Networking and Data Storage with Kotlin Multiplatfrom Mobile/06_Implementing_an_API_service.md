@@ -1,6 +1,6 @@
 # Implementing an API service
 
-We will use the [SpaceX public API](https://docs.spacexdata.com/?version=latest) to retrieve data via the internet. We need a single method to retrieve the list of all launches from the `v3/launches` endpoint.
+We will use the [SpaceX public API](https://docs.spacexdata.com/?version=latest) to retrieve data via the internet. We need a single method to retrieve the list of all launches from the `v4/launches` endpoint.
 
 We need to create a class that will connect the application to the API. To do this, we’ll create the `com.jetbrains.handson.kmm.shared.network` package, and in it we'll create the `SpaceXApi` class. This class will execute network requests and deserialize JSON responses into entities from the `entity` package. To do this, we will initialize and store the `httpClient` property with the Ktor `HttpClient` instance:
 
@@ -30,7 +30,7 @@ To send requests we need to define the URL as a constant within the companion ob
 
 ```kotlin
 companion object {
-    private const val LAUNCHES_ENDPOINT = "https://api.spacexdata.com/v3/launches"
+    private const val LAUNCHES_ENDPOINT = "https://api.spacexdata.com/v4/launches"
 }
 ```
 

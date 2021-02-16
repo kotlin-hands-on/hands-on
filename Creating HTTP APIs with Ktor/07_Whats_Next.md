@@ -5,7 +5,7 @@ features such as Authentication, etc.
 
 ### Feature requests
 
-- **Authentication**: currently, the API is open to whomever would like to access it. If you want to restrict access, have a look at Ktor's support for [JWT](https://ktor.io/servers/features/authentication/jwt.html) and other authentication methods.
+- **Authentication**: currently, the API is open to whomever would like to access it. If you want to restrict access, have a look at Ktor's support for [JWT](https://ktor.io/docs/jwt.html) and other authentication methods.
 
 - **Learn more about route organization!** If you'd like to learn about different ways to organize your routes with Ktor, check out [this article](https://hadihariri.com/2020/04/02/Routing-in-Ktor/) by Hadi Hariri.
 

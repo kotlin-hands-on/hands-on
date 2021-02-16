@@ -1,10 +1,10 @@
 # Home page with templates
 
-It's time to build the main page of our journal which is in charge of displaying multiple journal entries. We will create this page with the help of a *template engine*. Template engines are quite common in web development, and Ktor supports a [variety of them](https://ktor.io/servers/features/templates.html). In our case we're going to choose [FreeMarker](https://freemarker.apache.org/).
+It's time to build the main page of our journal which is in charge of displaying multiple journal entries. We will create this page with the help of a *template engine*. Template engines are quite common in web development, and Ktor supports a [variety of them](https://ktor.io/docs/working-with-views.html). In our case we're going to choose [FreeMarker](https://freemarker.apache.org/).
 
 ### Adding FreeMarker as a Ktor feature
 
-[Features](https://ktor.io/servers/features.html) are a mechanism that Ktor provides to enable support for certain functionality, such as encoding, compression, logging, authentication, among others. While the implementation details of Ktor features (acting as interceptors / middleware providing extra functionality) aren't relevant for this hands-on tutorial, we will use this mechanism to `install` the `FreeMarker` feature, by adding the following lines to the top of our `Application.module()` definition in the `Application.kt` file:
+[Features](https://ktor.io/docs/features.html) are a mechanism that Ktor provides to enable support for certain functionality, such as encoding, compression, logging, authentication, among others. While the implementation details of Ktor features (acting as interceptors / middleware providing extra functionality) aren't relevant for this hands-on tutorial, we will use this mechanism to `install` the `FreeMarker` feature, by adding the following lines to the top of our `Application.module()` definition in the `Application.kt` file:
 
 ```kotlin
 fun Application.module() {

@@ -6,7 +6,7 @@ In the context of our journal, there are a number of things that we probably wan
 
 ![](./assets/ktor_image_location.png)
 
-For serving static content, we can use a specific [`routing`](https://ktor.io/servers/features/routing.html) function already built in to Ktor named `static`. The function takes two parameters: the route under which the static content should be made available, and a lambda where we can define the location from where the content should be served. In the file called `Application.kt`, let's change the implementation for `Application.module()` to look like this:
+For serving static content, we can use a specific [`routing`](https://ktor.io/docs/routing-in-ktor.html) function already built in to Ktor named `static`. The function takes two parameters: the route under which the static content should be made available, and a lambda where we can define the location from where the content should be served. In the file called `Application.kt`, let's change the implementation for `Application.module()` to look like this:
 
 ```kotlin
 fun Application.module() {
@@ -58,6 +58,6 @@ If we re-run the application and navigate to [`http://localhost:8080/static/abou
 
 Of course, we could also organize our files in subdirectories inside `files`; Ktor will automatically take care of mapping these paths to the correct URLs.
 
-If you'd like to learn more about serving static files with Ktor, check out the [official documentation](https://ktor.io/servers/features/static-content.html).
+If you'd like to learn more about serving static files with Ktor, check out the [official documentation](https://ktor.io/docs/serving-static-content.html).
 
 However, a static page that contains a few paragraphs can hardly be called a journal yet. Let's move on and learn about how *templates* can help us in writing pages that contain dynamic content, and how to control them from within our application.

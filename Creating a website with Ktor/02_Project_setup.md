@@ -1,6 +1,6 @@
 # Project Setup
 
-If we were to start a fresh idea from zero, Ktor would have a few ways of setting up a preconfigured Gradle project: [start.ktor.io](https://start.ktor.io/) and the [Ktor IntelliJ IDEA plugin](https://plugins.jetbrains.com/plugin/10823-ktor) make it easy to create a starting-off point for projects using a variety of features from the framework.
+If we were to start a fresh idea from zero, Ktor would have a few ways of setting up a preconfigured Gradle project: [start.ktor.io](https://start.ktor.io/) and the [Ktor IntelliJ IDEA plugin](https://plugins.jetbrains.com/plugin/16008-ktor) make it easy to create a starting-off point for projects using a variety of features from the framework.
 
 For this tutorial, however, we have made a starter template available that includes all configuration and required dependencies for the project.
 
@@ -33,8 +33,8 @@ Let's briefly go through these dependencies one-by-one:
 
 ### Configurations: `application.conf` and `logback.xml`
 
-The repository also includes a basic `application.conf` in HOCON format. Ktor uses this file to determine the port on which it should run, and it also defines the entry point of our application to be `com.jetbrains.handson.website.ApplicationKt.module`. This corresponds to the `Application.module()` function in `Application.kt`, which we'll start modifying in the next section. If you'd like to learn more about how a Ktor server is configured, check out the [official documentation](https://ktor.io/servers/configuration.html).
+The repository also includes a basic `application.conf` in HOCON format. Ktor uses this file to determine the port on which it should run, and it also defines the entry point of our application to be `com.jetbrains.handson.website.ApplicationKt.module`. This corresponds to the `Application.module()` function in `Application.kt`, which we'll start modifying in the next section. If you'd like to learn more about how a Ktor server is configured, check out the [official documentation](https://ktor.io/docs/configurations.html).
 
-Also included is a `logback.xml` in the `resources` folder, which sets up the basic logging structure for our server. If you'd like to learn more about logging in Ktor, check out the [official documentation](https://ktor.io/servers/logging.html). 
+Also included is a `logback.xml` in the `resources` folder, which sets up the basic logging structure for our server. If you'd like to learn more about logging in Ktor, check out the [official documentation](https://ktor.io/docs/logging.html). 
 
 Now that we are equipped with some knowledge around all the artifacts we have at our fingertips, we can start by actually writing the first part of our journal app!

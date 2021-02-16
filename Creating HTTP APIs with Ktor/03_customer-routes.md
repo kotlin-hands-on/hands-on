@@ -72,7 +72,7 @@ get {
 }
 ```
 
-In order for this to work, we need to enable [content negotiation](https://ktor.io/servers/features/content-negotiation.html) in Ktor. What does content negotiation do? Let us consider the following request:
+In order for this to work, we need to enable [content negotiation](https://ktor.io/docs/serialization.html) in Ktor. What does content negotiation do? Let us consider the following request:
 
 ```http request
 GET http://0.0.0.0:8080/customer
@@ -102,7 +102,7 @@ GET http://0.0.0.0:8080/customer/200
 Accept: application/json
 ```
 
-In Ktor, paths can also contain [parameters](https://ktor.io/servers/features/routing.html#parameters) that match specific path segments. We can access their value using the indexed access operator (`call.parameters["myParamName"]`). Let's add the following code to the `get("{id}")` entry:
+In Ktor, paths can also contain [parameters](https://ktor.io/docs/routing-in-ktor.html#match_url) that match specific path segments. We can access their value using the indexed access operator (`call.parameters["myParamName"]`). Let's add the following code to the `get("{id}")` entry:
 
 
 ```kotlin

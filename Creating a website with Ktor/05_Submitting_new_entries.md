@@ -13,9 +13,9 @@ post("/submit") {
 }
 ```
 
-[`receiveParameters`](https://ktor.io/servers/calls/requests.html#post) allows us to parse form data (for both `urlencoded` and `multipart`). We then extract the `headline` and `body` fields from the form, ensuring they are both not null, and create a new `BlogEntry` object from this information, adding it to the beginning of our `blogEntries` list.
+[`receiveParameters`](https://ktor.io/docs/requests.html#post-put-and-patch) allows us to parse form data (for both `urlencoded` and `multipart`). We then extract the `headline` and `body` fields from the form, ensuring they are both not null, and create a new `BlogEntry` object from this information, adding it to the beginning of our `blogEntries` list.
 
-For more detailed information on the fancy features that are available in the context of Ktor's request model, check out the [official documentation](https://ktor.io/servers/calls/requests.html).
+For more detailed information on the fancy features that are available in the context of Ktor's request model, check out the [official documentation](https://ktor.io/docs/requests.html).
 
 To show the user that the submission was successful, we still want to send back a bit of HTML. We could re-use our knowledge and create a FreeMarker template for this "Success" page as well – but to cover some more Ktor functionality, we will try an alternative approach instead. When we autocomplete on the `call` object, we can see that Ktor allows us to respond to requests using a variety of functions:
 

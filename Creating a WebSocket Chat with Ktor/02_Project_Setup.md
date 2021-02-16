@@ -1,6 +1,6 @@
 # Project setup
 
-Because our application will be two independent parts (chat server and chat client) we structure our application as two separate Gradle projects. Since these two projects are completely independent, they could be created manually, via the online [Ktor Project Generator](https://start.ktor.io/#), or the [plugin for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/10823-ktor).
+Because our application will be two independent parts (chat server and chat client) we structure our application as two separate Gradle projects. Since these two projects are completely independent, they could be created manually, via the online [Ktor Project Generator](https://start.ktor.io/#), or the [plugin for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/16008-ktor).
 
 To skip over these configuration steps, a starter template is available for this specific tutorial, which includes all configuration and required dependencies for our two projects already.
 

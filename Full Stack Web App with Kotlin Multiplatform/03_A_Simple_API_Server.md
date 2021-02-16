@@ -16,7 +16,7 @@ You can find out more information about ktor in the related hands-on tutorials o
 
 ### Running the embedded server
 
-Instantiating a server with ktor can be done in just a few lines. We simply tell the [embedded server](https://ktor.io/servers/configuration.html#embedded-server) that ships with ktor to use the `Netty` engine on a port of our choice, in our case `9090`. Let's define our entry point in `src/jvmMain/kotlin/Server.kt`. We also add all imports we need for the rest of this hands-on, so that we won't have to worry about them later:
+Instantiating a server with ktor can be done in just a few lines. We simply tell the [embedded server](https://ktor.io/docs/create-server.html#embedded-server) that ships with ktor to use the `Netty` engine on a port of our choice, in our case `9090`. Let's define our entry point in `src/jvmMain/kotlin/Server.kt`. We also add all imports we need for the rest of this hands-on, so that we won't have to worry about them later:
 
 ```kotlin
 import io.ktor.application.*
@@ -53,11 +53,11 @@ Once the application has finished compiling and the server has started up, we ca
 
 ![image-20200407162206859](./assets/image-20200407162206859.png)
 
-Just like we have defined the endpoint for GET requests to `/hello` here, we will be able to configure all endpoints for our API inside the [routing](https://ktor.io/servers/features/routing.html) block. But before we continue with designing our application, let's get a little bit of ceremony out of the way by installing the required _features_ to our embedded servers.
+Just like we have defined the endpoint for GET requests to `/hello` here, we will be able to configure all endpoints for our API inside the [routing](https://ktor.io/docs/routing-in-ktor.html) block. But before we continue with designing our application, let's get a little bit of ceremony out of the way by installing the required _features_ to our embedded servers.
 
 ### Installing ktor features
 
-[Features](https://ktor.io/servers/features.html) are something ktor provides that enable support for certain functionality, such as encoding, compression, logging, authentication, among others. While the implementation details of ktor features (acting as interceptors / middleware providing extra functionality) aren't relevant for this tutorial, we will use three of these _features_ in our application, by adding the following lines to the top of our `embeddedServer` block in `src/jvmMain/kotlin/Server.kt`:
+[Features](https://ktor.io/docs/features.html) are something ktor provides that enable support for certain functionality, such as encoding, compression, logging, authentication, among others. While the implementation details of ktor features (acting as interceptors / middleware providing extra functionality) aren't relevant for this tutorial, we will use three of these _features_ in our application, by adding the following lines to the top of our `embeddedServer` block in `src/jvmMain/kotlin/Server.kt`:
 
 ```kotlin
 install(ContentNegotiation) {
@@ -78,9 +78,9 @@ install(Compression) {
 
 Each call to `install` adds one feature to our ktor application:
 
-- [`ContentNegotiation`](https://ktor.io/servers/features/content-negotiation.html) provides the automatic content conversion of requests based on their`Content-Type` and `Accept` headers. Together with the `json()` setting, this enables automatic serialization and deserialization using the JSON format – allowing us to delegate this tedious task to the framework.
-- [`CORS`](https://ktor.io/servers/features/cors.html) configures [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), which will allow us later to make calls from arbitrary JavaScript clients, and helps us prevent issues down the line.
-- [`Compression`](https://ktor.io/servers/features/compression.html) greatly reduces the amount of data that's needed to be sent to the client by `gzip`ping outgoing content when applicable.
+- [`ContentNegotiation`](https://ktor.io/docs/serialization.html) provides the automatic content conversion of requests based on their`Content-Type` and `Accept` headers. Together with the `json()` setting, this enables automatic serialization and deserialization using the JSON format – allowing us to delegate this tedious task to the framework.
+- [`CORS`](https://ktor.io/docs/cors.html) configures [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), which will allow us later to make calls from arbitrary JavaScript clients, and helps us prevent issues down the line.
+- [`Compression`](https://ktor.io/docs/compression.html) greatly reduces the amount of data that's needed to be sent to the client by `gzip`ping outgoing content when applicable.
 
 This configuration is well-suited for our type of project, which means we can move on to create our common model – the representation of our shopping list items we want to expose.
 

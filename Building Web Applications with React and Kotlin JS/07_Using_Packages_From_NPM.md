@@ -6,46 +6,51 @@ First up and probably the most obvious missing functionality is the video player
 
 ### Adding the video player component
 
-We need to replace our placeholder video component with one that can actually show the YouTube videos we're linking by adding in a ready-made video player for React. We'll use the `react-player` component to show the video and control the appearance of the player. We can take a look at some of the documentation for it and its API in the GitHub [README](https://github.com/CookPete/react-player/blob/master/README.md).
+We need to replace our placeholder video component with one that can actually show the YouTube videos we're linking by adding in a ready-made video player for React. We'll use the `react-youtube-lite` component to show the video and control the appearance of the player. We can take a look at some of the documentation for it and its API in the GitHub [README](https://www.npmjs.com/package/react-youtube-lite).
 
-In the beginning, we have already added the `react-player` package to our Gradle build file. This was the responsible snippet:
+In the beginning, we have already added the `react-youtube-lite` package to our Gradle build file. This was the responsible snippet:
 
 ```kotlin
 dependencies {
     //...
     //Video Player (chapter 7)
-    implementation(npm("react-player", "~2.6.0"))
+    implementation(npm("react-youtube-lite", "1.0.1"))
     //...
 }
 ```
 
 You're seeing that right – NPM dependencies can be added to a Gradle build file via the `npm` function. The yarn installation managed by the Gradle plugin will take care of downloading, installing and updating those NPM dependencies for you.
 
-Since we want to use this module from Kotlin, we need to tell our compiler what the component interface looks like – what kind of things are okay to invoke, to set, or to read from this external component, so that we remain safe, and can count on tool support. To do this, let's create a file called `ReactPlayer.kt`, with the following contents:
+Since we want to use this module from Kotlin, we need to tell our compiler what the component interface looks like – what kind of things are okay to invoke, to set, or to read from this external component, so that we remain safe, and can count on tool support. To do this, let's create a file called `ReactYouTube.kt`, with the following contents:
 
 ```kotlin
-@file:JsModule("react-player")
+@file:JsModule("react-youtube-lite")
 @file:JsNonModule
 
 import react.*
 
-@JsName("default")
+@JsName("ReactYouTubeLite")
 external val reactPlayer: RClass<dynamic>
 ```
 
-Because JavaScript imports/exports isn't the simplest topic, it can sometimes be tricky to find the correct combination between annotations to get the Kotlin compiler on the same page as us. These last two lines are equivalent to a JavaScript import like `require("react-player").default;`. It tells the compiler that we're certain we'll get a component conforming to `RClass<dynamic>` at runtime.
+Because JavaScript imports/exports isn't the simplest topic, it can sometimes be tricky to find the correct combination between annotations to get the Kotlin compiler on the same page as us. These last two lines are equivalent to a JavaScript import like `require("react-youtube-lite").default;`. It tells the compiler that we're certain we'll get a component conforming to `RClass<dynamic>` at runtime.
 
 #### Typed wrappers for the video player component
 
 However, in this configuration, we're giving up a lot of the benefits that Kotlin gives us. The declaration of `dynamic` essentially tells the compiler to just accept whatever we give it, at the risk of breaking things at runtime (also commonly known as *in production*).
 
-Fortunately, we know the structure of the interfaces used by the imported components (or can infer them rather quickly from the [README](https://github.com/CookPete/react-player#usage)), so making our wrappers typesafe is a rather straightforward task. We can define a typesafe external interface which allows us to set the URL as we see fit. And we modify the `ReactPlayer` definition accordingly:
+Fortunately, we know the structure of the interfaces used by the imported components (or can infer them rather quickly from the [README](https://www.npmjs.com/package/react-youtube-lite)), so making our wrappers typesafe is a rather straightforward task. We can define a typesafe external interface which allows us to set the URL as we see fit. And we modify the `ReactPlayer` definition accordingly:
 
 ```kotlin
-//...
-external val reactPlayer: RClass<ReactPlayerProps>
+@file:JsModule("react-youtube-lite")
+@file:JsNonModule
 
-external interface ReactPlayerProps : RProps {
+import react.*
+
+@JsName("ReactYouTubeLite")
+external val reactPlayer: RClass<ReactYouTubeProps>
+
+external interface ReactYouTubeProps : RProps {
     var url: String
 }
 ```

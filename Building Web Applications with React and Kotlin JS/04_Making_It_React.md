@@ -17,6 +17,7 @@ Let's begin the process of structuring our application. We’ll start by explici
 ```kotlin
 import react.*
 
+@JsExport
 class App : RComponent<RProps, RState>() {
   override fun RBuilder.render() {
         // typesafe HTML goes here!
@@ -46,6 +47,7 @@ Let's create a new file called `VideoList.kt`. The `VideoList` class follows the
 import react.*
 import react.dom.*
 
+@JsExport
 class VideoList: RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         for (video in unwatchedVideos) {
@@ -90,6 +92,7 @@ external interface VideoListProps: RProps {
 We now adjust the class definition of `VideoList` to make use of those props:
 
 ```kotlin
+@JsExport
 class VideoList: RComponent<VideoListProps, RState>() {
     override fun RBuilder.render() {
         for (video in props.videos) {
@@ -186,6 +189,7 @@ There are a few things we need to do to add this state:
 
 
 ```kotlin
+@JsExport
 class VideoList : RComponent<VideoListProps, VideoListState>() {
     override fun RBuilder.render() {
         for (video in props.videos) {

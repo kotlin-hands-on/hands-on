@@ -102,23 +102,35 @@ Type or paste the above code as the contents of your `render` call. If IntelliJ 
 
 While writing HTML in Kotlin just for the sake of it is a noble idea, there are actually a lot more benefits to writing your HTML directly inside Kotlin. A big advantage of using this domain specific language is that we can manipulate our website content using language constructs we are already familiar with. Whether it's conditions, loops, collections, or string interpolation, we can expect them to work the same in HTML as they would in Kotlin.
 
-Now, instead of hardcoding the list of videos, let's actually define them as a list of Kotlin objects and display those objects instead. We'll create a simple class to hold together the attributes of a video (we can do this in `Main.kt` or a file of our choice):
+Now, instead of hardcoding the list of videos, let's actually define them as a list of Kotlin objects and display those objects instead. We'll create a simple data class to hold together the attributes of a video called `KotlinVideo` (we can do this in `Main.kt` or a file of our choice). We will also define a corresponding `external interface` – more on that later.
 
 ```kotlin
-data class Video(val id: Int, val title: String, val speaker: String, val videoUrl: String)
+external interface Video {
+    val id: Int
+    val title: String
+    val speaker: String
+    val videoUrl: String
+}
+
+data class KotlinVideo(
+    override val id: Int,
+    override val title: String,
+    override val speaker: String,
+    override val videoUrl: String
+) : Video
 ```
 
 Then, let's fill up the two lists for unwatched videos and watched videos respectively. For now, we can just have these declarations at file-level inside our `Main.kt`:
 
 ```kotlin
 val unwatchedVideos = listOf(
-        Video(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
-        Video(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
-        Video(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
+    KotlinVideo(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
+    KotlinVideo(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
+    KotlinVideo(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
 )
 
 val watchedVideos = listOf(
-        Video(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
+    KotlinVideo(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
 )
 ```
 
@@ -146,9 +158,8 @@ We do not need to do perform any extra steps to start using the functionality, b
 dependencies {
     //...
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.110-kotlin-1.4.0")
-    implementation(npm("styled-components", "~5.1.1"))
-    implementation(npm("inline-style-prefixer", "~6.0.0"))
+    implementation("org.jetbrains:kotlin-styled:5.2.1-pre.148-kotlin-1.4.21")
+    implementation(npm("styled-components", "~5.2.1"))
     //...
 }
 ```

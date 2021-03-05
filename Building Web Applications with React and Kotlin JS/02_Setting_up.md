@@ -4,70 +4,54 @@
 
 To get started, let's make sure we have installed an up-to-date development environment. All we need to get started is:
 
-- IntelliJ IDEA (version `2020.1` or above) with the Kotlin plugin (`1.4.0` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
+- IntelliJ IDEA (version `2020.3` or above) with the Kotlin plugin (`1.4.30` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
 
 
 ### Setting up the project
 
-We are going to set up our project using the `org.jetbrains.kotlin.js` Gradle plugin. This state-of-the-art plugin takes care of managing a development environment for us that uses all the latest and greatest things from the JavaScript ecosystem – under the hood, it equips us with a `yarn` and `webpack` installation. If we need to make adjustments, we can do so through Gradle – and with just a little bit of configuration, it will allow us to accomplish all the tasks we are going to encounter on our learning journey.
+For this tutorial, we have made a starter template available that includes all configuration and required dependencies for the project.
 
-The easiest way to get started is through the wizard provided by IntelliJ IDEA. From the splash screen or from the `File` menu, we select `New/Project...`. We choose the `Gradle` category, turn on the `Kotlin DSL build script`, and select only `Kotlin/JS for browser` as our target:
+[**Please clone the project repository from GitHub, and open it in IntelliJ IDEA.**](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle)
 
-![](./assets/new_gradle_project.png)
+The template repository contains a basic Kotlin/JS Gradle project for us to build our project. Because it already contains all dependencies that we will need throughout the hands-on, **you don't need to make any changes to the Gradle configuration.**
 
-After clicking the `Next` button, we get to give our project a name. I named my project `confexplorer` – because that is what we are building – but feel free to get creative with your naming:
+It is still beneficial to understand what artifacts are being used for the application, so let's have a closer look at our project template and the dependencies and configuration it relies on.
 
-![](./assets/confexplorer.png)
-
-After clicking finish, we can lean back for a few seconds as Gradle initialises a blank project for us that supports JavaScript as a Kotlin compilation target. Once the import has finished, it's time to bring in all those dependencies we will require for the rest of the hands-on.
 
 #### Gradle dependencies and tasks
 
-Throughout the hands-on, we will make use of React, some external dependencies, and even some Kotlin-specific libraries. To save ourselves from running Gradle imports after each chapter, we will add all dependencies right now. The topics related to each set of dependencies is described in the annotated chapter.
+Throughout the hands-on, we will make use of React, some external dependencies, and even some Kotlin-specific libraries. The topics related to each set of dependencies is described in the annotated chapter.
 
-Inside our `build.gradle.kts` file, let's make sure that our `repositories` block looks as follows:
-
-```kotlin
-repositories {
-    maven("https://kotlin.bintray.com/kotlin-js-wrappers/")
-    mavenCentral()
-    jcenter()
-}
-```
-
-Now that we have all sources for our dependencies, let's make sure we include everything we need in our `dependencies` block.
+Our buildfile's `dependencies` block contains everything we'll need:
 
 ```kotlin
 dependencies {
-    implementation(kotlin("stdlib-js"))
 
     //React, React DOM + Wrappers (chapter 3)
-    implementation("org.jetbrains:kotlin-react:16.13.1-pre.110-kotlin-1.4.0")
-    implementation("org.jetbrains:kotlin-react-dom:16.13.1-pre.110-kotlin-1.4.0")
-    implementation(npm("react", "16.13.1"))
-    implementation(npm("react-dom", "16.13.1"))
+    implementation("org.jetbrains:kotlin-react:17.0.1-pre.148-kotlin-1.4.21")
+    implementation("org.jetbrains:kotlin-react-dom:17.0.1-pre.148-kotlin-1.4.21")
+    implementation(npm("react", "17.0.1"))
+    implementation(npm("react-dom", "17.0.1"))
 
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.110-kotlin-1.4.0")
-    implementation(npm("styled-components", "~5.1.1"))
-    implementation(npm("inline-style-prefixer", "~6.0.0"))
+    implementation("org.jetbrains:kotlin-styled:5.2.1-pre.148-kotlin-1.4.21")
+    implementation(npm("styled-components", "~5.2.1"))
 
     //Video Player (chapter 7)
-    implementation(npm("react-player", "~2.6.0"))
+    implementation(npm("react-youtube-lite", "1.0.1"))
 
     //Share Buttons (chapter 7)
     implementation(npm("react-share", "~4.2.1"))
 
     //Coroutines (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
 }
 ```
 
-After editing the file, IntelliJ IDEA will automatically prompt us to import the changed Gradle files. Alternatively, we can also press the "🔁 Reimport All Gradle Projects" button in the Gradle tool window.
 
 #### HTML page
 
-Because we can't run JavaScript out of nowhere, we need to provide an HTML page (linked to our compiled JS file) that can be loaded in a browser. Let's create the file `/src/main/resources/index.html` and fill it with the following content:
+Because we can't run JavaScript out of nowhere, we also need an HTML page to insert out HTML into. The file `/src/main/resources/index.html` is provided and filled accordingly:
 
 ```xml
 <!doctype html>
@@ -83,9 +67,9 @@ Because we can't run JavaScript out of nowhere, we need to provide an HTML page 
 </html>
 ```
 
-Depending on how we named our project, the embedded `js` file has a different name. For example, if you named your project `followingAlong`, make sure to embed `followingAlong.js`. Thanks to the Gradle plugin, all of our code and dependencies will be bundled up into this single JavaScript artifact that bears the same name as our project.
+Depending on how we named our project, the embedded `js` file has a different name. So, if you're working in a project named `followingAlong`, make sure to embed `followingAlong.js`. Thanks to the Gradle plugin, all of our code and dependencies will be bundled up into this single JavaScript artifact that bears the same name as our project.
 
-Now, before we write a proper "Hello, World" with actual Markup, let's start with a very simple and visual example – a solid colored page. This is just to verify that what we're building is actually reaching the browser and executes fine. For this, we create the file `src/main/kotlin/Main.kt` and fill it with the following Kotlin code snippet:
+Now, before we write a proper "Hello, World" with actual markup, we start with a very simple and visual example – a solid colored page. This is just to verify that what we're building is actually reaching the browser and executes fine. For this, we have the file `src/main/kotlin/Main.kt`, filled with the following code snippet:
 
 ```kotlin
 import kotlinx.browser.document

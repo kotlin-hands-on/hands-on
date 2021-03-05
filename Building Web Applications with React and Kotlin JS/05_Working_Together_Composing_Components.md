@@ -21,12 +21,14 @@ external interface AppState : RState {
 And we make sure to use this interface in the `App` class:
 
 ```kotlin
+@JsExport
 class App : RComponent<RProps, AppState>()
 ```
 
 Let's delete the `VideoListState` since we're storing it somewhere further up our hierarchy now. Since we've made the list effectively stateless at this point (by moving all of the state out of the component), we can revert its class definition back to inherit the default state.
 
 ```kotlin
+@JsExport
 class VideoList : RComponent<VideoListProps, RState>()
 ```
 

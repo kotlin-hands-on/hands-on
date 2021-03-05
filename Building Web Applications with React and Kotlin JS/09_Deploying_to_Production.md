@@ -28,7 +28,7 @@ heroku buildpacks:set heroku/gradle
 heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static.git
 ```
 
-To allow the `heroku/gradle` buildpack to run properly, a `stage` task needs to be present in our Gradle build file. Luckily, it is equivalent to our `build` task, so the changes we have to make at the bottom of our `build.gradle.kts` file are very limited:
+To allow the `heroku/gradle` buildpack to run properly, a `stage` task needs to be present in our Gradle build file. Luckily, it is equivalent to our `build` task – and, as luck would have it, the corresponding alias is already included at the bottom of our Gradle build file:
 
 ```kotlin
 // Heroku Deployment (chapter 9)
@@ -61,4 +61,4 @@ If everything has gone according to plan, we will see the URL under which we can
 
 ![image-20190730200111014](./assets/deployingToProduction.png)
 
-You can find the state of the project after this section on the `step-08-deploying-to-production` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-08-deploying-to-production) repository.
+You can find the state of the project after this section on the `final` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/final) repository.

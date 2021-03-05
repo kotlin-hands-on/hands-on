@@ -17,6 +17,7 @@ external interface VideoPlayerProps : RProps {
     var video: Video
 }
 
+@JsExport
 class VideoPlayer : RComponent<VideoPlayerProps, RState>() {
     override fun RBuilder.render() {
         styledDiv {

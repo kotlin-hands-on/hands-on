@@ -43,11 +43,12 @@ Inside `App.kt` (or a new file), let's write a method that can `fetch` a video f
 
 ```kotlin
 suspend fun fetchVideo(id: Int): Video {
-    val responsePromise = window.fetch("https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/$id")
-    val response = responsePromise.await()
-    val jsonPromise = response.json()
-    val json = jsonPromise.await()
-    return json.unsafeCast<Video>()
+    val response = window
+        .fetch("https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/$id")
+        .await()
+        .json()
+        .await()
+    return response as Video
 }
 ```
 
@@ -62,16 +63,6 @@ Let's look at what's happening in this *suspending function*. We `fetch` a video
 
 A function call like `window.fetch` returns a `Promise` object. We would have to define a callback handler which gets invoked once the `Promise` is *resolved* and a result is available. However, since we are using coroutines in our project, we can `await` those promises. We're writing code that looks sequential but remains non-blocking. Whenever a function like `await()` is called, the method stops its execution (it *suspends*, hence the keyword). It continues execution once the `Promise` can be resolved.
 
-The individual variables were only used for illustration purposes, though. In reality, we can, of course, chain all calls together. We'll end up with a single expression, so we can even use the expression body syntax to express the same processing steps as above:
-
-```kotlin
-suspend fun fetchVideo(id: Int): Video =
-        window.fetch("https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/$id")
-                .await()
-                .json()
-                .await()
-                .unsafeCast<Video>()
-```
 
 #### Fanning out
 

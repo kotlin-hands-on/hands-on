@@ -102,7 +102,7 @@ Type or paste the above code as the contents of your `render` call. If IntelliJ 
 
 While writing HTML in Kotlin just for the sake of it is a noble idea, there are actually a lot more benefits to writing your HTML directly inside Kotlin. A big advantage of using this domain specific language is that we can manipulate our website content using language constructs we are already familiar with. Whether it's conditions, loops, collections, or string interpolation, we can expect them to work the same in HTML as they would in Kotlin.
 
-Now, instead of hardcoding the list of videos, let's actually define them as a list of Kotlin objects and display those objects instead. We'll create a simple data class to hold together the attributes of a video called `KotlinVideo` (we can do this in `Main.kt` or a file of our choice). We will also define a corresponding `external interface` – more on that later.
+Now, instead of hardcoding the list of videos, let's actually define them as a list of Kotlin objects and display those objects instead. We'll create a simple data class to hold together the attributes of a video called `KotlinVideo` (we can do this in `Main.kt` or a file of our choice). We will also define a corresponding `external interface`, which will prove valuable at the point where we get real data, from a real API.
 
 ```kotlin
 external interface Video {

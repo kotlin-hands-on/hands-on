@@ -59,7 +59,7 @@ import kotlinx.browser.window
 import kotlinx.coroutines.*
 ```
 
-Let's look at what's happening in this *suspending function*. We `fetch` a video from the API given an `id`, wait for it to actually be available, turn it into a JSON, wait again for the completion of that operation, and return it, cast as a `Video` Kotlin object.
+Let's look at what's happening in this *suspending function*. We `fetch` a video from the API given an `id`, wait for it to actually be available, turn it into a JSON, wait again for the completion of that operation, and return it – but before, it casts it to the `external interface Video`, which we defined in an earlier chapter. You will see a warning for this unchecked cast – but this is in the nature of using a JavaScript definition like `fetch`: The compiler _can't know for sure_ that what we get back is actually an instance of `Video`. The compiler just needs to trust the developer on this.
 
 A function call like `window.fetch` returns a `Promise` object. We would have to define a callback handler which gets invoked once the `Promise` is *resolved* and a result is available. However, since we are using coroutines in our project, we can `await` those promises. We're writing code that looks sequential but remains non-blocking. Whenever a function like `await()` is called, the method stops its execution (it *suspends*, hence the keyword). It continues execution once the `Promise` can be resolved.
 

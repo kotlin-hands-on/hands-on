@@ -81,7 +81,7 @@ Accept: application/json
 
 When a client makes such a request, content negotiation allows the server to examine the `Accept` header, see if it can serve this specific type of content, and if so, return the result.
 
-In our case, we're going to install the `ContentNegotitaion` feature and enable its support for JSON. Let's add the following code to the `Application.module()` function:
+In our case, we're going to install the `ContentNegotiation` feature and enable its support for JSON. Let's add the following code to the `Application.module()` function:
 
 ```kotlin
 fun Application.module() {

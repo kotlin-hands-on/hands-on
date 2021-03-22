@@ -69,6 +69,8 @@ Because we can't run JavaScript out of nowhere, we also need an HTML page to ins
 
 As you can see, we're embedding a JavaScript file called `confexplorer.js`. This is because the Kotlin/JS Gradle plugin will bundle all of our code and its dependencies into a single JavaScript file, which has the same name as our project. (That also means that if you're working in a project you've named `followingAlong`, you need to make sure to embed `followingAlong.js` instead.)
 
+As is typical [JavaScript convention](https://faqs.skillcrush.com/article/176-where-should-js-script-tags-be-linked-in-html-documents), we first load the content of our body (including the `#root` div), and then finally load our scripts, to ensure that all page elements we need have already been loaded by the browser.
+
 Now, before we write a proper "Hello, World" with actual markup, we start with a very simple and visual example – a solid colored page. This is just to verify that what we're building is actually reaching the browser and executes fine. For this, we have the file `src/main/kotlin/Main.kt`, filled with the following code snippet:
 
 ```kotlin

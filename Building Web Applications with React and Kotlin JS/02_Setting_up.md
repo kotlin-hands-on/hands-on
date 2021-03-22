@@ -67,7 +67,7 @@ Because we can't run JavaScript out of nowhere, we also need an HTML page to ins
 </html>
 ```
 
-Depending on how we named our project, the embedded `js` file has a different name. So, if you're working in a project named `followingAlong`, make sure to embed `followingAlong.js`. Thanks to the Gradle plugin, all of our code and dependencies will be bundled up into this single JavaScript artifact that bears the same name as our project.
+As you can see, we're embedding a JavaScript file called `confexplorer.js`. This is because the Kotlin/JS Gradle plugin will bundle all of our code and its dependencies into a single JavaScript file, which has the same name as our project. (That also means that if you're working in a project you've named `followingAlong`, you need to make sure to embed `followingAlong.js` instead.)
 
 Now, before we write a proper "Hello, World" with actual markup, we start with a very simple and visual example – a solid colored page. This is just to verify that what we're building is actually reaching the browser and executes fine. For this, we have the file `src/main/kotlin/Main.kt`, filled with the following code snippet:
 

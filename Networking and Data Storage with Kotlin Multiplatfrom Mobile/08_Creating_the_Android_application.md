@@ -22,7 +22,7 @@ dependencies {
 
 ## Implementing the UI: display the list of rocket launches
 
-Let's modify `activity_main.xml` to implement the UI we need. The screen is based on the `ConstraintLayout` with the `SwipeRefreshLayout` inside it, which contains `RecyclerView` and `FrameLayout` with a background with `ProgressBar` across its center. You can view all the layout code in the [commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/27fcb711582ba3b069650c3d385663f521e426be) for this stage.
+Let's modify `activity_main.xml` to implement the UI we need. The screen is based on the `ConstraintLayout` with the `SwipeRefreshLayout` inside it, which contains `RecyclerView` and `FrameLayout` with a background with `ProgressBar` across its center. You can view all the layout code in the [commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/2f0abc1e4a8716b9d7d3abd3b443e01951b03046) for this stage.
 
 Now let's add the properties for the UI elements to the `MainActivity` class: 
 
@@ -72,7 +72,7 @@ class LaunchesRvAdapter(var launches: List<RocketLaunch>) : RecyclerView.Adapter
 }
 ```
 
-You can view the full XML layout code and the full implementation of the RecyclerView adapter in the [commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/27fcb711582ba3b069650c3d385663f521e426be) for this stage.
+You can view the full XML layout code and the full implementation of the RecyclerView adapter in the [commit](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/commit/2f0abc1e4a8716b9d7d3abd3b443e01951b03046) for this stage.
 
 Now we need to create an instance of `LaunchesRvAdapter` in the `MainActivity` class, configure the `RecyclerView` component, add a listener to the `SwipeRefreshLayout` to catch the screen refresh gesture, and implement all the LaunchesListView interface functions:
 

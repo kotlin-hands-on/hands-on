@@ -133,7 +133,7 @@ Add this line to the plugins block at the very beginning of the `build.gradle` f
 ```kotlin
 plugins {
     // ...
-   id("com.squareup.sqldelight")
+   id("com.squareup.sqldelight") version "1.4.4"
 }
 ```
 

@@ -13,7 +13,7 @@ The typical way to do asynchronous programming in JavaScript is through the use 
 ```kotlin
 window.fetch("https://url...").then {
     it.json().then {
-        it.unsafeCast<Video>()
+        it as Video
                 //...
     }
 }

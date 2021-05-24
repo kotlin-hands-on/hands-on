@@ -1,0 +1,25 @@
+name: Verify samples
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Run a verifier
+        uses: AlexanderPrendota/kotlin-samples-pusher@v1
+        with:
+          push-repository: 'https://github.com/kotlin-hands-on/hands-on'
+          tag-filter: '#tag="code" & class="language-run-kotlin"'
+          push-path: 'src/test/resources/test-compile-data/jvm/kotlin-hands-on'
+          username: '${{ secrets.KOTLIN_HANDS_ON_TOKEN }}' #token with an access to create PR in push-repository and issue in this repository
+
+

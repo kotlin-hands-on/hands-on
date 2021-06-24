@@ -152,7 +152,7 @@ We have now built our first "feature," but our application, unfortunately, still
 
 [kotlin-styled](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-styled) provides wonderful typesafe wrappers for [styled-components](https://www.styled-components.com/) that allow us to quickly and safely define styles [globally](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-styled/README.md#global-styles) or for individual elements of our DOM. It wraps the styled-components library and allows us to build constructs that look like [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js). Since we are writing pure Kotlin code, we can, for example, express conditions concisely for our formatting rules.
 
-We do not need to do perform any extra steps to start using the functionality, because we have already added the necessary dependencies in our Gradle configuration. The relevant block is:
+We do not need to perform any extra steps to start using the functionality, because we have already added the necessary dependencies in our Gradle configuration. The relevant block is:
 
 ```kotlin
 dependencies {

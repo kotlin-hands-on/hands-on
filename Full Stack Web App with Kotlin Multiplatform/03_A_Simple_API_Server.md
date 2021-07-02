@@ -209,8 +209,7 @@ val jvmMain by getting {
         implementation("io.ktor:ktor-server-core:$ktorVersion")
         implementation("io.ktor:ktor-server-netty:$ktorVersion")
         implementation("ch.qos.logback:logback-classic:1.2.3")
-        implementation("io.ktor:ktor-websockets:$ktorVersion")
-        implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.1.1")
+        implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.2.7")
     }
 }
 ```
@@ -220,8 +219,7 @@ val jvmMain by getting {
 ```kotlin
 val commonMain by getting {
     dependencies {
-        implementation(kotlin("stdlib-common"))
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
         implementation("io.ktor:ktor-client-core:$ktorVersion")
     }
 }

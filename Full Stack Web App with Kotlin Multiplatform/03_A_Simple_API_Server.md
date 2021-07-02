@@ -208,8 +208,8 @@ val jvmMain by getting {
         implementation("io.ktor:ktor-serialization:$ktorVersion")
         implementation("io.ktor:ktor-server-core:$ktorVersion")
         implementation("io.ktor:ktor-server-netty:$ktorVersion")
-        implementation("ch.qos.logback:logback-classic:1.2.3")
-        implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.2.7")
+        implementation("ch.qos.logback:logback-classic:$logbackVersion")
+        implementation("org.litote.kmongo:kmongo-coroutine-serialization:$kmongoVersion")
     }
 }
 ```

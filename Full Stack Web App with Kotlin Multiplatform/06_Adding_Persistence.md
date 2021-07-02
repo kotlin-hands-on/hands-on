@@ -73,7 +73,7 @@ Kmongo is added with a single dependency to the project – a specific version t
 val jvmMain by getting {
     dependencies {
         // . . .
-        implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.1.1")
+        implementation("org.litote.kmongo:kmongo-coroutine-serialization:$kmongoVersion")
     }
 }
 ```

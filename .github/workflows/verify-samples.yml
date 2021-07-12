@@ -15,10 +15,10 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Run a verifier
-        uses: AlexanderPrendota/kotlin-samples-pusher@v1
+        uses: AlexanderPrendota/kotlin-samples-verifier@master
         with:
           push-repository: 'https://github.com/kotlin-hands-on/hands-on'
-          tag-filter: '#tag="code" & class="language-run-kotlin"'
+          tag-filter: '#tag="code" & class="language-run-kotlin" & !validate="false"'
           push-path: 'src/test/resources/test-compile-data/jvm/kotlin-hands-on'
           username: '${{ secrets.KOTLIN_HANDS_ON_TOKEN }}' #token with an access to create PR in push-repository and issue in this repository
 

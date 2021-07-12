@@ -17,7 +17,7 @@ We need to specify a dependency on `kotlinx.coroutines` in the common source set
 val coroutinesVersion = "1.3.9-native-mt"
 
 sourceSets {
-    commonMain {
+    val commonMain by getting {
         dependencies {
             // ...
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")

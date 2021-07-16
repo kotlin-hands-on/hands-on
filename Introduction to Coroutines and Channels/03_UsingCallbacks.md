@@ -179,6 +179,27 @@ for (repo in repos) {
 Note that we're using a synchronized version of the list and `AtomicInteger`, since in general there's no guarantee
 that different callback processing `getRepoContributors` requests will always be called from the same thread.
 
+#### Solution (third attempt)
+
+Even a better solution is to use the `CountDownLatch` class. 
+`CountDownLatch` stores a counter which we initialize with the number of repositories.
+We decrement this counter after processing each repository and then wait until the latch has counted down to zero
+before updating the results:
+
+```kotlin
+val countDownLatch = CountDownLatch(repos.size)
+for (repo in repos) {
+    service.getRepoContributorsCall(req.org, repo.name).onResponse { responseUsers ->
+        // processing repository
+        countDownLatch.countDown()
+    }
+}
+countDownLatch.await()
+updateResults(allUsers.aggregate())
+```
+
+We update the result from the main thread, which is more direct than delegating this logic to the child threads.
+
 You can see that writing the right code with callbacks might be non-trivial and error-prone, especially when
 there're several underlying threads and synchronization takes place.
 Next, we'll discuss how to implement the same logic using `suspend` functions. 

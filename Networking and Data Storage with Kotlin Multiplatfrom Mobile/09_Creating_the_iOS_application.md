@@ -149,30 +149,22 @@ Also, we marked the `getLaunches` function with the `@Throws(Exception::class)` 
     }
 ```
 
-Now for the last step: let's go to the `SceneDelegate.swift`, initialize our SDK, view, and view model, and make it work!
+Now for the last step: let's go to the entry point off our app `iOSApp.swift`, initialize our SDK, view, and view model, and make it work!
 
 ```swift
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+import SwiftUI
+import shared
 
-    var window: UIWindow?
-
+@main
+struct iOSApp: App {
     let sdk = SpaceXSDK(databaseDriverFactory: DatabaseDriverFactory())
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
-        let contentView = ContentView(viewModel: .init(sdk: sdk))
-
-        // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
-            self.window = window
-            window.makeKeyAndVisible()
+    var body: some Scene {
+        WindowGroup {
+            ContentView(viewModel: .init(sdk: sdk))
         }
     }
-
-    // ...
 }
+
 ```
 
 All done! Press the run button and see the result:

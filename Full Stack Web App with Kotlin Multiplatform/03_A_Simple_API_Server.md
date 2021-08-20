@@ -80,7 +80,7 @@ Each call to `install` adds one feature to our ktor application:
 
 - [`ContentNegotiation`](https://ktor.io/docs/serialization.html) provides the automatic content conversion of requests based on their`Content-Type` and `Accept` headers. Together with the `json()` setting, this enables automatic serialization and deserialization using the JSON format – allowing us to delegate this tedious task to the framework.
 - [`CORS`](https://ktor.io/docs/cors.html) configures [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), which will allow us later to make calls from arbitrary JavaScript clients, and helps us prevent issues down the line.
-- [`Compression`](https://ktor.io/docs/compression.html) greatly reduces the amount of data that's needed to be sent to the client by `gzip`ping outgoing content when applicable.
+- [`Compression`](https://ktor.io/docs/compression.html) greatly reduces the amount of data that's needed to be sent to the client by gzipping outgoing content when applicable.
 
 This configuration is well-suited for our type of project, which means we can move on to create our common model – the representation of our shopping list items we want to expose.
 

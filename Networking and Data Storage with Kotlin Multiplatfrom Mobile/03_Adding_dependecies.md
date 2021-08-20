@@ -74,6 +74,7 @@ sourceSets {
 ### Adding Ktor
 
 We can add Ktor in the same way we added the `kotlinx.coroutines` library. In addition to specifying the core dependency in the common source set, we also need to:
+
 * Add serialization [feature](https://ktor.io/clients/http-client/features.html) to use `kotlinx.serialization` for processing network requests and responses.
 * Provide the platform engines by adding dependencies on the corresponding artifacts in the platform source sets.
 

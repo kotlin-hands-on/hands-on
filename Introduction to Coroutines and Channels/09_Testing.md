@@ -23,7 +23,7 @@ Then, we can test that the sequential solution with the `suspend` functions shou
 And the concurrent solution should take around 2200 ms:
 
 ```
-2200 = 1000 + max(1000 + 1200 + 800) 
+2200 = 1000 + max(1000, 1200, 800) 
 ```
 
 For the solutions showing progress, we can also check the intermediate results with timestamps.

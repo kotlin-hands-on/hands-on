@@ -183,7 +183,7 @@ child(
 
 As the user submits their text, we create a new `ShoppingListItem`. Its priority is set to be the number of exclamation points in the input, and its description is the input with all exclamation points removed. This turns `Peaches!! 🍑` into a `ShoppingListItem(desc="Peaches 🍑", priority=2)`.
 
-The generated `ShoppingListItem` gets sent to the server via the API client we built before. Lastly, we update the UI by by obtaining the new list of `ShoppingListItem`s from the server, updating our application state, and letting React do its re-rendering magic.
+The generated `ShoppingListItem` gets sent to the server via the API client we built before. Lastly, we update the UI by obtaining the new list of `ShoppingListItem`s from the server, updating our application state, and letting React do its re-rendering magic.
 
 #### Crossing off items
 

@@ -46,6 +46,10 @@ To turn on compilation with optimizations for our JavaScript assets, we need to 
 
 At this point, it's time we move on without further guidance – but that doesn't mean we should stop experimenting! Check out the "What's next" section to find some inspiration for what else could be done with the project.
 
+#### Allowing to access the database
+
+During the application deployment, possibly the firewall rules should be changed to allow the application to access the database. More details are available at [MongoDB docs](https://docs.atlas.mongodb.com/security/ip-access-list/)
+
 ### Relevant Gradle configuration
 
 The `stage` task is an alias for `installDist`:

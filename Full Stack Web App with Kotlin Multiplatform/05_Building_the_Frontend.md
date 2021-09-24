@@ -89,7 +89,7 @@ private val scope = MainScope()
 val App = functionalComponent<RProps> { _ ->
     val (shoppingList, setShoppingList) = useState(emptyList<ShoppingListItem>())
 
-    useEffect {
+    useEffectOnce {
         scope.launch {
             setShoppingList(getShoppingList())
         }

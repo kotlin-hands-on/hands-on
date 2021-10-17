@@ -11,16 +11,14 @@ To add a multiplatform library to the KMM module, we need to add dependency inst
 
 ### Adding kotlinx.coroutines
 
-We need to specify a dependency on `kotlinx.coroutines` in the common source set in order to add them to our project. We will do this by adding the following line to the `build.gradle.kts` file in the KMM module directory:
+We need to specify a dependency on `kotlinx.coroutines` in the common source set in order to add them to our project. We will do this by adding the following line to the `build.gradle.kts` file in the shared module directory:
 
 ```kotlin
-val coroutinesVersion = "1.5.0-native-mt"
-
 sourceSets {
-    commonMain {
+    val commonMain by getting {
         dependencies {
             // ...
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.20")
         }
     }
 }
@@ -47,7 +45,7 @@ buildscript {
 }
 ```
 
-Add this line to the plugins block at the very beginning of the `build.gradle` file in the **KMM module directory**:
+Add this line to the plugins block at the very beginning of the `build.gradle` file in the **KMM shared module directory**:
 
 ```kotlin 
 plugins {
@@ -129,7 +127,7 @@ buildscript {
 
 ```
 
-Add this line to the plugins block at the very beginning of the `build.gradle` file in the KMM module directory:
+Add this line to the plugins block at the very beginning of the `build.gradle` file in the KMM shared module directory:
 
 ```kotlin
 plugins {
@@ -138,7 +136,7 @@ plugins {
 }
 ```
 
-Now we need to add the library to the module. We do this in the same way that we added the Ktor library, specifying the core artifact in the common source set and platform drivers in the iOS and Android source sets in the `build.gradle` file of the KMM module:
+Now we need to add the library to the module. We do this in the same way that we added the Ktor library, specifying the core artifact in the common source set and platform drivers in the iOS and Android source sets in the `build.gradle` file of the KMM shared module:
 
 ```kotlin
 val sqlDelightVersion: String by project

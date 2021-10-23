@@ -16,7 +16,7 @@ each intermediate state:
 suspend fun loadContributorsProgress(
     service: GitHubService,
     req: RequestData,
-    suspend updateResults: (List<User>, completed: Boolean) -> Unit
+    updateResults: suspend (List<User>, completed: Boolean) -> Unit
 ) {
     // loading the data
     // calling `updateResults` on intermediate states 

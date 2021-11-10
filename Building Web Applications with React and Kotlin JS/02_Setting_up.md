@@ -4,7 +4,7 @@
 
 To get started, let's make sure we have installed an up-to-date development environment. All we need to get started is:
 
-- IntelliJ IDEA (version `2020.3` or above) with the Kotlin plugin (`1.4.30` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
+- IntelliJ IDEA (version `2021.2` or above) with the Kotlin plugin (`1.5.31` or above) – [Download/Install](https://www.jetbrains.com/idea/download/)
 
 
 ### Setting up the project
@@ -15,43 +15,43 @@ For this tutorial, we have made a starter template available that includes all c
 
 The template repository contains a basic Kotlin/JS Gradle project for us to build our project. Because it already contains all dependencies that we will need throughout the hands-on, **you don't need to make any changes to the Gradle configuration.**
 
-It is still beneficial to understand what artifacts are being used for the application, so let's have a closer look at our project template and the dependencies and configuration it relies on.
-
+It is still beneficial to understand what we'll be using for our app. Let's have a closer look at the project template and the dependencies and configuration it relies on.
 
 #### Gradle dependencies and tasks
 
-Throughout the hands-on, we will make use of React, some external dependencies, and even some Kotlin-specific libraries. The topics related to each set of dependencies is described in the annotated chapter.
+In this hands-on, use React, some external dependencies, and even some Kotlin-specific libraries.
 
-Our buildfile's `dependencies` block contains everything we'll need:
+The `dependencies` block in our `build.gradle.kts` file contains everything we'll need:
 
 ```kotlin
 dependencies {
 
     //React, React DOM + Wrappers (chapter 3)
-    implementation("org.jetbrains:kotlin-react:17.0.2-pre.154-kotlin-1.5.0")
-    implementation("org.jetbrains:kotlin-react-dom:17.0.2-pre.154-kotlin-1.5.0")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.264-kotlin-1.5.31")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.264-kotlin-1.5.31")
     implementation(npm("react", "17.0.2"))
     implementation(npm("react-dom", "17.0.2"))
 
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:5.2.3-pre.154-kotlin-1.5.0")
-    implementation(npm("styled-components", "~5.2.3"))
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-pre.264-kotlin-1.5.31")
+    implementation(npm("styled-components", "~5.3.3"))
 
     //Video Player (chapter 7)
-    implementation(npm("react-youtube-lite", "1.0.1"))
+    implementation(npm("react-youtube-lite", "1.1.0"))
 
     //Share Buttons (chapter 7)
-    implementation(npm("react-share", "~4.2.1"))
+    implementation(npm("react-share", "4.4.0"))
 
-    //Coroutines (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-RC")
+    //Coroutines & serialization (chapter 8)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
 }
 ```
 
 
 #### HTML page
 
-Because we can't run JavaScript out of nowhere, we also need an HTML page to insert out HTML into. The file `/src/main/resources/index.html` is provided and filled accordingly:
+Kotlin/JS, just like all other JavaScript in the browser, always needs to run inside an HTML page. The template includes some HTML in `/src/main/resources/index.html`:
 
 ```xml
 <!doctype html>
@@ -67,14 +67,15 @@ Because we can't run JavaScript out of nowhere, we also need an HTML page to ins
 </html>
 ```
 
-As you can see, we're embedding a JavaScript file called `confexplorer.js`. This is because the Kotlin/JS Gradle plugin will bundle all of our code and its dependencies into a single JavaScript file, which has the same name as our project. (That also means that if you're working in a project you've named `followingAlong`, you need to make sure to embed `followingAlong.js` instead.)
+In this snippet, we're embedding a JavaScript file called `confexplorer.js`.
+The Kotlin/JS Gradle plugin takes care of bundling our whole project and its dependencies into that single JavaScript file, named the same as our project. (If you're working in a project you've named `followingAlong`, make sure to embed `followingAlong.js` instead.)
 
 As is typical [JavaScript convention](https://faqs.skillcrush.com/article/176-where-should-js-script-tags-be-linked-in-html-documents), we first load the content of our body (including the `#root` div), and then finally load our scripts, to ensure that all page elements we need have already been loaded by the browser.
 
-Now, before we write a proper "Hello, World" with actual markup, we start with a very simple and visual example – a solid colored page. This is just to verify that what we're building is actually reaching the browser and executes fine. For this, we have the file `src/main/kotlin/Main.kt`, filled with the following code snippet:
+The template also starts us out with a simple code example, just to verify that everything is working fine, and we're good to go. The file `src/main/kotlin/Main.kt` contains the following snippet, which just turns the whole page red:
 
 ```kotlin
-import kotlinx.browser.document
+// . . .
 
 fun main() {
     document.bgColor = "red"
@@ -85,45 +86,49 @@ Now, we need to compile, run, and serve our code.
 
 ### Running the development server
 
-The `kotlin.js` Gradle plugin comes by default with support for an embedded `webpack-dev-server`, which allows us to run the application from our IDE without having to manually set up any kind of server.
+The Kotlin/JS Gradle plugin comes by default with support for an embedded `webpack-dev-server`.
+This allows us to run the application from our IDE without having to manually set up any kind of server.
 
-We can start the development server by invoking the `run` or `browserDevelopmentRun`(available in `other` directory or `kotlin browser` directory) task from the Gradle tool window inside IntelliJ IDEA:
+We can start the development server by invoking the `run` or `browserDevelopmentRun` task from the Gradle tool window inside IntelliJ IDEA. They are inside the `other` and `kotlin browser` task group, respectively:
 
 ![](./assets/browserDevelopmentRun.png)
 
-If you would like to run the program from the Terminal instead, you can do so via `./gradlew run`.
+Alternatively, you can run the application in the terminal using `./gradlew run` in the root of the project.
 
-Our project is compiled and bundled, and after a few seconds, a browser window should open up that shows a red, blank page – the indication that our code is running fine:
+After our project is compiled and bundled, a browser window pops open and shows us the red, blank page mentioned before, showing that everything's working properly:
 
 ![](./assets/redPage.png)
 
 #### Enabling hot reload / continous mode
 
-Instead of manually compiling and executing our project every time we want to see the changes we made, we can make use of the _continuous compilation_ mode that is supported by Kotlin/JS. Instead of using the regular `run` command, we instead invoke Gradle in _continuous_ mode.
+Manually compiling and executing our project every time we want to see the changes we made is tedious.
+Instead, we can use the _continuous compilation_ mode supported by Kotlin/JS and Gradle.
+While running in this mode, the compiler will watch for changes we make in our code, automatically recompile, and reload the page while. Let's set it up.
 
-Make sure to stop all running development server instances before proceeding.
+(Make sure to stop all running development server instances before proceeding.)
 
-From inside IntelliJ IDEA, we can pass the same flag via the _run configuration_. After running the Gradle `run` task for the first time from the IDE, IntelliJ IDEA automatically generates a run configuration for it, which we can edit:
+After running the Gradle `run` task for the first time from the IDE, IntelliJ IDEA automatically generates a run configuration for it, which we can use to turn on continuous compilation:
 
 ![](./assets/editConfigurations.png)
 
-In the "Run/Debug Configurations" dialog, we can add the `--continuous` flag to the arguments for the run configuration:
+In the "Run/Debug Configurations" dialog, we add the `--continuous` flag to the arguments for the run configuration:
 
 ![](./assets/continuous.png)
 
-After applying the changes to our run configuration, we can use the play button inside IntelliJ IDEA to start our development server back up.
+We then apply the changes to our run configuration.
+After applying the changes to our run configuration, we can use the "Run" button inside IntelliJ IDEA to start our development server back up.
 
-If you would like to run the Gradle continous builds from the Terminal instead, you can do so via `./gradlew run --continuous`.
+If you're using the terminal, you can invoke continous mode by running `./gradlew run --continuous`.
 
-To test the feature we have just enabled, let's change the color of the page while the Gradle task is running. We could, for example, change it to blue:
+Let's make a change while that task is running! Let's switch `red` to `blue` in our `main` function, and save the change:
 
 ```kotlin
 document.bgColor = "blue"
 ```
 
-If everything goes well, a couple seconds after saving our change, the project should be recompiled, and our browser page reloads, reflecting the new hue.
+ After a few seconds, the project should be recompiled, and the page automatically reloads, having changed color.
 
-During development, feel free to leave the development server running. It will watch for the changes we make in our code, automatically recompile, and reload the page while it is running. If you'd like, you can play around for a bit in this beginning stage, and then continue.
+Feel free to keep the development server running in continuous mode while going through this tutorial. It will watch for the changes we make in our code, and automatically rebuild and reload our project for us.
 
 ### Ready, set...
 

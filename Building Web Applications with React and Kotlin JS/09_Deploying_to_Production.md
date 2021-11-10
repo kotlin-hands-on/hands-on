@@ -1,12 +1,17 @@
 # Deploying to production and the cloud
 
-After the hard work of building the application is done, it's time to get it published for people to see and use!
+We've built a whole app from start to finish - not a small feat!
+It's time to get it *out there* - published for the world to see.
 
 ### Packaging a production build
 
-To package all of our assets in production mode, it is enough to run the `build` task in Gradle via the tool window in IntelliJ IDEA or by running `./gradlew build`.  This generates an optimized build of your project, applying various improvements such as DCE (dead code elimination).
+The whole project in production mode, run the `build` Gradle task.
+You can do that either in the tool window in IntelliJ IDEA, or by running `./gradlew build`.
+This generates an optimized build of the project, applying various improvements such as DCE (dead code elimination).
 
-After the short wait is over, we'll be greeted by a number of static files inside the `/build/distributions` folder that are ready for deployment. They include the JS files, HTML files and other resources required to run our application. You can put them on a static HTTP server of your choice, serve them using GitHub Pages, or host them on a cloud provider of your choice.
+Once the build has finished, you can find all the files needed for deployment in `/build/distributions`. They include the JS files, HTML files and other resources required to run our application.
+
+You can put them on a static HTTP server of your choice, serve them using GitHub Pages, or host them on a cloud provider of your choice.
 
 ### Deploying to Heroku
 
@@ -54,11 +59,11 @@ git push heroku master
 ```
 
 ```note
-If you're pushing from a non-master branch (such as the `step` branches from the example repository), you need to adjust the command to push to the `master` remote. (such as `git push heroku step-08-deploying-to-production:master`)
+If you're pushing from a non-main branch (such as the `step` branches from the example repository), you need to adjust the command to push to the `main` remote. (such as `git push heroku 08-deploying-to-production:main`)
 ```
 
-If everything has gone according to plan, we will see the URL under which we can reach our application on the world wide web now!
+If everything has gone according to plan, we will see the URL under which we can reach our application.
 
 ![image-20190730200111014](./assets/deployingToProduction.png)
 
-You can find the state of the project after this section on the `final` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/final) repository.
+You can find the state of the project after this section on the `finished` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/finished) repository.

@@ -1,72 +1,102 @@
 # Using an external REST API
 
-Until now, we've only used rather boring mock data to display the videos and to render our application. Let's substitute this data by obtaining some actual information from a REST API.
+So far, we always used hard-coded demo data for the content of our app. Let's change that, and pull some real data from a REST API into the app, instead.
 
-For this use case, we have made a small API available at https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1. This API offers only a single endpoint, `videos`, and takes a numeric parameter to access an element from the list. Feel free to try out this rather limited API in the browser for a bit. You will see that the objects returned from the API follow the same structure as our `Video` objects (what a coincidence 😏). In the next section, we'll discuss how to efficiently obtain this data and shape it into the form of our Kotlin object.
+For this tutorial, we've created a small API available at https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1. It only offers one endpoint, `videos`, which takes a number to access an element from the list. If you visit the API with your browser, you will see that the objects returned from the API follow the same structure as our `Video` objects. That "coincidence" is going to make it pretty easy for us to integrate it with the code we've written so far. Let's get to it.
 
 ### Using JS functionality from Kotlin
 
-Even without pulling in external libraries, browsers already come with a lot of functionality. Included with Kotlin/JS are wrappers for exactly those APIs. They make it easy to access the available functionality in a comfortable and type-safe way straight from your Kotlin code. One example of these wrappers is the functionality for consuming making HTTP requests (arguably the most important part in consuming a RESTful service), in particular, the [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+Browsers come with a large variety of [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API). You can also use them from Kotlin/JS: it includes wrappers for these APIs out of the box. One relevant example is the [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), which is used for making HTTP requests - exactly what we need to integrate with our API.
 
-The typical way to do asynchronous programming in JavaScript is through the use of callbacks. This means resolving promises step by step using functions stacked inside of functions... stacked inside of functions… the more complex our code gets, the more heavily indented will it be. Our code would slope to the right, making it harder to parse and to understand the control flow, for us and fellow developers. While our example would be rather tame...
+Browser APIs like `fetch` come with a small challenge for developers: they use [callbacks](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function)
+to perform non-blocking operations. When multiple callbacks are supposed to run one after the other, they need to be nested. Naturally, the code starts "sloping to the right", with more and more functionality stacked inside each other, and gets harder to read.
 
-```kotlin
-window.fetch("https://url...").then {
-    it.json().then {
-        it as Video
-                //...
-    }
-}
-```
+With Kotlin, we have a better approach that we can use to get the same thing done: Coroutines.
 
-**…we are not going to use this approach**. Instead, we're going to make use of Kotlin's coroutines, a much nicer and more structured way for us to achieve the same thing.
+A second challenge comes again from the dynamically typed nature of JavaScript:
+we don't get any guarantees about the type of data we'll get returned from our external API. To tackle this, we'll once again rely on a some outside help: kotlinx.serialization.
 
 ### Coroutines instead of callbacks
 
-Coroutines and structured concurrency are a huge topic in Kotlin. If you want to get an in-depth understanding of how coroutines work, try our [coroutines hands-on lab](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/). Let's get started by adding coroutines as a dependency to our project.
+Coroutines and structured concurrency are one of the strengths of Kotlin, but also a big topic in themselves. In this tutorial, we'll only use a small part of the coroutines API, but if you want to get an in-depth understanding of how coroutines work, try our [coroutines hands-on lab](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/).
 
-Like the other dependencies we've gotten to know over the course of this hands-on, the relevant Gradle snippet already exists in our configuration from back when we set up the project:
+Just like with the other dependencies in this tutorial, the `build.gradle.kts` file for the project already has everything set up:
 
 ```kotlin
 dependencies {
-    //...
-    //Coroutines (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    //. . .
+    //Coroutines & serialization (chapter 8)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 }
 ```
 
-Let's fetch our first video using coroutines!
+### Making things serializable
+
+When we call our external API, we get back a bunch of JSON-formatted text that still needs to be turned into a Kotlin object for us to work with.
+
+[kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) is a library that allows us to write exactly these types of conversions:
+from JSON strings to Kotlin objects (and the other way around, though we won't use this functionality today).
+
+Just like with the other dependencies in this tutorial, the `build.gradle.kts` file for the project already has everything set up:
+
+```kotlin
+plugins {
+    // . . .
+    kotlin("plugin.serialization") version "1.5.31"
+}
+
+dependencies {
+    //. . .
+    //Serialization (chapter 8)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+}
+```
+
+As preparation for fetching our first video, we need to tell the serialization library about the `Video` class.
+
+In `Main.kt`, add the `@Serializable` annotation to its definition:
+
+```kotlin
+@Serializable
+data class Video(
+    val id: Int,
+    val title: String,
+    val speaker: String,
+    val videoUrl: String
+)
+```
+
+With this small prepartion out of the way, let's move on and fetch our first video!
 
 #### Fetching our first video
 
-Inside `App.kt` (or a new file), let's write a method that can `fetch` a video from the API.
+Inside `App.kt` (or a new file), add the following function that can `fetch` a video from our API.
 
 ```kotlin
 suspend fun fetchVideo(id: Int): Video {
     val response = window
         .fetch("https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/$id")
         .await()
-        .json()
+        .text()
         .await()
-    return response as Video
+    return Json.decodeFromString(response)
 }
 ```
 
-Use quick-fixes to import the required objects and functions, or alternatively manually add them to the top of `App.kt`:
+Let's go through this *suspending function* step by step. We `fetch` a video from the API given an `id`. This reponse takes may take a while, so we `await` its result. Next, we read the body from the response via the `text()`, which once again uses a callback. We wait for it to complete as well.
 
-```kotlin
-import kotlinx.browser.window
-import kotlinx.coroutines.*
-```
+Before we return the value of the function, we pass it to `Json.decodeFromString`, a function from kotlinx.coroutines. As its name suggests, it converts the JSON text we received from our request into a Kotlin object with the appropriate fields.
 
-Let's look at what's happening in this *suspending function*. We `fetch` a video from the API given an `id`, wait for it to actually be available, turn it into a JSON, wait again for the completion of that operation, and return it – but before, it casts it to the `external interface Video`, which we defined in an earlier chapter. You will see a warning for this unchecked cast – but this is in the nature of using a JavaScript definition like `fetch`: The compiler _can't know for sure_ that what we get back is actually an instance of `Video`. The compiler just needs to trust the developer on this.
-
-A function call like `window.fetch` returns a `Promise` object. We would have to define a callback handler which gets invoked once the `Promise` is *resolved* and a result is available. However, since we are using coroutines in our project, we can `await` those promises. We're writing code that looks sequential but remains non-blocking. Whenever a function like `await()` is called, the method stops its execution (it *suspends*, hence the keyword). It continues execution once the `Promise` can be resolved.
-
+Usually, function calls that return a `Promise`, like like `window.fetch`, need to define a callback handler. That handler would then be called once the `Promise` is *resolved* and a result is available. In the above example, we didn't need to do that: with Kotlin's coroutines, we `await` those promises. We benefit from code that looks sequential, but remains non-blocking:
+Whenever a function like `await()` is called, the method stops its execution (it *suspends*, hence the keyword). It continues execution once the `Promise` can be resolved.
 
 #### Fanning out
 
-Since we're working with (multiple) lists of videos, we have a good reason to pull in, for example, 25 videos! So, let's define a function `fetchVideos` (note the s) which will fetch 25 videos from the same API as above. Since we want to run all the requests concurrently, we can use the `async` functionality provided by coroutines, leaving us with an implementation that looks like this:
+Since we want to give the user of our app a selection of videos, let's get some more results from the API - 25 videos should do.
+
+Let's define a function called `fetchVideos` that requests 25 videos from the API. Because there is no point in requesting the videos sequentially - waiting for the first video to be fetched before requesting the next - we can kick off all the requests concurrently.
+
+We do this by repeatedly calling the [`async`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) function from Kotlin's coroutines. Add the following implementation to your `App.kt`:
 
 ```kotlin
 suspend fun fetchVideos(): List<Video> = coroutineScope {
@@ -78,33 +108,57 @@ suspend fun fetchVideos(): List<Video> = coroutineScope {
 }
 ```
 
-For reasons of [structured concurrency](https://kotlinlang.org/docs/reference/coroutines/basics.html#structured-concurrency), we have to wrap our implementation in a coroutineScope. We can then start 25 asynchronous tasks (one per request) and wait for them to complete.
+For reasons of [structured concurrency](https://kotlinlang.org/docs/reference/coroutines/basics.html#structured-concurrency), we have to wrap our implementation in a `coroutineScope`. We can then start 25 asynchronous tasks (one per request) and wait for all of them to complete.
 
 If you want to dive deeper into coroutines, check our [hands-on on coroutines](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/01_Introduction)!
 
-Now that we have a way to obtain real data, it's time for us to plug it into our application. To do this, all we need to do is to expand the `init` function of our `App`:
+We now have a way to obtain real data in our app.
+Time to plug it in!
+
+Add the definition for a `mainScope`, and change your `app` component to start with the following snippet.
+Don't forget to replace our demo values with `emptyLists` as well:
 
 ```kotlin
-override fun AppState.init() {
-    unwatchedVideos = listOf()
-    watchedVideos = listOf()
+val mainScope = MainScope()
 
-    val mainScope = MainScope()
-    mainScope.launch {
-        val videos = fetchVideos()
-        setState {
-            unwatchedVideos = videos
+val app = fc<Props> {
+    var currentVideo: Video? by useState(null)
+    var unwatchedVideos: List<Video> by useState(emptyList())
+    var watchedVideos: List<Video> by useState(emptyList())
+
+    useEffectOnce {
+        mainScope.launch {
+            unwatchedVideos = fetchVideos()
         }
     }
-}
+
+    // . . .
 ```
 
-Note that even though we are in the `init` function, we are using `setState` to set the unwatchedVideos to the result of our coroutine. Precisely because we are non-blocking, the app has most likely already finished rendering an empty list of `unwatchedVideos`. We can give the React renderer a little nudge in the form of a `setState` invocation to refresh the rendered result. When we go back and check our browser window, we can see that just like that, we have actual data in our application!
+This code snippet introduces two new concepts: the `MainScope`, and the `useEffectOnce` hook.
+
+The [`MainScope`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-main-scope.html) is once again a part of Kotlin's structured concurrency model,
+and creates the scope for our asynchronous tasks to run in.
+
+`useEffectOnce` is another one of React's magic *hooks* (specifically, a simplified version of the [useEffect](https://reactjs.org/docs/hooks-effect.html) hook). It indicates that our component performs a *side effect*. It doesn't just render itself, but also communicates over the network.
+
+This means when you load the page:
+
+- The code of our `app` component will be invoked. This kicks off the code in the `useEffectOnce` block.
+- The `app` component is rendered with empty lists for the watched and unwatched videos
+- When our API requests finish, the `useEffectOnce` block assigns it to the state of the `app` component. This triggers a re-render.
+- The code of the `app` component will be invoked again, but the `useEffectOnce` block *will not* run for a second time.
+
+Having applied these changes, go back to the browser window.
+Just like that, you'll see real data in the app!
 
 ![image-20190729201914738](./assets/image-20190729201914738.png)
 
-This concludes the development part of this hands-on. We've come a long way, from an initial "Hello, World"-derivative to a full video organizer.
+With that, we're done with developing our little demo application.
+We've come a long way: we started with a little "Hello, World"-type program, and ended with a full video organizer.
 
-Stick around if you'd like to find out how we can bundle our application for production use, and how to get your app into the hands of real people by publishing it to the cloud!
+We can still do a little more, though.
+If you want to learn how to bundle the application for deployment,
+and publishing the app in *the cloud*, check out the next section.
 
-You can find the state of the project after this section on the `step-07-using-external-rest-api` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-07-using-external-rest-api) repository.
+You can find the state of the project after this section on the `07-using-external-rest-api` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/07-using-external-rest-api) repository.

@@ -2,150 +2,173 @@
 
 ### General concept
 
-The basic building blocks in React are called *components*. By combining these components, which can in turn also be composed of other smaller components, we build our application. By structuring our components for reusability and keeping them generic, we'll be able to use them in multiple parts of our application without having to duplicate code or logic.
+The basic building blocks in React are called *[components](https://reactjs.org/docs/components-and-props.html)*.
+Components themselves can also be composed of other, smaller components. We combine them to build our application.
 
-In fact, the "root" node that we are currently rendering is already a React component. If we were to mark this component in our application, it would look something like this:
+If we structure our components to be generic and reusable, we can use them in multiple parts of our app. That means we prevent code duplication.
+
+The content of our `render` function already describes a very basic component. If we mark that component on a UI screenshot, it would look like this:
 
 ![image-20190729153736304](./assets/image-20190729153736304.png)
 
-When we structure our application and split it up into components, we end up with a more structured layout, in which each component handles its own responsibilities:
+By decomposing our application into individual components, we end up with a more structured layout. In that case, each component handles its own responsibilities:
 
 ![image-20190729153826920](./assets/image-20190729153826920.png)
 
-Let's begin the process of structuring our application. We’ll start by explicitly specifying the main component we're rendering into the root element: the `App`. Let's create a new file in our project's `src/main/kotlin` folder called `App.kt`. Inside this file, let's create our `App` class which inherits from `RComponent`, a **R**eact **Component**. For now, we can keep its generic parameters default (`RProps` and `RState`). There will be more on those later.
+Let's start splitting our application into components.
+First, let's create the main component of our application, the `app`.
+Let's begin the process of structuring our application. We’ll start by explicitly specifying the main component we're rendering into the root element: the `App`.
+
+Create a new file `src/main/kotlin/App.kt`. Inside this file, add the following snippet, and move the typesafe HTML from `Main.kt` inside the snippet:
 
 ```kotlin
+import kotlinx.coroutines.async
+import kotlinx.css.*
 import react.*
+import react.dom.*
+import kotlinx.browser.window
+import kotlinx.coroutines.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
-@JsExport
-class App : RComponent<RProps, RState>() {
-  override fun RBuilder.render() {
-        // typesafe HTML goes here!
-    }
+val app = fc<Props> {
+    // typesafe HTML goes here!
 }
 ```
 
-Let's move all of our typesafe HTML into this render function. Now that all of our HTML is safely packed away in its own explicit component, our `main` function within `Main.kt` should reference our `App` instead of rendering its own HTML. The only thing we need to do now is to tell React to render our App component as a `child` of the `root` object.
+In this snippet, we're using the `fc` function to create a [**f**unction **c**omponent](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
+We'll talk more about the generic parameter `Props` later.
+
+Our user interface is now packed away in a component!
+Let's make our `main` function render it.
+Change your `Main.kt` file to look as follows:
 
 ```kotlin
 fun main() {
     render(document.getElementById("root")) {
-        child(App::class) {}
+        child(app)
     }
 }
 ```
 
-We'll learn more about how React components work as we create them. If you would like to get an in-depth view of how React and its components operate, feel free to check out their [official documentation and guides](https://reactjs.org/docs/hello-world.html#how-to-read-this-guide).
+Just like that, we've finished extracting our first component! We'll learn a bit more about how React components work as we create them.
+
+For a more in-depth view of React's concepts, feel free to check out their [official documentation and guides](https://reactjs.org/docs/hello-world.html).
 
 ### Extracting a list component
 
-The first part of our application that lends itself to becoming a reusable component is the *video list(s)*. Since both the "watched video list" and "unwatched video list" have the same functionality (displaying a list of videos), it would make sense not to duplicate them and use a reusable component instead.
+Looking at our interface, we can identify a reusable component: the video list(s).
+Both the "watched" and "unwatched" video lists have the same functionality: they display a list of videos. Instead of duplicating their logic, we can turn them into a reusable component instead, and use that component twice.
 
-Let's create a new file called `VideoList.kt`. The `VideoList` class follows the same pattern as our `App` class from before, inheriting from `RComponent`, and containing the code from our `unwatchedVideos` list.
+
+The `videoList` component follows the same pattern as the `app` component. It uses the `fc` builder function, and contains the code from our `unwatchedVideos` list.
+
+Create a new file called `VideoList.kt` and add the following code:
 
 ```kotlin
+import kotlinx.html.js.onClickFunction
+import kotlinx.browser.window
 import react.*
 import react.dom.*
 
-@JsExport
-class VideoList: RComponent<RProps, RState>() {
-    override fun RBuilder.render() {
-        for (video in unwatchedVideos) {
-            p {
-                +"${video.speaker}: ${video.title}"
-            }
+val videoList = fc<Props> {
+    for (video in unwatchedVideos) {
+        p {
+            +"${video.speaker}: ${video.title}"
         }
     }
 }
 ```
 
-This means that the video-list part of our `App` could look something like this:
+In `App.kt`, we could then use the `videoList` component by using the `child` function, again:
 
 ```kotlin
+// . . .
 div {
     h3 {
         +"Videos to watch"
     }
-    child(VideoList::class) {}
+    child(videoList)
 
     h3 {
         +"Videos watched"
     }
-    child(VideoList::class) {}
+    child(videoList)
 }
+// . . .
 ```
 
-There is a big problem with this implementation though: our `App` has no control over the content of the list. It is still hard-coded, so we end up seeing the same list twice. We need a mechanism to pass the list *into the component*.
+Of course, this has one big problem.
+The `app` component has no control over the content that is shown by the `videoList` component.
+It is hard-coded, so we see the same list twice.
+
+Instead, we need a mechanism to pass the list *into the component*.
 
 ### Adding props
 
-When we reuse our list, we will probably want to fill it with different content. This means that instead of having the list of items stored inside our component’s class, it should be controlled externally, and passed in as an attribute for the component. React calls these attributes props. If props change in React, the framework will take care of re-rendering of the page for us.
+To properly reuse our `videoList` component, we need to be able to fill it with different types of content.
+To do so, we need to be able to pass the list of items as an attribute to the component.
+In React, these attributes are called _props_.
 
-In our case, we would like to add a prop which contains the list of talks. Let's restructure our code accordingly. Within `VideoList.kt`, let's add an interface definition like this:
+The magic behind react is that when the props of a component change in React, the framework automatically takes care of re-rendering the component.
+
+For our `videoList`, we want to add a prop containing the list of videos to be shown.
+To do so, let's define an `external interface` that holds all the props which can be passed to a `videoList` component.
+
+Add the following definition to your `VideoList.kt` file:
 
 ```kotlin
-external interface VideoListProps: RProps {
+external interface VideoListProps : Props {
     var videos: List<Video>
 }
 ```
 
-We now adjust the class definition of `VideoList` to make use of those props:
+We now adjust the class definition of `VideoList` to make use of the `props`, which are passed into the `fc` block:
 
 ```kotlin
-@JsExport
-class VideoList: RComponent<VideoListProps, RState>() {
-    override fun RBuilder.render() {
-        for (video in props.videos) {
-            p {
-                key = video.id.toString()
-                +"${video.speaker}: ${video.title}"
-            }
-        }
+val videoList = fc<VideoListProps> { props ->
+  for (video in props.videos) {
+    p {
+      key = video.id.toString()
+      +"${video.speaker}: ${video.title}"
+    }
+  }
+}
+```
+
+You may wonder about the `key` attribute, which is also new in this snippet.
+This attribute helps the React renderer figure out what it needs to do when the value of `props.videos` changes.
+It uses the key to determine _which parts_ of a list need to refresh, and which ones stay the same. This small optimization is a best practice when working with lists and React. 
+For more information about lists and keys, refer to the [official React guide](https://reactjs.org/docs/lists-and-keys.html).
+
+In our `app` component, let's make sure we instantiate the child components with proper attributes.
+
+In `App.kt`, replace the two loops underneath the `h3` elements with attributes for `unwatchedVideos` and `watchedVideos` like so:
+
+```kotlin
+child(videoList) {
+    attrs {
+        videos = unwatchedVideos // repeat with watchedVideos
     }
 }
 ```
 
-Because the content of our lists is now potentially dynamic (i.e. during runtime, the attributes passed into our component might change), we should also add a `key` attribute. This helps the React renderer figure out which parts of the list need to refresh, and which ones can stay the same – a nice free optimization for us! You can find more information about lists and keys in the [official React guide](https://reactjs.org/docs/lists-and-keys.html).
+We can have a quick look in the browser to confirm that the lists render correctly now.
 
-Now, at the usage site within `App`, let's make sure that we instantiate the child components with proper attributes. Replace the two loops underneath the `h3` elements with the respective attributes for `unwatchedVideos` and `watchedVideos` like so:
-
-```kotlin
-child(VideoList::class) {
-    attrs.videos = unwatchedVideos
-}
-```
-
-A quick check in the browser window will show us that the lists now render as they are supposed to. We have encapsulated the responsibility of rendering a list of videos into its own component. This shortens the `App`’s source code and makes it easier for us and our fellow developers to read and understand.
-
-### Even smoother usage
-
-If we want to, we can make use of a cool feature called [lambdas with receivers](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver) to make the usage site of our component nicer. This snippet does exactly that, and it can be easily reused for other components:
-
-```kotlin
-fun RBuilder.videoList(handler: VideoListProps.() -> Unit): ReactElement {
-    return child(VideoList::class) {
-        this.attrs(handler)
-    }
-}
-```
-
-While it's not necessary to understand what's going on in the snippet above, it might still be interesting to know about: it defines a function called `videoList` as an [extension function](https://kotlinlang.org/docs/reference/extensions.html) on `RBuilder`. It takes one parameter, `handler`, which is an extension function on `VideoListProps` returning `Unit`. This function wraps the call to `child` (as we have done before), and passes the `handler` in order to instantiate the `attrs`.
-
-The main point is that it simplifies the usage site a lot more, allowing us to simply write:
-
-```kotlin
-videoList {
-    videos = unwatchedVideos
-}
-```
+We now have a reusable component that can render a list of videos.
+The code for our `app` component got smaller, and we got rid of some duplication in our code. Nice!
 
 ### Making it interactive
 
-The final goal for the list component is to have it control the video that's currently being played in our video player. To do that, the list first needs to allow the user to interact with its elements. We'll start simple, by `alert`ing the video object the user has selected.
+A static list of video titles doesn't help our users much, though.
+Eventually, when the user clicks on a list entry, our video player should actually play that video.
+Let's start working towards that. 
+We'll start simple: When the user selects a video from the list, we'll pop open an `alert`.
 
-To do this, we modify the code inside our `VideoList` `render` function inside the loop to include a handler that `alert`s the current element:
+In the code of our `videoList`, add an `onClickFunction` handler that triggers an alert with the current video:
 
 ```kotlin
+// . . .
 p {
     key = video.id.toString()
     attrs {
@@ -155,16 +178,11 @@ p {
     }
     +"${video.speaker}: ${video.title}"
 }
+// . . .
 ```
 
-When IntelliJ IDEA prompts us to add imports for this functionality, we can simply use the `Alt-Enter` quickfixes to have the IDE do the work for us. Alternatively, we can add the required imports manually:
-
-```kotlin
-import kotlinx.html.js.onClickFunction
-import kotlinx.browser.window
-```
-
-Now, when we click on one of the list items in the browser window, we get the corresponding information inside an `alert` window:
+Let's go back to the browser, and check that our code works.
+When we click on one of the list items in the browser window, we get the corresponding information inside an `alert` window:
 
 ![image-20190729161705147](./assets/image-20190729161705147.png)
 
@@ -174,48 +192,67 @@ Defining an `onClickFunction` directly as a lambda is concise and very useful fo
 
 ### Adding state
 
-Instead of simply alerting the user, let's make it so that they can actually select a video. We highlight the selected video with a ▶ triangle. To achieve this, we need to introduce some *state* specific to this component. Just as we did with props, we can do it by defining an interface:
+Let's add actual selection functionality next, instead of just alerting the user. We'll highlight the selected video with a "▶" triangle.
+
+To achieve this, we need to introduce some *state* specific to this component.
+Next to props, state is one of the other core concepts in React.
+In modern React (using the so-called Hooks API), state is expressed using the [`useState` hook](https://reactjs.org/docs/hooks-state.html). 
+
+Add the following line of code to the top of the `videoList` declaration:
 
 ```kotlin
-external interface VideoListState: RState {
-    var selectedVideo: Video?
-}
+val videoList = fc<VideoListProps> { props ->
+    var selectedVideo: Video? by useState(null)
+// . . .
 ```
 
-There are a few things we need to do to add this state:
+Even though this is just one new line of code, it introduces a few more advanced features to our code.
+Let's briefly talk about them.
 
-- We need to adjust the class definition of `VideoList` to use the `VideoListState` – specifically, we inherit from an `RComponent<..., VideoListState>`.
-- For the element of the list that is currently selected, we need to prepend a triangle string. We need to modify the `onClickFunction` to set the contents of `selectedVideo` to be equal to the element in our list. And to ensure that our components are re-rendered when we change the `state`, we need to wrap our variable update in the `setState` lambda.
+On the top level, this line of code specifies the following:
+Our functional component `videoList` keeps state (a value that is independent of the current function invocation).
+The state is nullable, and of type `Video?`.
+Its default value is `null`.
 
+By using the somewhat magical `useState` function from the React framework,
+you instruct the framework to keep track of state across multiple invocations of the function.
+For example, even though we specify a default value,
+React makes sure that the default value is only assigned in the beginning.
+When the state changes, the component will re-render based on the new state.
+
+The `by` keyword indicates that `useState` acts as a [delegated property](https://kotlinlang.org/docs/delegated-properties.html). Just like any other variable, you read and write values.
+The implementation behind `useState` takes care the machinery required to make state work.
+
+To learn more about the State Hook, check out the [official React documentation](https://reactjs.org/docs/hooks-state.html).
+
+With this new knowledge, let's continue our modification of the `videoList` component:
+- When the user clicks a video, we need to assign its value to the `selectedVideo` variable.
+- When we render the list entry that is currently selected, we need to prepend the triangle.
+
+Change your implementation of `videoList` to look as follows:
 
 ```kotlin
-@JsExport
-class VideoList : RComponent<VideoListProps, VideoListState>() {
-    override fun RBuilder.render() {
-        for (video in props.videos) {
-            p {
-                key = video.id.toString()
-                attrs {
-                    onClickFunction = {
-                        setState {
-                            selectedVideo = video
-                        }
-                    }
+val videoList = fc<VideoListProps> { props ->
+    var selectedVideo: Video? by useState(null)
+    for (video in props.videos) {
+        p {
+            key = video.id.toString()
+            attrs {
+                onClickFunction = {
+                    selectedVideo = video
                 }
-                if (video == state.selectedVideo) {
-                    +"▶ "
-                }
-                +"${video.speaker}: ${video.title}"
             }
+            if (video == selectedVideo) {
+                +"▶ "
+            }
+            +"${video.speaker}: ${video.title}"
         }
     }
 }
 ```
 
-```warning
-**State should only ever be modified from within the** **`setState`** **lambda**. This allows the React renderer to detect any changes to the state, and to re-render portions of our UI quickly and efficiently.
-```
-
 You can find more details about state in the official [React FAQ](https://reactjs.org/docs/faq-state.html).
 
-You can find the state of the project after this section on the `step-03-first-component` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-03-first-component) repository.
+Let's check back in the browser, and click an item in the list. Looks like everything works... almost!
+
+You can find the state of the project after this section on the `03-first-component` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/03-first-component) repository.

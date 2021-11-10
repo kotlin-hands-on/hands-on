@@ -1,10 +1,18 @@
 # More components
 
-Now that we have learned how to create a separate, encapsulated component that can still interact with the rest of the application, let's do the same for the remaining component(s).
+At this point, we know how to create an encapsulated component that can still interact with the rest of the application.
+Let's continue splitting our code into components.
 
 ### Extracting the video player component
 
-Another element that lends itself to becoming a self-contained unit is our video player, currently still visualized by a placeholder image. This time, we can try to identify the props for the video player in advance. Author, talk title, and video link need to be passed to the `VideoPlayer` component. This information is already contained within a `Video` object, so we can pass it as a prop and use its attributes accordingly. When we write the whole component including its respective interfaces, we should end up with a file called `VideoPlayer.kt` that contains the following:
+Another naturally self-contained component is the video player (which currently is still a placeholder image).
+
+This time, we can try to identify the props for the video player in advance:
+A video player needs to know the talk title, the author of the talk, and the link to the video. 
+All this information is already contained in a `Video` object.
+We can just pass one of those as a prop, and access its attributes.
+
+Create a new file called `VideoPlayer.kt` and add the following implementation for the `videoPlayer` component it:
 
 ```kotlin
 import kotlinx.css.*
@@ -13,67 +21,76 @@ import react.*
 import react.dom.*
 import styled.*
 
-external interface VideoPlayerProps : RProps {
+external interface VideoPlayerProps : Props {
     var video: Video
 }
 
-@JsExport
-class VideoPlayer : RComponent<VideoPlayerProps, RState>() {
-    override fun RBuilder.render() {
-        styledDiv {
-            css {
-                position = Position.absolute
-                top = 10.px
-                right = 10.px
-            }
-            h3 {
-                +"${props.video.speaker}: ${props.video.title}"
-            }
-            img {
-                attrs {
-                    src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
-                }
+val videoPlayer = fc<VideoPlayerProps> { props ->
+    styledDiv {
+        css {
+            position = Position.absolute
+            top = 10.px
+            right = 10.px
+        }
+        h3 {
+            +"${props.video.speaker}: ${props.video.title}"
+        }
+        img {
+            attrs {
+                src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
             }
         }
     }
 }
-
-fun RBuilder.videoPlayer(handler: VideoPlayerProps.() -> Unit): ReactElement {
-    return child(VideoPlayer::class) {
-        this.attrs(handler)
-    }
-}
 ```
 
-To play nice with the compiler and its never-ending quest for `null`-safety, our usage site in `App.kt`, replacing the previous snippet, looks like this – replacing the previous `styledDiv` that contained the video player:
+Because our `VideoPlayerProps` interface specifies that the `videoPlayer` component takes a non-null `Video`,
+we need to make sure handle this in our `app` component accordingly.
+
+Back in `App.kt`, replace the previous `styledDiv` snippet for the video player with our new component:
 
 ```kotlin
-state.currentVideo?.let { currentVideo ->
-    videoPlayer {
-        video = currentVideo
+currentVideo?.let { curr ->
+    child(videoPlayer) {
+        attrs {
+            video = curr
+        }
     }
 }
 ```
 
-Finishing up, this means that the video player will only be shown if the `currentVideo` in our application's state is set.
+By using the [`let` scope function](https://kotlinlang.org/docs/scope-functions.html#let),
+we ensure that the `videoPlayer` component is only added when `state.currentVideo` is not null.
+
+At this point, clicking an entry in the list will bring up the video player,
+and populate it with the information from the clicked entry.
+Next, let's continue making our application more interactive.
 
 ### Adding a button and wiring it
 
-So far, we haven't really had a way to move our videos from the list of unwatched videos to the list of watched videos (and vice versa). Let's add a button to our `VideoPlayer` component that will do exactly that.
+Our application still needs a way to mark a video as (un)watched, to move it between the two lists.
+Let's add a button to our `videoPlayer` component that will do exactly that.
 
-The fact that we want to move things between two different lists (an effect that happens outside the `VideoPlayer` component) suggests that once again, the handler for our button needs to be *lifted* and passed in from the outside.
+Since this button will move videos between two different lists,
+we can already guess that the logic handling the state change will have to *lifted* out of the `videoPlayer`,
+and passed in from the parent as a prop.
 
-Since we want the button to have different text depending on whether the video has been watched or not, we need to give the button some more information to work with – specifically, the status of the video passed in. So, we expand our `VideoPlayerProps` interface:
+Also, we probably want the button to look different based on whether a video has already been watched or not.
+This is also information we need to pass as a prop.
+
+Expand the `VideoPlayerProps` interface in `VideoPlayer.kt` to include properties for those two cases:
 
 ```kotlin
-external interface VideoPlayerProps : RProps {
+external interface VideoPlayerProps : Props {
     var video: Video
     var onWatchedButtonPressed: (Video) -> Unit
     var unwatchedVideo: Boolean
 }
 ```
 
-After we’ve built the previous components, the implementation of this button shouldn't come as a big surprise now. A nice thing to note: we can use props to adjust CSS properties! In this case, we color the button dynamically based on the state of the video. Add the following HTML DSL snippet to the `render` function of `VideoPlayer`, between the `h3` and `img` tags.
+Next, let's add the button to the actual component.
+We have some experience building components at this point, so the implementation should not be too surprising.
+Add the following snippet to the body of the `videoPlayer` component, between the `h3` and `img` tags:
 
 ```kotlin
 styledButton {
@@ -95,66 +112,75 @@ styledButton {
 }
 ```
 
+This component isn't anything special,
+but actually once again shows off the elegance of using Kotlin DSLs:
+we use a basic Kotlin `if` expression to change the color of the button dynamically.
+
 ### Moving video lists to the application state
 
-Before we adjust the usage site for the `VideoPlayer`, let's think about what it is supposed to do.
+With the new `onWatchedButtonPressed` and `unwatchedVideo` props for the `videoPlayer` component,
+we still need to adjust its usage site in the `app` component.
+But first, let's think about what it is supposed to do.
 
 When the button is clicked, a video should either be:
 
 - moved from the unwatched list to the watched list, or
 - moved from the watched list to the unwatched list.
 
-Now that these lists can actually change, it's time to move them into our application state! Again, the interface gets expanded with a couple more lines:
+Lists that can change? That's a prime candidate for more application state!
+
+Back in `App.kt, add the following `useState` calls to the top of the `app` component:
 
 ```kotlin
-external interface AppState : RState {
-    var currentVideo: Video?
-    var unwatchedVideos: List<Video>
-    var watchedVideos: List<Video>
+val app = fc<Props> {
+    var currentVideo: Video? by useState(null)
+    var unwatchedVideos: List<Video> by useState(listOf(
+        Video(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
+        Video(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
+        Video(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
+    ))
+    var watchedVideos: List<Video> by useState(listOf(
+        Video(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
+    ))
+    // . . .
 }
 ```
 
-We can fill the state with some predefined values from within the `init` method. We do this by adding an override to the body of our `App` class:
+Since we include all of our demo data in the default values for `watchedVideos` and `unwatchedVideos` directly,
+we no longer need the file-level declarations from before.
+
+In `Main.kt`, delete the file-level declarations for `watchedVideos` and `unwatchedVideos`.
+
+Finally, we can return to the task we wanted to do in the first place: changing the call-site for `videoPlayer`.
+
+Change the code in the `app` component that belongs to the video player to look as follows:
 
 ```kotlin
-override fun AppState.init() {
-    unwatchedVideos = listOf(
-        KotlinVideo(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
-        KotlinVideo(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
-        KotlinVideo(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
-    )
-    watchedVideos = listOf(
-        KotlinVideo(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
-    )
-}
-```
-
-We can delete the original file-level declarations for `unwatchedVideos` and `watchedVideos` in `Main.kt`, and follow the compiler errors to replace all references to (`un`)`watchedVideos` in the `videoList` invocations and replace them with `state.`(`un`)`watchedVideos` inside `App.kt`. Now, writing the `videoPlayer` call site is rather simple:
-
-```kotlin
-videoPlayer {
-    video = currentVideo
-    unwatchedVideo = currentVideo in state.unwatchedVideos
-    onWatchedButtonPressed = {
-        if (video in state.unwatchedVideos) {
-            setState {
-                unwatchedVideos -= video
-                watchedVideos += video
-            }
-        } else {
-            setState {
-                watchedVideos -= video
-                unwatchedVideos += video
+child(videoPlayer) {
+    attrs {
+        video = curr
+        unwatchedVideo = curr in unwatchedVideos
+        onWatchedButtonPressed = {
+            if (video in unwatchedVideos) {
+                unwatchedVideos = unwatchedVideos - video
+                watchedVideos = watchedVideos + video
+            } else {
+                watchedVideos = watchedVideos - video
+                unwatchedVideos = unwatchedVideos + video
             }
         }
+
     }
 }
 ```
 
-Go back to your browser, select a video, hit the button a few times, and watch the element jump between the two lists!
+With that, we have implemented the largest part of our application logic.
+Go back to the browser, select a video, and press the button a few times.
+The video will jump between the two lists.
+Sweet!
 
-Just like that, we've now implemented the largest chunk of the custom logic for our application. Feel free to play around with the styles for the button, adjust it to your heart's content, and maybe even try extracting the button as its own reusable component!
+However, after all this work, our video player is still just a placeholder picture.
+But it's time to let others do that kind of heavy lifting.
+In the next section, we'll talk about using ready-made React components from `npm` inside our Kotlin/JS app.
 
-Now it's time to kick back and let others do the heavy lifting. Let's talk about using ready-made and freely available React components from within Kotlin.
-
-You can find the state of the project after this section on the `step-05-more-components` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-05-more-components) repository.
+You can find the state of the project after this section on the `05-more-components` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/05-more-components) repository.

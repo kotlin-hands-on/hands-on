@@ -1,12 +1,15 @@
 # A first static page with React
 
-Every good programming story starts with a *Hello World*-derivative – so, let's move from our colored page to exactly that!
+Let's start our story with a classic little *Hello World*-type program!
 
-Change the code inside `src/main/kotlin/Main.kt` to look as follows:
+Change the code inside `src/main/kotlin/Main.kt` to look like this:
 
 ```kotlin
 import react.dom.*
 import kotlinx.browser.document
+import kotlinx.css.*
+import kotlinx.serialization.Serializable
+import styled.*
 
 fun main() {
     render(document.getElementById("root")) {
@@ -17,27 +20,38 @@ fun main() {
 }
 ```
 
-If you don't have the continous Gradle build (as described in Chapter 2) still running in the background, run the build from your IDE or execute `./gradlew run` from the command line in the project root, and observe the magic happening in your web browser:
+If you don't have the continuous Gradle build (as described in Chapter 2) still running in the background, run the build from your IDE (or execute `./gradlew run` from the command line), and have a look!
 
 ![image-20190729142055566](./assets/image-20190729142055566.png)
 
-Congratulations, you've just written your first website using pure Kotlin and React! Let's try to understand what's actually happening here. The render function instructs [kotlin-react-dom](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-react-dom) to render out a component (more on those later) into an element in the website. Going back to the `/src/main/resources/index.html`, we can see that there's a container element called `root`, into which we render our content. The content we render is pretty simple, and uses a typesafe DSL to render HTML.
+Congratulations, you've just written your first website using pure Kotlin/JS and React!
+
+In this first snippet, you can see the `render` from [kotlin-react-dom](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-react-dom) render a first little component into an element called `#root`.
+This container element is defined in `/src/main/resources/index.html`, which was included in the template.
+
+The content we render is pretty simple - it is just an `<h1>` headline. However, we use Kotlin's typesafe DSL to render this HTML snippet.
 
 ### Building typesafe HTML
 
-Kotlin's support for *Domain Specific Languages* (DSLs), a feature provided to us through [kotlin-react](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-react/README.md), allows us to describe a markup language like HTML using a syntax that is easy to read (and hopefully also to write) for those familiar with HTML.
+The Kotlin [wrappers](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-react/README.md) for React come with a [domain-specific language (DSL)](https://kotlinlang.org/docs/type-safe-builders.html) that lets us write HTML in pure Kotlin code.
+In this way, it's similar to [JSX](https://reactjs.org/docs/introducing-jsx.html) from the JavaScript world.
+However, with this markup being Kotlin, we get all the benefits of a statically typed language -- from autocomplete to type-checking. 
 
-By writing pure Kotlin code, we can use all the benefits that a statically typed language brings with it, from autocomplete to type-checking. This way, we can hopefully spend less time in the browser dev tools hunting down a misspelled attribute, and more time making neat applications!
+That hopefully means more time to write cool applications, and less time hunting misspelled attributes!
 
 ##### About the plus
 
-When you first encounter the pure Kotlin-snippet above, the only thing that really sticks out about the example is the `+` sign in front of our string literal. `h1` is really a function that takes a lambda parameter. When we write `+`, we are really invoking the function `unaryPlus` (through [operator overloading](https://kotlinlang.org/docs/reference/operator-overloading.html)) which takes care of appending the string to the enclosed HTML element.
+When you look at the Kotlin snippet above, you may notice the `+` sign in front of our string literal.
+It gives you a bit of a hint of how this DSL works under the hood: `h1` is really a function that takes a lambda parameter.
+When we write `+`, we are really invoking the function `unaryPlus` (through [operator overloading](https://kotlinlang.org/docs/reference/operator-overloading.html)). That function then takes care of appending the string to the enclosing HTML element.
 
-Simply put, you can think of the `+` as "append my string inside this element."
+Simply said, you can think of the `+` as "append my string inside this element."
 
 #### Converting classic HTML
 
-Since we already have a pretty good idea of what our website will look like, we can simply translate our (mental) draft into a Kotlin representation for HTML. If you're comfortable writing simple HTML, you should have no problem getting started with the typesafe variant in Kotlin. We want to build a layout that looks something like this in raw HTML:
+With the pictures shown in the introduction to this tutorial, we already have a pretty good idea of what our website should look like. We can start by translating our (mental) draft from HTML to the Kotlin DSL.
+
+The raw HTML of our page would look something like this:
 
 ```xml
 <h1>KotlinConf Explorer</h1>
@@ -55,7 +69,7 @@ Since we already have a pretty good idea of what our website will look like, we 
 </div>
 ```
 
-Let’s translate this code into Kotlin. The conversion should be rather straightforward. If you'd like to test yourself, you can even try doing it without peeking at the sample solution below!
+Let's translate this code into Kotlin. The conversion should be rather straightforward. If you'd like to challenge yourself, you can even try doing it without peeking at the sample solution below!
 
 ```kotlin
 h1 {
@@ -94,47 +108,50 @@ div {
 }
 ```
 
-Type or paste the above code as the contents of your `render` call. If IntelliJ IDEA complains about missing imports, simply invoke the corresponding quick-fixes using `Alt-Enter`. Once we've saved our file, let's wait for the browser to reload. We will be greeted by a page that looks like this:
+Type or paste the above code as the contents of your `render` call inside the `main` function,
+replacing our previous `h1` tag.
+
+After saving the file, let's go back to the browser.
+We will see a page that looks like this:
 
 ![image-20190729143514676](./assets/image-20190729143514676.png)
 
 ### Using Kotlin language constructs in markup
 
-While writing HTML in Kotlin just for the sake of it is a noble idea, there are actually a lot more benefits to writing your HTML directly inside Kotlin. A big advantage of using this domain specific language is that we can manipulate our website content using language constructs we are already familiar with. Whether it's conditions, loops, collections, or string interpolation, we can expect them to work the same in HTML as they would in Kotlin.
+There are some useful side-effects to writing HTML in Kotlin using this DSL.
+For example, we can manipulate our website using regular Kotlin constructs.
+We could use loops, conditions, collections, string interpolation, and more.
+We'll see how that works in practice in just a bit.
 
-Now, instead of hardcoding the list of videos, let's actually define them as a list of Kotlin objects and display those objects instead. We'll create a simple data class to hold together the attributes of a video called `KotlinVideo` (we can do this in `Main.kt` or a file of our choice). We will also define a corresponding `external interface`, which will prove valuable at the point where we get real data, from a real API.
+Next, let's replace the hardcoded list of videos with a list of real Kotlin objects.
+We'll create a simple data class to hold together the attributes of a video called `Video`.
+
+Add the following snippet to the `Main.kt` file (or another file of our choice):
 
 ```kotlin
-external interface Video {
-    val id: Int
-    val title: String
-    val speaker: String
+data class Video(
+    val id: Int,
+    val title: String,
+    val speaker: String,
     val videoUrl: String
-}
-
-data class KotlinVideo(
-    override val id: Int,
-    override val title: String,
-    override val speaker: String,
-    override val videoUrl: String
-) : Video
+)
 ```
 
 Then, let's fill up the two lists for unwatched videos and watched videos respectively. For now, we can just have these declarations at file-level inside our `Main.kt`:
 
 ```kotlin
 val unwatchedVideos = listOf(
-    KotlinVideo(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
-    KotlinVideo(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
-    KotlinVideo(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
+    Video(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
+    Video(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
+    Video(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
 )
 
 val watchedVideos = listOf(
-    KotlinVideo(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
+    Video(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
 )
 ```
 
-We don't have to learn any kind of special template syntax to pull this information back into our HTML. We can simply write Kotlin code to loop over the collection and add an HTML element for each of them! This means that instead of three `p`-tags, we can now write the following:
+To use these videos in our page, we can now write a Kotlin `for`-loop to iterate over the collection of unwatched videos. Replace the three `p` tags under "Videos to watch" with the following snippet:
 
 ```kotlin
 for(video in unwatchedVideos) {
@@ -144,27 +161,47 @@ for(video in unwatchedVideos) {
 }
 ```
 
-We can use the exact same process to modify the code for the `watchedVideos` as well. A short wait and browser reload later, we should see that this change is rendering the equivalent list as above. Feel free to experiment and add more videos to either of the lists to verify that the loop is actually looping.
+We apply the same process to modify the code for the single tag following "Videos watched", as well:
+
+```kotlin
+for(video in watchedVideos) {
+    p {
+        +"${video.speaker}: ${video.title}"
+    }
+}
+```
+
+Wait for the browser to reload. If everything went well, we should see the same layout as before (but now, using proper Kotlin objects in the background!)
+To _really_ make sure our loop is actually looping, you can of course add some more videos to the list on your own at this point.
 
 ### Writing typesafe CSS
 
-We have now built our first "feature," but our application, unfortunately, still looks a bit bland and unappealing. While it’s possible to simply include a stylesheet in the template HTML, let’s use this opportunity to play with Kotlin DSLs again – this time for CSS.
+Our little "app" now already has the ability to show watched and unwatched videos in a list.
+Unfortuantely, it still looks a bit boring.
+To fix that, we could include a CSS file in our `index.html` template.
+But we can also use this chance to play with another Kotlin DSL - this time for CSS.
 
-[kotlin-styled](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-styled) provides wonderful typesafe wrappers for [styled-components](https://www.styled-components.com/) that allow us to quickly and safely define styles [globally](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-styled/README.md#global-styles) or for individual elements of our DOM. It wraps the styled-components library and allows us to build constructs that look like [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js). Since we are writing pure Kotlin code, we can, for example, express conditions concisely for our formatting rules.
+The [kotlin-styled](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-styled) library wraps the [styled-components](https://www.styled-components.com/) JavaScript library.
+Using it, we can define styles either [globally](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-styled/README.md#global-styles) or for individual elements of our DOM.
+Conceptually, that makes it similar to [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js) – but for Kotlin. Like before, the benfit of using a DSL is that we can use Kotlin code constructs to express our formatting rules.
 
-We do not need to perform any extra steps to start using the functionality, because we have already added the necessary dependencies in our Gradle configuration. The relevant block is:
+The template project for this tutorial already includes everything we need to use `kotlin-styled`.
+The relevant block in our build configuration is this:
 
 ```kotlin
 dependencies {
     //...
     //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains:kotlin-styled:5.2.1-pre.148-kotlin-1.4.21")
-    implementation(npm("styled-components", "~5.2.1"))
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-pre.264-kotlin-1.5.31")
+    implementation(npm("styled-components", "~5.3.3"))
     //...
 }
 ```
 
-Instead of just writing out our HTML elements like `div` or `h3`, we can now use their `styled` counterparts, e.g. `styledDiv` or `styledH3`. This allows us to specify `css` styles in the body. For example, to move the video player to the top right corner of the page, we can adjust the code to look like this:
+In the previous segment, we used HTML elements like `div` and `h3`. Now, we can use their "styled" counterpart, i.e. `styledDiv` and `styledH3`. These styled components allow us to specify a `css` block, in which we can define our styles.
+
+Let's use `styledDiv` to move the video player to the top right corner of the page.
+Adjust the code for our mock video player (the last `div` in our snippet) to look like this:
 
 ```kotlin
 styledDiv {
@@ -184,15 +221,6 @@ styledDiv {
 }
 ```
 
-At this point, IntelliJ IDEA will complain about a lot of unresolved references, which we can remedy by adding the appropriate imports to the top of the file:
+The example given is very minimalistic. Feel free to experiment with some other styles. For example, you could change the `fontFamily`, or add a splash of `color` to your UI.
 
-```kotlin
-import kotlinx.css.*
-import styled.*
-```
-
-or, alternatively, by using the quick-fixes via `Alt-Enter`.
-
-Feel free to style away at the app to your heart's content and experiment around with it – the example given is rather minimalistic. You can even try playing about with the CSS grids to make the app responsive (however, these topics are a little too advanced for this hands-on). Try making the headline use a `fontFamily` that is `sans-serif`, for example, or define some more beautiful `color`s in your code.
-
-You can find the state of the project after this section on the `step-02-first-static-page` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/step-02-first-static-page) repository.
+You can find the state of the project after this section on the `02-first-static-page` branch in the [GitHub](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle/tree/02-first-static-page) repository.

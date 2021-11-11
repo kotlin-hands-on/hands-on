@@ -6,13 +6,13 @@ The main point why we choose MongoDB for a small project like this one is simpli
 
 ### Setting up MongoDB
 
-To set up MongoDB Community Edition on your local development machine, please refer to the tutorials on the official [MongoDB website](https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials) for your respective operating system.
+To set up MongoDB Community Edition on your local development machine, please refer to the tutorials on the official [MongoDB website](https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials) for your respective operating system. Alternatively, you can use a containerization tool like [podman](https://podman.io/) to run a containerized instance of MongoDB.
 
 After installation, ensure that you are running the `mongodb-community` service for the rest of the tutorial. We will use it to store and retrieve our list entries.
 
 ### Moving to real data
 
-[KMongo](https://litote.org/kmongo/) is a community-created Kotlin framework that makes it easy to work with MongoDB from Kotlin/JVM code. It also plays nicely with `kotlinx.serialization`, which we have previously used in this hands-on to facilitate communication between client and server.
+[KMongo](https://litote.org/kmongo/) is a community-created Kotlin framework that makes it easy to work with MongoDB from Kotlin/JVM code. It also works nicely with `kotlinx.serialization`, which we used previously in this hands-on to facilitate communication between client and server.
 
 By migrating our code to use an external database, we no longer need to keep a collection of `shoppingListItems`  on the server. Instead, we set up a database client, and obtain a database and a collection from it.
 
@@ -43,27 +43,27 @@ delete("/{id}") {
 
 While GET and POST requests are very simply transformed, the most interesting change is in the DELETE request: we make use of KMongo's [type-safe queries](https://litote.org/kmongo/typed-queries/) to obtain and remove the correct `ShoppingListItem` from our database.
 
-And just like that, we have added database support to our application! We start up the server again using the `run` task, and navigate to `http://localhost:9090/`. At first start, we'll be greeted by an empty shopping list – as is expected when querying an empty database. Any new entries we make will now be persisted to the database by the server; we can see this behavior best by restarting the server and reloading the page.
+Just like that, we have added database support to our application! Start up the server again using the `run` task, and navigate to `http://localhost:9090/`. At first start, we'll be greeted by an empty shopping list – as is expected when querying an empty database. Any new entries we make will now be persisted to the database by the server. We can see this behavior best by restarting the server and reloading the page.
 
 ### Inspecting MongoDB
 
 If we want to see what kind of information is actually persisted in our database – something that might not be entirely obvious, as it is hidden through KMongo's interface – we can inspect the database using external tools.
 
-If you're running IntelliJ IDEA Ultimate Edition or DataGrip version 2019.3 or newer, you have the option of inspecting the database contents with these tools. Alternatively, you can use the `mongo` command line client.
+If you have IntelliJ IDEA Ultimate Edition or DataGrip, you can inspect the database contents with these tools. Alternatively, you can use the `mongo` command line client.
 
-To connect to the local MongoDB instance, we start by creating a datasource in the "Database" tab in IntelliJ IDEA Ultimate or DataGrip:
+To connect to the local MongoDB instance, create a datasource in the "Database" tab in IntelliJ IDEA Ultimate or DataGrip:
 
 ![](./assets/mongodb_data_source.png)
 
-If it's our first time connecting to a MongoDB database this way, we might be prompted to download missing drivers:
+If it's your first time connecting to a MongoDB database this way, you might be prompted to download missing drivers:
 
 ![](./assets/download_missing_drivers.png)
 
-When working with a local MongoDB installation that uses default settings, no adjustments need to be made to the configuration. We can test the connection with the "Test Connection button", which should output the MongoDB version, as well as some additional information. After confirming with the OK button, we can use the Database tool window to navigate to our collection and have a look at everything stored in it.
+When working with a local MongoDB installation that uses default settings, no adjustments need to be made to the configuration. You can test the connection with the "Test Connection button", which should output the MongoDB version, as well as some additional information. After confirming with the OK button, you can use the Database tool window to navigate to our collection and have a look at everything stored in it.
 
 ![image-20200407175857354](/assets/image-20200407175857354.png)
 
-With this, we've reached the end of building our application – but of course, such a wonderful app deserves a bigger stage than `localhost`. It is ready to be shown to the world! Stick around if you'd like to learn how to bring the application onto the web by deploying it to the cloud!
+With this, we've reached the end of building our application! Of course, an amazing app like ours deserves a bigger stage than just `localhost`. It is ready to be shown to the world! If you'd like to learn how to bring the application onto the web by deploying it to the cloud, read on.
 
 ### Relevant Gradle configuration
 

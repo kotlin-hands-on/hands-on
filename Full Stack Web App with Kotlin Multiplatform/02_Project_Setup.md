@@ -1,23 +1,23 @@
 # Project setup
 
-If we were to start a fresh idea from zero, the wizard for multiplatform projects which is available in IntelliJ IDEA would be our go-to solution. In order to reduce the amount of time spent adjusting Gradle imports while going through this tutorial, a starter template is available for this specific tutorial that includes configuration and all required dependencies for Kotlin/JS, Kotlin/JVM, as well as common code.
+For your own projects, you would usually start out using the Kotlin wizard included with IntelliJ IDEA. To keep things simple, we've made a starter template available for this specific tutorial. It already includes all the configuration and required dependencies for all parts of the project (which includes JVM, JS, and common code).
 
 [**Please clone the project repository from GitHub, and open it in IntelliJ IDEA.**](https://github.com/kotlin-hands-on/jvm-js-fullstack)
 
-Of course, we still don't want to treat our Gradle configuration as a black box. Throughout the hands-on, we can have a look at parts of our Gradle build file and how it relates to what we are trying to achieve.
+It still makes sense to get an understanding of the configuration and project setup. Throughout the hands-on, we will have a look at parts of the Gradle build file, and how it relates to the current tasks at hand.
 
 **You don't need to make any changes to the Gradle configuration throughout this whole hands-on – so if you want to get right to programming, feel free to skip over parts of this page, or move on directly to the next section.**
 
-**The section below and other sections talking about Gradle structures are only supposed to help your understanding, and prepare you for any projects where you might need to write your own configurations.**
+**The section below and other sections talking about Gradle structures are here to help your understanding, and prepare you for any projects where you might need to write your own configurations.**
 
-We start by having a coarse look at the structure of a Kotlin project that targets multiple platforms.
+Let's start with an overview of the structure for our multiplatform Kotlin project.
 
 ### Multiplatform Gradle Structure
 
-Like all Kotlin projects targeting more than one platform, our project uses the Kotlin `multiplatform` Gradle plugin. It allows us to manage the targets we need for our application (Kotlin/JVM and Kotlin/JS) from within the same Gradle project, and exposes a number of tasks. For a more detailed look, check out the reference on [Building Multiplatform Projects with Gradle](https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html). Besides `multiplatform`, we add two more plugins:
+Like all Kotlin projects targeting more than one platform, our project uses the Kotlin `multiplatform` Gradle plugin. It provides a single point to configure the targets we need for our application (in our case Kotlin/JVM and Kotlin/JS), and exposes a number of lifecycle tasks for them. For a more detailed look, check out the reference on [Building Multiplatform Projects with Gradle](https://kotlinlang.org/docs/mpp-intro.html). Additionally, we add two more plugins:
 
-- The [`application`](https://docs.gradle.org/current/userguide/application_plugin.html) plugin, which takes care of running the JVM (server) part of our application.
-- The [`serialization`](https://github.com/Kotlin/kotlinx.serialization#gradle) plugin, which ensures that multiplatform conversion between Kotlin objects and their text representation (JSON) is available.
+- The [`application`](https://docs.gradle.org/current/userguide/application_plugin.html) plugin, which takes care of running the server part of our application, which lives on the JVM.
+- The [`serialization`](https://github.com/Kotlin/kotlinx.serialization#gradle) plugin, which ensures provides multiplatform conversions between Kotlin objects and their JSON text representation JSON is available.
 
 ```kotlin
 plugins {
@@ -46,7 +46,7 @@ For more detailed information on targets, check out the [respective section](htt
 
 #### Source Sets
 
-Kotlin source sets are a collection of Kotlin sources, along with their resources, dependencies, and language settings, that belong to one or more targets. They are used to set up our platform-specific and common dependency blocks.
+Kotlin source sets are a collection of Kotlin sources, along with their resources, dependencies, and language settings, that belong to one or more targets. You use them to set up our platform-specific and common dependency blocks.
 
 ```kotlin
 sourceSets {
@@ -70,7 +70,7 @@ sourceSets {
 }
 ```
 
-Each source set also corresponds to a folder in the `src` directory. In our project, we see the corresponding three folders `commonMain`, `jsMain`, and `jvmMain`, which contain their own `resources` and `kotlin` folders.
+Each source set also corresponds to a folder in the `src` directory. In our project, we see the three folders `commonMain`, `jsMain`, and `jvmMain`, which contain their own `resources` and `kotlin` folders.
 
 For more detailed information on source sets, check out the [respective section](https://kotlinlang.org/docs/reference/mpp-discover-project.html#source-sets) in the guide. There are a few other snippets that are yet to be explained – but we will discuss them at later chapters in this hands-on, when they become relevant to what we are trying to achieve.
 

@@ -3,7 +3,7 @@
 We will use the developer GitHub API, which performs the requests under your account
 and uses your password and authentication token you've provided.
 
-We will use [Retrofit](https://square.github.io/retrofit/) to perform HTTP requests to Github.
+We will use [Retrofit](https://square.github.io/retrofit/) to perform HTTP requests to GitHub.
 It allows us to request the list of repositories under the given organization,
 and the list of contributors for each repository:
 

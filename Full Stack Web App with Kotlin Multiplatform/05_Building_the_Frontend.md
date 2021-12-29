@@ -64,7 +64,7 @@ import kotlinx.browser.document
 
 fun main() {
     render(document.getElementById("root")) {
-        child(App)
+        child(app)
     }
 }
 ```
@@ -88,7 +88,7 @@ import kotlinx.coroutines.*
 
 private val scope = MainScope()
 
-val app = functionalComponent<RProps> { _ ->
+val app = functionalComponent<Props> { _ ->
     var shoppingList by useState(emptyList<ShoppingListItem>())
 
     useEffectOnce {

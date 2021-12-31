@@ -88,7 +88,7 @@ import kotlinx.coroutines.*
 
 private val scope = MainScope()
 
-val app = functionalComponent<Props> { _ ->
+val app = fc<Props> { _ ->
     var shoppingList by useState(emptyList<ShoppingListItem>())
 
     useEffectOnce {

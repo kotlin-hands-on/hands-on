@@ -31,7 +31,7 @@ We'll use this information to order the shopping list.
 ![](/assets/finished.gif)
 
 There's a lot ahead of us! First, we need to build a small backend that serves a JSON API. Then, we need to build our web interface which consumes that API.
-An a bonus, we'll also expand the server of the application to include a proper database, making data persistent across multiple reloads and restarts of the application.
+As a bonus, we'll also expand the server of the application to include a proper database, making data persistent across multiple reloads and restarts of the application.
 
 We'll also talk about how to deploy the shopping list to a cloud provider in the last chapter (so that while we're standing in the supermarket, the app will still be available). 
 

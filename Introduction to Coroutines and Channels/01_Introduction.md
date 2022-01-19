@@ -32,7 +32,7 @@ To update the Kotlin plugin, use `Tools | Kotlin | Configure Kotlin Plugin Updat
 
 ### Downloading project
 
-Clone the repository from IntelliJ IDEA by choosing `Get from VCS`
+Clone the repository from IntelliJ IDEA by choosing `Get from VCS` on the splash screen, or selecting `File | New | Project from Version Control...`,
 and specifying the project path:
 [http://github.com/kotlin-hands-on/intro-coroutines](http://github.com/kotlin-hands-on/intro-coroutines). 
 

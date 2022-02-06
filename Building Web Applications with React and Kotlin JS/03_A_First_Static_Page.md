@@ -183,7 +183,7 @@ But we can also use this chance to play with another Kotlin DSL - this time for 
 
 The [kotlin-styled](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-styled) library wraps the [styled-components](https://www.styled-components.com/) JavaScript library.
 Using it, we can define styles either [globally](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-styled/README.md#global-styles) or for individual elements of our DOM.
-Conceptually, that makes it similar to [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js) – but for Kotlin. Like before, the benfit of using a DSL is that we can use Kotlin code constructs to express our formatting rules.
+Conceptually, that makes it similar to [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js) – but for Kotlin. Like before, the benefit of using a DSL is that we can use Kotlin code constructs to express our formatting rules.
 
 The template project for this tutorial already includes everything we need to use `kotlin-styled`.
 The relevant block in our build configuration is this:

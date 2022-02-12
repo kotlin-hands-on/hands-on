@@ -14,7 +14,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-native-mt")
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
 }
 

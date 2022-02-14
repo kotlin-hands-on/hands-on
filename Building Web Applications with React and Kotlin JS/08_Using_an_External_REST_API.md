@@ -26,7 +26,7 @@ Just like with the other dependencies in this tutorial, the `build.gradle.kts` f
 dependencies {
     //. . .
     //Coroutines & serialization (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 }
 ```
 
@@ -42,13 +42,13 @@ Just like with the other dependencies in this tutorial, the `build.gradle.kts` f
 ```kotlin
 plugins {
     // . . .
-    kotlin("plugin.serialization") version "1.5.31"
+    kotlin("plugin.serialization") version "1.6.10"
 }
 
 dependencies {
     //. . .
     //Serialization (chapter 8)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 }
 ```
 
@@ -66,7 +66,7 @@ data class Video(
 )
 ```
 
-With this small prepartion out of the way, let's move on and fetch our first video!
+With this small preparation out of the way, let's move on and fetch our first video!
 
 #### Fetching our first video
 
@@ -83,11 +83,11 @@ suspend fun fetchVideo(id: Int): Video {
 }
 ```
 
-Let's go through this *suspending function* step by step. We `fetch` a video from the API given an `id`. This reponse takes may take a while, so we `await` its result. Next, we read the body from the response via the `text()`, which once again uses a callback. We wait for it to complete as well.
+Let's go through this *suspending function* step by step. We `fetch` a video from the API given an `id`. This response may take a while, so we `await` its result. Next, we read the body from the response via the `text()`, which once again uses a callback. We wait for it to complete as well.
 
 Before we return the value of the function, we pass it to `Json.decodeFromString`, a function from kotlinx.coroutines. As its name suggests, it converts the JSON text we received from our request into a Kotlin object with the appropriate fields.
 
-Usually, function calls that return a `Promise`, like like `window.fetch`, need to define a callback handler. That handler would then be called once the `Promise` is *resolved* and a result is available. In the above example, we didn't need to do that: with Kotlin's coroutines, we `await` those promises. We benefit from code that looks sequential, but remains non-blocking:
+Usually, function calls that return a `Promise`, like `window.fetch`, need to define a callback handler. That handler would then be called once the `Promise` is *resolved* and a result is available. In the above example, we didn't need to do that: with Kotlin's coroutines, we `await` those promises. We benefit from code that looks sequential, but remains non-blocking:
 Whenever a function like `await()` is called, the method stops its execution (it *suspends*, hence the keyword). It continues execution once the `Promise` can be resolved.
 
 #### Fanning out
@@ -115,13 +115,13 @@ If you want to dive deeper into coroutines, check our [hands-on on coroutines](h
 We now have a way to obtain real data in our app.
 Time to plug it in!
 
-Add the definition for a `mainScope`, and change your `app` component to start with the following snippet.
-Don't forget to replace our demo values with `emptyLists` as well:
+Add the definition for a `mainScope`, and change your `App` component to start with the following snippet.
+Don't forget to replace our demo values with `emptyList` instances as well:
 
 ```kotlin
 val mainScope = MainScope()
 
-val app = fc<Props> {
+val App = FC<Props> {
     var currentVideo: Video? by useState(null)
     var unwatchedVideos: List<Video> by useState(emptyList())
     var watchedVideos: List<Video> by useState(emptyList())
@@ -144,10 +144,10 @@ and creates the scope for our asynchronous tasks to run in.
 
 This means when you load the page:
 
-- The code of our `app` component will be invoked. This kicks off the code in the `useEffectOnce` block.
-- The `app` component is rendered with empty lists for the watched and unwatched videos
-- When our API requests finish, the `useEffectOnce` block assigns it to the state of the `app` component. This triggers a re-render.
-- The code of the `app` component will be invoked again, but the `useEffectOnce` block *will not* run for a second time.
+- The code of our `App` component will be invoked. This kicks off the code in the `useEffectOnce` block.
+- The `App` component is rendered with empty lists for the watched and unwatched videos
+- When our API requests finish, the `useEffectOnce` block assigns it to the state of the `App` component. This triggers a re-render.
+- The code of the `App` component will be invoked again, but the `useEffectOnce` block *will not* run for a second time.
 
 Having applied these changes, go back to the browser window.
 Just like that, you'll see real data in the app!

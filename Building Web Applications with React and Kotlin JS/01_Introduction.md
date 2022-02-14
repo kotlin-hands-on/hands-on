@@ -6,7 +6,7 @@ It is supported by a large ecosystem of community-created materials and componen
 
 We will get to reuse our knowledge about Kotlin's language paradigms, syntax, and tooling to build front-end applications for modern browsers.
 
-During this hands-on, we will learn how to build our first application with Kotlin/JS and React.
+In this hands-on, we will learn how to build our first application with Kotlin/JS and React.
 We will go through the usual tasks associated with building a typical, simple React application.
 
 We will explore how [Kotlin's DSLs](https://kotlinlang.org/docs/type-safe-builders.html) can be used to help us write our app completely in Kotlin.
@@ -18,7 +18,7 @@ Prior knowledge of the basic concepts behind React is helpful in understanding s
 ### What we are going to build
 
 The annual [*KotlinConf*](https://kotlinconf.com/) is the event to visit if you want to learn more about Kotlin and exchange with the community.
-With 1300 attendees and a ton of workshops and sessions, KotlinConf 2018 offered a wealth of information.
+With 1300 attendees and a ton of workshops and sessions, KotlinConf 2018 offered a wealth of information, much of which is still valuable to this very day!
 For anyone needing to still catch up, all the videos are available on YouTube!
 
 The project that we will create throughout this tutorial - *KotlinConf Explorer* - will allow users to get an overview of the talks, quickly mark them as *seen* or *unseen*, and watch them all from one page: perfect for a Kotlin-binge-session!

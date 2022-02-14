@@ -5,18 +5,27 @@ Let's start our story with a classic little *Hello World*-type program!
 Change the code inside `src/main/kotlin/Main.kt` to look like this:
 
 ```kotlin
-import react.dom.*
 import kotlinx.browser.document
-import kotlinx.css.*
+import react.*
+import react.css.css
+import react.dom.render
+import csstype.Position
+import csstype.px
+import react.dom.html.ReactHTML.h1
+import react.dom.html.ReactHTML.h3
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.p
+import react.dom.html.ReactHTML.img
 import kotlinx.serialization.Serializable
-import styled.*
 
 fun main() {
-    render(document.getElementById("root")) {
+    val container = document.getElementById("root") ?: error("Couldn't find root container!")
+
+    render(Fragment.create {
         h1 {
             +"Hello, React+Kotlin/JS!"
         }
-    }
+    }, container)
 }
 ```
 
@@ -26,7 +35,7 @@ If you don't have the continuous Gradle build (as described in Chapter 2) still 
 
 Congratulations, you've just written your first website using pure Kotlin/JS and React!
 
-In this first snippet, you can see the `render` from [kotlin-react-dom](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-react-dom) render a first little component into an element called `#root`.
+In this first snippet, you can see the `render` from [kotlin-react-dom](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-react-dom) render a first HTML element inside a [fragment](https://reactjs.org/docs/fragments.html) to an element called `#root`.
 This container element is defined in `/src/main/resources/index.html`, which was included in the template.
 
 The content we render is pretty simple - it is just an `<h1>` headline. However, we use Kotlin's typesafe DSL to render this HTML snippet.
@@ -73,7 +82,7 @@ Let's translate this code into Kotlin. The conversion should be rather straightf
 
 ```kotlin
 h1 {
-    +"KotlinConf Explorer"
+    +"Hello, React+Kotlin/JS!"
 }
 div {
     h3 {
@@ -101,14 +110,12 @@ div {
         +"John Doe: Building and breaking things"
     }
     img {
-       attrs {
-           src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
-       }
+        src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
     }
 }
 ```
 
-Type or paste the above code as the contents of your `render` call inside the `main` function,
+Type or paste the above code as the contents of your `Fragment.create` call inside the `main` function,
 replacing our previous `h1` tag.
 
 After saving the file, let's go back to the browser.
@@ -118,7 +125,7 @@ We will see a page that looks like this:
 
 ### Using Kotlin language constructs in markup
 
-There are some useful side-effects to writing HTML in Kotlin using this DSL.
+There are some useful side effects to writing HTML in Kotlin using this DSL.
 For example, we can manipulate our website using regular Kotlin constructs.
 We could use loops, conditions, collections, string interpolation, and more.
 We'll see how that works in practice in just a bit.
@@ -141,13 +148,13 @@ Then, let's fill up the two lists for unwatched videos and watched videos respec
 
 ```kotlin
 val unwatchedVideos = listOf(
-    Video(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
-    Video(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
-    Video(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
+    Video(1, "Opening Keynote", "Andrey Breslav", "https://youtu.be/PsaFVLr8t4E"),
+    Video(2, "Dissecting the stdlib", "Huyen Tue Dao", "https://youtu.be/Fzt_9I733Yg"),
+    Video(3, "Kotlin and Spring Boot", "Nicolas Frankel", "https://youtu.be/pSiZVAeReeg")
 )
 
 val watchedVideos = listOf(
-    Video(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
+    Video(4, "Creating Internal DSLs in Kotlin", "Venkat Subramaniam", "https://youtu.be/JzTeAM8N1-o")
 )
 ```
 
@@ -171,40 +178,38 @@ for(video in watchedVideos) {
 }
 ```
 
-Wait for the browser to reload. If everything went well, we should see the same layout as before (but now, using proper Kotlin objects in the background!)
+Wait for the browser to reload. If everything went well, we should see the same layout as before (but now, using proper Kotlin objects behind the scenes!)
 To _really_ make sure our loop is actually looping, you can of course add some more videos to the list on your own at this point.
 
 ### Writing typesafe CSS
 
 Our little "app" now already has the ability to show watched and unwatched videos in a list.
-Unfortuantely, it still looks a bit boring.
+Unfortunately, it still looks a bit boring.
 To fix that, we could include a CSS file in our `index.html` template.
 But we can also use this chance to play with another Kotlin DSL - this time for CSS.
 
-The [kotlin-styled](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-styled) library wraps the [styled-components](https://www.styled-components.com/) JavaScript library.
-Using it, we can define styles either [globally](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-styled/README.md#global-styles) or for individual elements of our DOM.
-Conceptually, that makes it similar to [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js) – but for Kotlin. Like before, the benefit of using a DSL is that we can use Kotlin code constructs to express our formatting rules.
+The [kotlin-react-css](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-react-css) library allows us to specify CSS attributes – even dynamic ones – right alongside our HTML.
+Conceptually, that makes it similar to [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js) – but for Kotlin! Like before, the benefit of using a DSL is that we can use Kotlin code constructs to express our formatting rules.
 
-The template project for this tutorial already includes everything we need to use `kotlin-styled`.
+The template project for this tutorial already includes everything we need to use `kotlin-react-css`.
 The relevant block in our build configuration is this:
 
 ```kotlin
 dependencies {
     //...
-    //Kotlin Styled (chapter 3)
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-pre.264-kotlin-1.5.31")
-    implementation(npm("styled-components", "~5.3.3"))
+    //Kotlin React CSS (chapter 3)
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:17.0.2-pre.298-kotlin-1.6.10")
     //...
 }
 ```
 
-In the previous segment, we used HTML elements like `div` and `h3`. Now, we can use their "styled" counterpart, i.e. `styledDiv` and `styledH3`. These styled components allow us to specify a `css` block, in which we can define our styles.
+In the previous segment, we used HTML elements like `div` and `h3`. With `kotlin-react-css` in our project, we can also specify a `css` block inside these elements, where we can define our styles.
 
-Let's use `styledDiv` to move the video player to the top right corner of the page.
+Let's use CSS to move the video player to the top right corner of the page.
 Adjust the code for our mock video player (the last `div` in our snippet) to look like this:
 
 ```kotlin
-styledDiv {
+div {
     css {
         position = Position.absolute
         top = 10.px
@@ -214,9 +219,7 @@ styledDiv {
         +"John Doe: Building and breaking things"
     }
     img {
-        attrs {
-            src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
-        }
+        src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
     }
 }
 ```

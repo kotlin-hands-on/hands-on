@@ -7,7 +7,7 @@ Let's add two more features:
 - A video player that actually plays videos.
 - Some social share buttons to help people share content they enjoy.
 
-Instead of building this functionality outselves, let's use React's ecosystem,
+Instead of building this functionality ourselves, let's use React's ecosystem,
 and import pre-made components for these use cases.
 
 ### Adding the video player component
@@ -34,7 +34,7 @@ by using the `npm` function in the `dependencies` block of the build file.
 The Gradle plugin then takes care of downloading and installing these dependencies for you.
 (To do so, it uses its own bundled installation of the [`yarn`](https://yarnpkg.com/) package manager.)
 
-To use the JavaScript package from inside of our React application, we need to tell the Kotlin compiler what to expect.
+To use the JavaScript package from inside our React application, we need to tell the Kotlin compiler what to expect.
 We do this by providing it with [external declarations](https://kotlinlang.org/docs/js-interop.html).
 
 Create a file called `ReactYouTube.kt`, and add the following content:
@@ -46,11 +46,11 @@ Create a file called `ReactYouTube.kt`, and add the following content:
 import react.*
 
 @JsName("ReactYouTubeLite")
-external val reactPlayer: ComponentClass<dynamic>
+external val ReactPlayer: ComponentClass<dynamic>
 ```
 
 This is a bit of adapter-work that we need to do.
-When the compiler sees an external declaration like `reactPlayer`,
+When the compiler sees an external declaration like `ReactPlayer`,
 it assumes that the implementation for the corresponding class is provided by our dependency,
 and doesn't generate code for it.
 
@@ -63,7 +63,7 @@ It tells the compiler that we're certain we'll get a component conforming to `RC
 #### Typed wrappers for the video player component
 
 The snippet above is cheating a little.
-The generic type for the props accepted by `reactPlayer` is set to `dynamic`.
+The generic type for the props accepted by `ReactPlayer` is set to `dynamic`.
 That means the compiler will just accept any code, at the risk of breaking things at runtime.
 
 A better alternative would be to create an `external interface`,
@@ -81,7 +81,7 @@ Adjust the content of `ReactPlayer.kt` accordingly:
 import react.*
 
 @JsName("ReactYouTubeLite")
-external val reactPlayer: ComponentClass<ReactYouTubeProps>
+external val ReactPlayer: ComponentClass<ReactYouTubeProps>
 
 external interface ReactYouTubeProps : Props {
     var url: String
@@ -89,13 +89,13 @@ external interface ReactYouTubeProps : Props {
 ```
 
 With this plumbing out of the way,
-we can now use our new `reactPlayer` to replace the gray placeholder rectangle in our `videoPlayer` component.
+we can now use our new `ReactPlayer` to replace the gray placeholder rectangle in our `VideoPlayer` component.
 
 Back in `VideoPlayer.kt`, replace the `img` tag with the following snippet:
 
 ```kotlin
-reactPlayer {
-    attrs.url = props.video.videoUrl
+ReactPlayer {
+    url = props.video.videoUrl
 }
 ```
 
@@ -162,27 +162,27 @@ external interface IconProps : Props {
 
 Let's plug our new components into the user interface of our application.
 
-In `VideoPlayer.kt`, add two share buttons in a `styledDiv` right above our usage of `reactPlayer`:
+In `VideoPlayer.kt`, add two share buttons in a `div` right above our usage of `ReactPlayer`:
 
 ```kotlin
 // . . .
-styledDiv {
+div {
     css {
         display = Display.flex
         marginBottom = 10.px
     }
-    emailShareButton {
-        attrs.url = props.video.videoUrl
-        emailIcon {
-            attrs.size = 32
-            attrs.round = true
+    EmailShareButton {
+        url = props.video.videoUrl
+        EmailIcon {
+            size = 32
+            round = true
         }
     }
-    telegramShareButton {
-        attrs.url = props.video.videoUrl
-        telegramIcon {
-            attrs.size = 32
-            attrs.round = true
+    TelegramShareButton {
+        url = props.video.videoUrl
+        TelegramIcon {
+            size = 32
+            round = true
         }
     }
 }

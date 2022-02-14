@@ -21,25 +21,25 @@ At that point, the state also no longer belongs to any of the child components, 
 
 The process of migrating state from components to their parents is called *lifting state*. So, let's lift!
 
-We add `currentVideo` as state to our `app` component. 
+We add `currentVideo` as state to our `App` component. 
 
-In `App.kt`, add the following to the top of the definition of the `app` component:
+In `App.kt`, add the following to the top of the definition of the `App` component:
 
 ```kotlin
-val app = fc<Props> {
+val App = FC<Props> {
     var currentVideo: Video? by useState(null)
     // . . .
 }
 ```
 
-Our `videoList` component does not need to keep track of the state anymore -
+Our `VideoList` component does not need to keep track of the state anymore -
 it will receive the current video as a prop, instead.
 We've essentially just made it stateless, again.
 
-Make sure to remove the `useState` call in `videoList`.
+Make sure to remove the `useState` call in `VideoList`.
 This is going to break some of our code, which we'll fix in a second.
 
-Next, let's prepare the `videoList` component to receive the selected video as a prop. 
+Next, let's prepare the `VideoList` component to receive the selected video as a prop. 
 We expand the `VideoListProps` interface to contain the `selectedVideo`:
 
 ```kotlin
@@ -59,7 +59,7 @@ if(video == props.selectedVideo) {
 ```
 
 The second issue is a little more tricky: We can't assign a value to a prop -
-so our `onClickFunction` won't work the way it currently does.
+so our `onClick` function won't work the way it currently does.
 We need to change the state of a parent component again.
 How can we do that?
 Well, by lifting some more!
@@ -82,25 +82,23 @@ external interface VideoListProps : Props {
 }
 ```
 
-In our `videoList` component, we now use the new prop in the `onClickFunction` handler:
+In our `VideoList` component, we now use the new prop in the `onClick` handler:
 
 ```kotlin
-onClickFunction = {
+onClick = {
     props.onSelectVideo(video)
 }
 ```
 
-With this part out of the way, we can go back to our `app` component.
+With this part out of the way, we can go back to our `App` component.
 Here, we pass the `selectedVideo`, and a handler for `onSelectVideo` for each of our two video lists:
 
 ```kotlin
-child(videoList) {
-    attrs {
-        videos = unwatchedVideos
-        selectedVideo = currentVideo
-        onSelectVideo = { video ->
-            currentVideo = video
-        }
+VideoList {
+    videos = unwatchedVideos
+    selectedVideo = currentVideo
+    onSelectVideo = { video ->
+        currentVideo = video
     }
 }
 ```

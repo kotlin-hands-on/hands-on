@@ -2,7 +2,7 @@
 
 Let's start our story with a classic little *Hello World*-type program!
 
-Change the code inside `src/main/kotlin/Main.kt` to look like this:
+Replace the code inside `src/main/kotlin/Main.kt` with the following:
 
 ```kotlin
 import kotlinx.browser.document
@@ -161,7 +161,7 @@ val watchedVideos = listOf(
 To use these videos in our page, we can now write a Kotlin `for`-loop to iterate over the collection of unwatched videos. Replace the three `p` tags under "Videos to watch" with the following snippet:
 
 ```kotlin
-for(video in unwatchedVideos) {
+for (video in unwatchedVideos) {
     p {
         +"${video.speaker}: ${video.title}"
     }
@@ -171,7 +171,7 @@ for(video in unwatchedVideos) {
 We apply the same process to modify the code for the single tag following "Videos watched", as well:
 
 ```kotlin
-for(video in watchedVideos) {
+for (video in watchedVideos) {
     p {
         +"${video.speaker}: ${video.title}"
     }

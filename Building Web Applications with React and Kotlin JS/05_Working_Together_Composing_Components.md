@@ -95,7 +95,7 @@ Here, we pass the `selectedVideo`, and a handler for `onSelectVideo` for each of
 
 ```kotlin
 VideoList {
-    videos = unwatchedVideos
+    videos = unwatchedVideos // and watched videos respectively!
     selectedVideo = currentVideo
     onSelectVideo = { video ->
         currentVideo = video

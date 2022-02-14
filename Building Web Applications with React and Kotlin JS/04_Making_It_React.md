@@ -36,7 +36,7 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.img
 
-val app = FC<Props> {
+val App = FC<Props> {
     // typesafe HTML goes here, starting with the first h1 tag!
 }
 ```

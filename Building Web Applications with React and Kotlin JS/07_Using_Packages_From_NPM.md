@@ -23,7 +23,7 @@ This is the responsible snippet:
 dependencies {
     //...
     //Video Player (chapter 7)
-    implementation(npm("react-youtube-lite", "1.1.0"))
+    implementation(npm("react-youtube-lite", "1.5.0"))
     //...
 }
 ```
@@ -139,16 +139,16 @@ import react.ComponentClass
 import react.Props
 
 @JsName("EmailIcon")
-external val emailIcon: ComponentClass<IconProps>
+external val EmailIcon: ComponentClass<IconProps>
 
 @JsName("EmailShareButton")
-external val emailShareButton: ComponentClass<ShareButtonProps>
+external val EmailShareButton: ComponentClass<ShareButtonProps>
 
 @JsName("TelegramIcon")
-external val telegramIcon: ComponentClass<IconProps>
+external val TelegramIcon: ComponentClass<IconProps>
 
 @JsName("TelegramShareButton")
-external val telegramShareButton: ComponentClass<ShareButtonProps>
+external val TelegramShareButton: ComponentClass<ShareButtonProps>
 
 external interface ShareButtonProps : Props {
     var url: String

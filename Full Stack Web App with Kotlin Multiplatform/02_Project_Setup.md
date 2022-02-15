@@ -21,9 +21,9 @@ Like all Kotlin projects targeting more than one platform, our project uses the 
 
 ```kotlin
 plugins {
-    kotlin("multiplatform") version "1.4.0"
+    kotlin("multiplatform") version "1.6.10"
     application //to run JVM part
-    kotlin("plugin.serialization") version "1.4.0"
+    kotlin("plugin.serialization") version "1.6.10"
 }
 ```
 

@@ -58,37 +58,36 @@ Instead of rendering a simple "Hello, Kotlin/JS" string, it's time we make our a
 Replace the content inside `src/jsMain/kotlin/Main.kt` with the following:
 
 ```kotlin
-import react.child
 import react.dom.render
 import kotlinx.browser.document
+import react.create
 
 fun main() {
-    render(document.getElementById("root")) {
-        child(app)
-    }
+    val container = document.getElementById("root") ?: error("Couldn't find container!")
+    render(App.create(), container)
 }
 ```
 
 #### Building and rendering the shopping list
 
-Next up is the implementation for the `app` component we would like to render. For our shopping list application, we need to
+Next up is the implementation for the `App` component we would like to render. For our shopping list application, we need to
 
 - keep the "local state" of the shopping list (which elements to display),
 - load the shopping list elements from the server (and set the state accordingly), and
 - provide React with instructions on how to render the list.
 
-Based on these requirements, we can implement the `app` component as follows. We create and fill the file `src/jsMain/kotlin/App.kt`:
+Based on these requirements, we can implement the `App` component as follows. We create and fill the file `src/jsMain/kotlin/App.kt`:
 
 ```kotlin
 import react.*
-import react.dom.*
-import kotlinext.js.*
-import kotlinx.html.js.*
 import kotlinx.coroutines.*
+import react.dom.html.ReactHTML.h1
+import react.dom.html.ReactHTML.li
+import react.dom.html.ReactHTML.ul
 
 private val scope = MainScope()
 
-val app = fc<Props> { _ ->
+val App = FC<Props> {
     var shoppingList by useState(emptyList<ShoppingListItem>())
 
     useEffectOnce {
@@ -129,48 +128,50 @@ In order to receive input from the user, we need an input component which provid
 Create the file `src/jsMain/kotlin/InputComponent.kt`, and fill it with the following definition:
 
 ```kotlin
+import org.w3c.dom.HTMLFormElement
 import react.*
-import react.dom.*
-import kotlinx.html.js.*
-import kotlinx.html.InputType
-import org.w3c.dom.events.Event
 import org.w3c.dom.HTMLInputElement
+import react.dom.events.ChangeEventHandler
+import react.dom.events.FormEventHandler
+import react.dom.html.InputType
+import react.dom.html.ReactHTML.form
+import react.dom.html.ReactHTML.input
 
 external interface InputProps : Props {
     var onSubmit: (String) -> Unit
 }
 
-val inputComponent = fc<InputProps> { props ->
+val InputComponent = FC<InputProps> { props ->
     val (text, setText) = useState("")
 
-    val submitHandler: (Event) -> Unit = {
+    val submitHandler: FormEventHandler<HTMLFormElement> = {
         it.preventDefault()
         setText("")
         props.onSubmit(text)
     }
 
-    val changeHandler: (Event) -> Unit = {
-        val value = (it.target as HTMLInputElement).value
-        setText(value)
+    val changeHandler: ChangeEventHandler<HTMLInputElement> = {
+        setText(it.target.value)
     }
 
     form {
-        attrs.onSubmitFunction = submitHandler
-        input(InputType.text) {
-            attrs.onChangeFunction = changeHandler
-            attrs.value = text
+        onSubmit = submitHandler
+        input {
+            type = InputType.text
+            onChange = changeHandler
+            value = text
         }
     }
 }
 ```
 
-While an in-depth explanation of how this component works is outside the scope of this hands-on, it can be summarized as follows: The `inputComponent` keeps track of its internal state (what the user has typed so far), and exposes an `onSubmit` handler that gets called when the user submits the form (usually by pressing the `Enter` key).
+While an in-depth explanation of how this component works is outside the scope of this hands-on, it can be summarized as follows: The `InputComponent` keeps track of its internal state (what the user has typed so far), and exposes an `onSubmit` handler that gets called when the user submits the form (usually by pressing the `Enter` key).
 
-To use this `inputComponent` from our application. we add the following snippet to `src/jsMain/kotlin/App.kt`,  at the bottom of the `functionalComponent` block (after the closing brace for the `ul` element):
+To use this `InputComponent` from our application. we add the following snippet to `src/jsMain/kotlin/App.kt`,  at the bottom of the `FC` block (after the closing brace for the `ul` element):
 
 ```kotlin
-child(inputComponent) {
-    attrs.onSubmit = { input ->
+InputComponent {
+    onSubmit = { input ->
         val cartItem = ShoppingListItem(input.replace("!", ""), input.count { it == '!' })
         scope.launch {
             addShoppingListItem(cartItem)
@@ -195,7 +196,7 @@ Rather than add another UI element (like a "delete" button), we can just modify 
 In `src/jsMain/kotlin/App.kt`, add the following to the `li` block (inside the `ul` block):
 
 ```kotlin
-attrs.onClickFunction = {
+onClick = {
     scope.launch {
         deleteShoppingListItem(item)
         shoppingList = getShoppingList()

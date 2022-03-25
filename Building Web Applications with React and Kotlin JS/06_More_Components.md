@@ -124,7 +124,7 @@ When the button is clicked, a video should either be:
 
 Lists that can change? That's a prime candidate for more application state!
 
-Back in `App.kt, add the following `useState` calls to the top of the `App` component:
+Back in `App.kt`, add the following `useState` calls to the top of the `App` component:
 
 ```kotlin
 val App = FC<Props> {

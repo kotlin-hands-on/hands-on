@@ -17,7 +17,7 @@ Let's start with an overview of the structure for our multiplatform Kotlin proje
 Like all Kotlin projects targeting more than one platform, our project uses the Kotlin `multiplatform` Gradle plugin. It provides a single point to configure the targets we need for our application (in our case Kotlin/JVM and Kotlin/JS), and exposes a number of lifecycle tasks for them. For a more detailed look, check out the reference on [Building Multiplatform Projects with Gradle](https://kotlinlang.org/docs/mpp-intro.html). Additionally, we add two more plugins:
 
 - The [`application`](https://docs.gradle.org/current/userguide/application_plugin.html) plugin, which takes care of running the server part of our application, which lives on the JVM.
-- The [`serialization`](https://github.com/Kotlin/kotlinx.serialization#gradle) plugin, which ensures provides multiplatform conversions between Kotlin objects and their JSON text representation JSON is available.
+- The [`serialization`](https://github.com/Kotlin/kotlinx.serialization#gradle) plugin, which provides multiplatform conversions between Kotlin objects and their JSON text representation JSON is available.
 
 ```kotlin
 plugins {

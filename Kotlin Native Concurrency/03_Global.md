@@ -8,7 +8,7 @@ There are two types of global state we need to be concerned with: objects and pr
 
 All global `object` instances are frozen, but they can be referenced from any thread.
 
-Find `3) Global State` in `SampleMacos.kt` and uncomment `cantChangeThis()`.
+Find `3) Global State` in `SampleMain.kt` and uncomment `cantChangeThis()`.
 
 ```kotlin
 fun cantChangeThis(){

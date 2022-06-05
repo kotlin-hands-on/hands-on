@@ -123,7 +123,7 @@ dependencies {
 
 Just like the video player,
 we will need to write some basic external declarations in order to use `react-share` from Kotlin.
-Looking at the [examples on GitHub](https://github.com/nygardk/react-share/blob/master/demo/Demo.jsx#L61),
+Looking at the [examples on GitHub](https://github.com/nygardk/react-share/blob/master/demo/Demo.tsx#L61),
 it becomes clear that each share button consists of two React components.
 For example, there's an`EmailShareButton` and an `EmailIcon`.
 The different types of share buttons and icons all share the same kind of interface, which makes our job easier.

@@ -14,5 +14,5 @@ To view the complete structure of our mobile multiplatform project, let's switch
 
 You can explore the features [included in your project](https://kotlinlang.org/docs/mobile/discover-kmm-project.html) and how to use them, or you can go directly to the next step and start coding!
 
-You can find configured KMM project on the [master branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage) with the KMM project created and configured. Now we are ready to start developing our multiplatform application.
+You can find configured KMM project on the [main branch](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage) with the KMM project created and configured. Now we are ready to start developing our multiplatform application.
 

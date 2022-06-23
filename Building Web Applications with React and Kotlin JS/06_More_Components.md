@@ -45,7 +45,7 @@ val VideoPlayer = FC<VideoPlayerProps> { props ->
 ```
 
 Because our `VideoPlayerProps` interface specifies that the `VideoPlayer` component takes a non-null `Video`,
-we need to make sure handle this in our `App` component accordingly.
+we need to make sure to handle this in our `App` component accordingly.
 
 Back in `App.kt`, replace the previous `div` snippet for the video player with our new component:
 

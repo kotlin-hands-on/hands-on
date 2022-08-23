@@ -71,7 +71,7 @@ main thread: i 6
 other thread: i 5
 ```
 
-Companion objects are also globally referencable, and will also be frozen. You can run `companionAlsoFrozen()` to see this in action.
+Companion objects are also globally referenceable, and will also be frozen. You can run `companionAlsoFrozen()` to see this in action.
 
 ```kotlin
 fun companionAlsoFrozen(){

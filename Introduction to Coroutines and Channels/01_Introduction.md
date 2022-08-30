@@ -57,7 +57,7 @@ Specify the name of your token, for example, `coroutines-hands-on`:
 
 ![](./assets/1-intro/GeneratingToken.png)
 
-There is no need to select any scopes, click on "Generated token" at the bottom of the screen.
+There is no need to select any scopes, click on "Generate token" at the bottom of the screen.
 Copy the generated token somewhere; we'll use it soon.
 
 ### Running the code

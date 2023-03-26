@@ -58,7 +58,7 @@ receives an element if the channel is not empty, and otherwise suspends.
 An unlimited channel is the closest analog to queue: producers can send elements to this channel,
 and it will grow infinitely.
 The `send` call will never be suspended.
-If there's no more memory, you'll get an `OutOfMemoryException`. 
+If there's no more memory, you'll get an `OutOfMemoryError`. 
 The difference with a queue appears when a consumer tries to receive from an empty channel
 and gets suspended until some new elements are sent to this channel.
 

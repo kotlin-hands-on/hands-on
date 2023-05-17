@@ -1,8 +1,52 @@
-[![official JetBrains project](https://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+[![official JetBrains project](https://jb.gg/badges/obsolete.svg)](https://github.com/JetBrains#jetbrains-on-github)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 
-## Kotlin Hands-On Labs
+## Kotlin Hands-On Labs (obsolete)
+
+### The Hands-On Labs have moved to the [Kotlin documentation](https://github.com/jetbrains/kotlin-web-site)! 
+
+### Please submit any contributions in the `kotlin-web-site` repository. Thanks! 🤗
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
 
 [Hands-On labs](https://play.kotlinlang.org/hands-on) are interactive tutorials to learn Kotlin.
 Each lab corresponds to one or more sample projects, and explains how to create them step-by-step.   

@@ -23,7 +23,7 @@ Now that all the loading has been moved to a separate thread, the main thread is
 
 ![](./assets/3-callbacks/Background.png)
 
-The signature of the `loadContributors` function changes, it takes a `updateResults` callback as a last argument
+The signature of the `loadContributorsBackground` function changes, it takes a `updateResults` callback as a last argument
 to call it after all the loading completes:
 
 ```kotlin
@@ -34,7 +34,7 @@ fun loadContributorsBackground(service: GitHubService, req: RequestData,
 Now when the `loadContributorsBackground` is called, the `updateResults` call goes in the callback, not immediately afterwards as it did before:
 
 ```kotlin
-loadContributorsBackground(req) { users ->
+loadContributorsBackground(service, req) { users ->
     SwingUtilities.invokeLater {
         updateResults(users, startTime)
     }

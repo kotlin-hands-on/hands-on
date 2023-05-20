@@ -7,7 +7,7 @@ Replace the code inside `src/main/kotlin/Main.kt` with the following:
 ```kotlin
 import kotlinx.browser.document
 import react.*
-import react.css.css
+import emotion.react.css
 import react.dom.render
 import csstype.Position
 import csstype.px

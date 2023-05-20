@@ -144,7 +144,7 @@ The coroutine resumes only after the corresponding response is received:
 ![](./assets/4-suspend/SuspendRequests.png)
 
 While the response is waiting to be received, the thread is free to be occupied with other tasks.
-That's why when users are loaded via the `COROUTINE` option, the UI stays responsive, despite all the requests
+That's why when users are loaded via the `SUSPEND` option, the UI stays responsive, despite all the requests
 taking place on the main UI thread.
 The log confirms that all the requests are sent on the main UI thread:
 

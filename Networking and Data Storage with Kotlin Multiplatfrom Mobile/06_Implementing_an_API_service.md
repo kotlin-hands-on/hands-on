@@ -17,7 +17,10 @@ import kotlinx.serialization.json.Json
 class SpaceXApi {
     private val httpClient = HttpClient {
         install(JsonFeature) {
-            val json = Json { ignoreUnknownKeys = true }
+            val json = Json { 
+                ignoreUnknownKeys = true
+                useAlternativeNames = false
+            }
             serializer = KotlinxSerializer(json)
         }
     }
